@@ -1,0 +1,116 @@
+.header-home{
+  height: 100px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  color:black;
+  font-family: "Roboto-Light";
+  font-size: 14px;
+  justify-content: center;
+}
+
+.header-home-card{
+  margin-top: 25px;
+  max-width: 1300px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-home-card-itemsSearch{
+  background-color: #E6E6E6;
+  border-radius: 15px;
+  width: 500px;
+  height: 30px;
+  text-align: left;
+  color: #939393;
+}
+
+.header-home-card-itemsAdd{
+  background-color: #2EDA73;
+  border-radius: 15px;
+  width: 200px;
+  height: 25px;
+  text-align: center;
+  color: white;
+  margin-left: 30px;
+  margin-top: 2px;
+}
+.header-home-card-itemsAdd:hover{
+  border-color: #272634;
+  border-width: 2px;
+}
+.logo-text{
+  font-family: BubblegumSans-Regular;
+  font-size: 50px;
+  color: #391152;
+}
+
+#logo-text-start{
+  color: #2EDA73;
+}
+
+a.glo{
+  color:#fff;
+  padding: 8px 20px;
+  text-decoration:none;
+  text-align:center;
+  display: block;
+  background-image: linear-gradient(to left,transparent,transparent 50%,#2EDA73 50%,#2EDA73);
+  background-position: 0 0;
+  background-size: 200% 100%;
+  transition: all .25s ease-in;
+  border-radius: 5px;
+  font-family: "Roboto-Light";
+  width: 170px;
+  border: 1px solid #2EDA73;
+  height: 16px;
+  white-space: nowrap;
+}
+a.glo:hover {
+  background-position: 100% 0;
+  color:#2EDA73;
+  font-weight: bold;
+}
+
+.search {
+  max-height: 40px;
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+.searchTerm {
+  width: 100%;
+  border: 0px solid #391152;
+  border-right: none;
+  padding: 5px;
+  height: 24px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  background-color: #D6D4D4;
+}
+.searchTerm:focus{
+  color: #25AF5C;
+}
+.searchButton {
+  width: 40px;
+  height: 34px;
+  border: 0px solid #391152;
+  border-left: none;
+  background: #2EDA73;
+  text-align: center;
+  color: #eeeeee;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+.wrap{
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+

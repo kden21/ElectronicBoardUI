@@ -1,0 +1,67 @@
+h1{
+  font-family: Roboto-Light;
+  font-size: xxx-large;
+}
+.sign-in-card{
+  display: flex;
+  height: 420px;
+  width: 420px;
+  border:2px solid black;
+  align-content: center;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 1%;
+}
+
+.sing-in-input{
+  border-radius: 5px;
+  height: 35px;
+  width: 98%;
+  border: none;
+  border:1px solid #2EDA73;
+}
+
+.sing-in-input:hover{
+  background-color: #2EDA73;
+
+}
+
+.sing-in-password-recovery{
+  font-family: Roboto-Light;
+  color: #25AF5C;
+  text-decoration: none;
+  vertical-align: center;
+  text-align: right;
+  font-size: medium;
+}
+
+.sing-in-password-recovery a{
+  text-decoration: #2EDA73;
+}
+.sing-in-password-recovery:hover{
+  font-weight: bold;
+}
+
+a.glo{
+  color:#fff;
+  padding: 8px 20px;
+  text-decoration:none;
+  text-align:center;
+  display: block;
+  background-image: linear-gradient(to left,transparent,transparent 50%,#2EDA73 50%,#2EDA73);
+  background-position: 0 0;
+  background-size: 200% 100%;
+  transition: all .25s ease-in;
+  border-radius: 5px;
+  font-family: "Roboto-Light";
+  width: 40%;
+  border: 1px solid #2EDA73;
+  height: 20px;
+  white-space: nowrap;
+  font-size: large;
+}
+a.glo:hover {
+  background-position: 100% 0;
+  color:#2EDA73;
+  font-weight: bold;
+}
