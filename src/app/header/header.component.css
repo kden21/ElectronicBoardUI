@@ -1,4 +1,4 @@
-.header{
+.header {
   position: absolute;
   top: 0;
   left: 0;
@@ -7,13 +7,13 @@
   display: flex;
   align-items: center;
   background-color: #272634;
-  color:white;
+  color: white;
   font-family: "Roboto-Light";
   font-size: 14px;
   justify-content: center;
 }
 
-.header-card{
+.header-card {
   max-width: 1300px;
   width: 100%;
   display: flex;
@@ -21,30 +21,32 @@
   justify-content: right;
 }
 
-.icon{
+.icon {
   margin-left: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color:white;
-  text-decoration:none
+  color: white;
+  text-decoration: none
 }
-.icon:hover{
+
+.icon:hover {
   font-weight: bold;
 }
-.profile-icon-svg{
+
+.profile-icon-svg {
   margin-right: 5px;
-  height:24px;
-  width:24px;
+  height: 24px;
+  width: 24px;
 }
 
-.location-icon-svg{
+.location-icon-svg {
   margin-right: 5px;
-  height:20px;
-  width:20px
+  height: 20px;
+  width: 20px
 }
 
-.icon-text{
+.icon-text {
   text-align: left;
   margin: auto;
   text-decoration: none;

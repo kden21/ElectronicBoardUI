@@ -17,3 +17,7 @@ body {
   margin: 0; /* Убираем отступы */
   height: 100%;
 }
+.content-area{
+  max-width: 1300px;
+  width: 100%
+}

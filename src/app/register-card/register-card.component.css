@@ -1,15 +1,17 @@
-h1{
+h1 {
   font-family: Roboto-Light;
   font-size: xxx-large;
 }
-.register{
+
+.register {
   display: flex;
   align-content: center;
   min-height: calc(100vh - 140px);
   background-image: url(/assets/img/A.jpg);
   background-size: cover;
 }
-.register-card{
+
+.register-card {
   display: flex;
   height: 420px;
   width: 420px;
@@ -19,25 +21,25 @@ h1{
   padding: 1.5% 3%;
   border-radius: 13px;
   margin: auto;
-  box-shadow: 0em 0.1em 5px rgba(122,122,122,0.5);
-  background-color: rgba(255,255,255,0.8);
+  box-shadow: 0em 0.1em 5px rgba(122, 122, 122, 0.5);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 5px;
 }
 
-.register-input{
+.register-input {
   border-radius: 5px;
   height: 35px;
   width: 98%;
-  border:1px solid #2EDA73;
+  border: 1px solid #2EDA73;
   font-size: large;
-  padding: 0 10px ;
+  padding: 0 10px;
 }
 
-.sing-in-input:hover{
+.sing-in-input:hover {
   background-color: #EAF8E1;
 }
 
-.sing-in-password-recovery{
+.sing-in-password-recovery {
   font-family: Roboto-Light;
   color: #25AF5C;
   text-decoration: none;
@@ -46,20 +48,21 @@ h1{
   font-size: medium;
 }
 
-.sing-in-password-recovery a{
+.sing-in-password-recovery a {
   text-decoration: #2EDA73;
 }
-.sing-in-password-recovery:hover{
+
+.sing-in-password-recovery:hover {
   font-weight: bold;
 }
 
-a.glo{
-  color:#fff;
+a.glo {
+  color: #fff;
   padding: 8px 20px;
-  text-decoration:none;
-  text-align:center;
+  text-decoration: none;
+  text-align: center;
   display: block;
-  background-image: linear-gradient(to left,transparent,transparent 50%,#2EDA73 50%,#2EDA73);
+  background-image: linear-gradient(to left, transparent, transparent 50%, #2EDA73 50%, #2EDA73);
   background-position: 0 0;
   background-size: 200% 100%;
   transition: all .25s ease-in;
@@ -71,8 +74,9 @@ a.glo{
   white-space: nowrap;
   font-size: large;
 }
+
 a.glo:hover {
   background-position: 100% 0;
-  color:#2EDA73;
+  color: #2EDA73;
   font-weight: bold;
 }

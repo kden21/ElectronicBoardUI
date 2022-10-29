@@ -2,13 +2,24 @@ h1{
   font-size: xx-large;
   font-family: Roboto-Light;
 }
-.register{
+.advt-add{
   display: flex;
   align-content: center;
   justify-content: center;
   min-height: calc(100vh - 140px);
   background-size: cover;
 }
+.advt-add-card{
+  color:#575656;
+  flex-direction: column;
+  padding: 10px;
+  width: 50%;
+  height: 700px;
+  display: flex;
+  align-content: center;
+  justify-content: center
+ }
+
 .advt-add-input{
   border-radius: 5px;
   height: 35px;
@@ -18,7 +29,25 @@ h1{
   font-family: Roboto-Light;
   font-weight: bold;
   padding: 0 7px;
+  width: 80%;
+  margin-bottom: 20px
 }
+#input-price{
+  width: 35%;
+}
+#input-add-photo{
+  overflow-x: hidden;
+  resize: none;
+  width: 80%;
+  margin-bottom: 20px;
+  height: 150px
+}
+.file-icon{
+  width: 30px;
+  height: 30px;
+  margin: 5px auto
+}
+
 .advt-add-input:hover{
   background-color: #EAF8E1;
   border: 1px solid #9E9B9B;
@@ -135,22 +164,4 @@ a.glo:hover {
   display: block;
   width: 0;
   height: 0;
-}
-
-/* Focus */
-.input-file input[type=file]:focus + .input-file-btn {
-  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-}
-
-/* Hover/active */
-.input-file:hover .input-file-btn {
-  background-color: #59be6e;
-}
-.input-file:active .input-file-btn {
-  background-color: #2EDA73;
-}
-
-/* Disabled */
-.input-file input[type=file]:disabled + .input-file-btn {
-  background-color: #eee;
 }

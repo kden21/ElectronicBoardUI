@@ -1,11 +1,11 @@
-h2{
+h2 {
   font-family: Roboto-Light;
   color: #25AF5C;
   font-weight: bold;
-  font-size:large;
+  font-size: large;
 }
 
-.name-advt{
+.name-advt {
   font-family: Roboto-Bold;
   font-size: large;
   font-weight: bold;
@@ -15,6 +15,55 @@ h2{
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.name-advt:hover{
+
+.name-advt:hover {
   color: gray;
+}
+
+.advt {
+  justify-content: start;
+  background-color: white;
+  height: 320px;
+  margin: 0 10px 40px 10px;
+  white-space: nowrap;
+  border-radius: 7px;
+  box-shadow: 0em 0.1em 5px rgba(122, 122, 122, 0.5)
+}
+
+.advt-card-photo {
+  height: 75%;
+  width: 100%;
+}
+
+.advt-photo {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 7px 7px 0 0;
+}
+
+.advt-card {
+  height: 20%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: start;
+  padding: 0 7px
+}
+
+.name-advt-area {
+  width: 95%;
+}
+
+.price-advt {
+  font-family: 'Roboto-Bold';
+  font-size: large;
+  margin: 1px 0
+}
+
+.location-advt {
+  font-family: 'Roboto-Light';
+  font-size: small;
+  font-weight: bold;
+  color: #939393
 }

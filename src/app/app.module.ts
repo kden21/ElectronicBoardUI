@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { HeaderhomeComponent } from './headerhome/headerhome.component';
 import { HeaderComponent } from './header/header.component';
 import { HomemainComponent } from './homemain/homemain.component';
-import { HomecontentComponent } from './homecontent/homecontent.component';
 import { AdvtCardComponent } from './advt-card/advt-card.component';
 import { AdvtSmallComponent } from './advt-small/advt-small.component';
 import { SignInCardComponent } from './sign-in-card/sign-in-card.component';
@@ -35,7 +34,6 @@ const appRoutes: Routes =[
     HeaderhomeComponent,
     HeaderComponent,
     HomemainComponent,
-    HomecontentComponent,
     AdvtCardComponent,
     AdvtSmallComponent,
     SignInCardComponent,

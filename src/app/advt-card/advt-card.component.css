@@ -20,5 +20,9 @@ h1{
   font-family: Roboto-Light; font-size: xx-large;
 }
 
-
+.advt-card{
+  flex: 1 0 calc(25% - 20px);
+  min-width: 300px;
+  max-width: calc(25%)
+}
 
