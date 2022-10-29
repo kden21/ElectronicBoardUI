@@ -1,11 +1,12 @@
-<div class="sign-in-card">
-  <h1>Вход</h1>
-  <input class="sing-in-input" placeholder="Логин">
-  <input type="password" class="sing-in-input" placeholder="Пароль">
-  <a href="" class="sing-in-password-recovery">Забыли пароль?</a>
-  <div style="width: 100%; display: flex; align-content: center; justify-content: start ">
-    <a href="#" class="glo">Войти</a>
-    <div  style="margin: auto; "><a href=""  class="sing-in-password-recovery"><span style="color: black">или </span>Зарегистрироваться</a></div>
-
+<div class="login">
+  <div class="sign-in-card">
+    <h1>Вход</h1>
+    <input class="sing-in-input" placeholder="Логин">
+    <input type="password" class="sing-in-input" placeholder="Пароль">
+    <a href="" class="sing-in-password-recovery">Забыли пароль?</a>
+    <div style="width: 100%; display: flex; align-content: center; justify-content: start ">
+      <a href="#" class="glo">Войти</a>
+      <div  style="margin: auto; "><a [routerLink]="'/account/register'"  class="sing-in-password-recovery"><span style="color: black">или </span>Зарегистрироваться</a></div>
+    </div>
   </div>
 </div>

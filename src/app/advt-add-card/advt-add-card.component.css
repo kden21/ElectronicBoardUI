@@ -2,16 +2,35 @@ h1{
   font-size: xx-large;
   font-family: Roboto-Light;
 }
+.register{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  min-height: calc(100vh - 140px);
+  background-size: cover;
+}
 .advt-add-input{
   border-radius: 5px;
   height: 35px;
   width: 98%;
-  border: none;
-  border:1px solid gray;
+  border:1px solid #2EDA73;
   font-size: large;
+  font-family: Roboto-Light;
+  font-weight: bold;
+  padding: 0 7px;
+}
+.advt-add-input:hover{
+  background-color: #EAF8E1;
+  border: 1px solid #9E9B9B;
+}
+.advt-add-input::active{
+  background-color: #EAF8E1;
+  border: 1px solid #9E9B9B;
 }
 
-
+textarea{
+  font-family: 'Roboto Light';
+}
 
 .searchTerm {
   width: 100%;
@@ -41,4 +60,97 @@ h1{
 span{
   font-family: Roboto-Light;
   font-weight: bold;
+}
+
+a.glo{
+  color:#fff;
+  padding: 8px 20px;
+  text-decoration:none;
+  text-align:center;
+  display: block;
+  background-image: linear-gradient(to left,transparent,transparent 50%,#2EDA73 50%,#2EDA73);
+  background-position: 0 0;
+  background-size: 200% 100%;
+  transition: all .25s ease-in;
+  border-radius: 5px;
+  font-family: "Roboto-Light";
+  width: 40%;
+  border: 1px solid #2EDA73;
+  height: 30px;
+  white-space: nowrap;
+  font-size: x-large;
+  margin-top: 20px;
+  align-content: center;
+}
+a.glo:hover {
+  background-position: 100% 0;
+  color:#2EDA73;
+  font-weight: bold;
+}
+.input-file {
+  width: 80%;
+  position: relative;
+  display: inline-block;
+}
+.input-file-text {
+  width: 90%;
+  padding: 0 10px;
+  line-height: 40px;
+  text-align: left;
+  height: 40px;
+  display: block;
+  float: left;
+  box-sizing: border-box;
+  border-radius: 6px 0px 0 6px;
+  border: 1px solid #2EDA73;
+  border-right: none;
+}
+.input-file-text:hover{
+  background-color: #EAF8E1;
+}
+.input-file-btn {
+  width: 10%;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  font-size: 14px;
+  vertical-align: middle;
+  color: rgb(255 255 255);
+  text-align: center;
+  border-radius: 0 4px 4px 0;
+  background-color: #2EDA73;
+  line-height: 22px;
+  height: 40px;
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  transition: background-color 0.3s;
+}
+.input-file input[type=file] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+/* Focus */
+.input-file input[type=file]:focus + .input-file-btn {
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+/* Hover/active */
+.input-file:hover .input-file-btn {
+  background-color: #59be6e;
+}
+.input-file:active .input-file-btn {
+  background-color: #2EDA73;
+}
+
+/* Disabled */
+.input-file input[type=file]:disabled + .input-file-btn {
+  background-color: #eee;
 }

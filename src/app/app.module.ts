@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import {Routes, RouterModule} from '@angular/router';
+
 import { AppComponent } from './app.component';
 import { HeaderhomeComponent } from './headerhome/headerhome.component';
 import { HeaderComponent } from './header/header.component';
@@ -11,6 +13,17 @@ import { AdvtSmallComponent } from './advt-small/advt-small.component';
 import { SignInCardComponent } from './sign-in-card/sign-in-card.component';
 import { RegisterCardComponent } from './register-card/register-card.component';
 import { AdvtAddCardComponent } from './advt-add-card/advt-add-card.component';
+import { FooterComponent } from './footer/footer.component';
+import { ProfileComponent } from './profile/profile.component';
+
+const appRoutes: Routes =[
+
+  {path: '', component: HomemainComponent},
+  {path: 'account/login', component: SignInCardComponent},
+  {path: 'account/register', component: RegisterCardComponent},
+  {path: 'create_advt', component:AdvtAddCardComponent},
+  {path: 'profile', component:ProfileComponent}
+];
 
 @NgModule({
   declarations: [
@@ -24,9 +37,12 @@ import { AdvtAddCardComponent } from './advt-add-card/advt-add-card.component';
     SignInCardComponent,
     RegisterCardComponent,
     AdvtAddCardComponent,
+    FooterComponent,
+    ProfileComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

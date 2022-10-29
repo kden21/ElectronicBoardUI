@@ -8,6 +8,12 @@
   src: url(assets/fonts/BubblegumSans-Regular.ttf) format("opentype");
 }
 
+@font-face {
+  font-family: Roboto-Bold;
+  src: url(assets/fonts/Roboto-Bold.ttf) format("opentype");
+}
+
 body {
   margin: 0; /* Убираем отступы */
+  height: 100%;
 }

@@ -1,11 +1,9 @@
 .advt-content{
-  background-color: #391152;
   display: flex;
   align-items: center;
   color:black;
   font-family: "Roboto-Light";
   font-size: 14px;
-  margin-top: 50px;
   flex-direction: column;
 }
 
@@ -14,12 +12,13 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background-color: #2EDA73;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
-
+h1{
+  font-family: Roboto-Light; font-size: xx-large;
+}
 
 
 

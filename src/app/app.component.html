@@ -1,11 +1,21 @@
-<div >
-  <app-header></app-header>
-  <app-headerhome></app-headerhome>
-  <app-homemain></app-homemain>
-  <!--<app-homecontent></app-homecontent>-->
-  <div><app-advt-card></app-advt-card></div>
-  <app-sign-in-card></app-sign-in-card>
-  <app-register-card></app-register-card>
-  <app-advt-add-card></app-advt-add-card>
-</div>
+<!--<div style="height: 100%">
+  <div style="box-sizing: border-box;
+	min-height: 100%;
+	padding-bottom: 90px;">
+    <app-header></app-header>
+    <app-headerhome></app-headerhome>
+    <app-homemain></app-homemain>
+    <app-homecontent></app-homecontent>
+    <div><app-advt-card></app-advt-card></div>
+    <app-sign-in-card></app-sign-in-card>
+    <app-register-card></app-register-card>
+    <app-advt-add-card></app-advt-add-card>
+    <router-outlet></router-outlet>
+  </div>
+    <app-footer style=""></app-footer>
+</div>-->
+<app-header></app-header>
+<app-headerhome ></app-headerhome>
+<div style="min-height: calc(100vh - 140px)"><router-outlet></router-outlet></div>
+<app-footer></app-footer>
 
