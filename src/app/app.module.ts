@@ -15,6 +15,9 @@ import { RegisterCardComponent } from './register-card/register-card.component';
 import { AdvtAddCardComponent } from './advt-add-card/advt-add-card.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ReviewsProfileComponent} from "./reviews/reviews-profile/reviews-profile.component";
+import { ReviewComponent } from './reviews/review/review.component';
+import { UserComponent } from './user/user.component';
 
 const appRoutes: Routes =[
 
@@ -22,7 +25,8 @@ const appRoutes: Routes =[
   {path: 'account/login', component: SignInCardComponent},
   {path: 'account/register', component: RegisterCardComponent},
   {path: 'create_advt', component:AdvtAddCardComponent},
-  {path: 'profile', component:ProfileComponent}
+  {path: 'profile', component:ProfileComponent},
+  { path: 'user', component:UserComponent}
 ];
 
 @NgModule({
@@ -39,6 +43,9 @@ const appRoutes: Routes =[
     AdvtAddCardComponent,
     FooterComponent,
     ProfileComponent,
+    ReviewsProfileComponent,
+    ReviewComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
