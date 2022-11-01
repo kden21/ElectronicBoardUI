@@ -1,0 +1,28 @@
+<!-- Форма добавления объявления -->
+
+<div class="advt-add">
+  <div class="content-area">
+    <div class="advt-add-card">
+      <h1>Создание объявления</h1>
+      <span>Название</span>
+      <input class="advt-add-input">
+      <span>Цена</span>
+      <input class="advt-add-input" id="input-price">
+      <span>Город</span>
+      <input class="advt-add-input">
+      <span>Описание</span>
+      <textarea id="input-add-photo" class="advt-add-input"></textarea>
+      <span>Добавить фото</span>
+      <form method="post" enctype="multipart/form-data">
+        <label class="input-file">
+          <span class="input-file-text" type="text">Выберите файл</span>
+          <input type="file" name="photo" multiple accept="image/*,image/jpeg">
+          <span class="input-file-btn">
+        <img class="file-icon" src="../../../assets/svg/file-image.svg"/>
+      </span>
+        </label>
+      </form>
+      <a routerLink="" class="glo">Подать объявление</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
+  display: none;
+  align-content: center;
+  justify-content: center;
+}
+
+.modal-window {
+  height: 370px;
+  width: 500px;
+  background-color: rgba(255, 255, 255);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+h1 {
+  font-family: Roboto-Bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: x-large;
+}
+
+.contain-report {
+  resize: none;
+  width: 484px;
+  height: 200px;
+  font-family: Roboto-Light;
+  font-size: medium;
+  padding: 8px;
+  background-color: rgba(255, 255, 255);
+  margin-top: 15px;
+}
+
+.modal-contain {
+  margin: auto;
+  display: flex
+}
+
+.btn {
+  height: 40px;
+  width: 120px;
+  background-color: #2EDA73;
+  color: white;
+  font-family: Roboto-Bold;
+  font-size: medium;
+  border: none;
+  border-radius: 4px;
+  margin-top: 20px;
+  transition: 0.4s;
+}
+.btn:hover{
+  background-color: #F2F1F1;
+  color: #25AF5C;
+  transition: 0.4s;
+}
+
+.window-close {
+  width: 30px;
+  height: 30px
+}
+
+.rating-area {
+  overflow: hidden;
+  width: 265px;
+  display: table-row;
+}
+
+.rating-area:not(:checked) > input {
+  display: none;
+}
+
+.rating-area:not(:checked) > label {
+  float: right;
+  width: 42px;
+  padding: 0;
+  cursor: pointer;
+  font-size: 45px;
+  line-height: 32px;
+  color: lightgrey;
+}
+
+.rating-area:not(:checked) > label:before {
+  content: '★';
+}
+
+.rating-area > input:checked ~ label {
+  color: gold;
+}
+
+.rating-area:not(:checked) > label:hover,
+.rating-area:not(:checked) > label:hover ~ label {
+  color: gold;
+}
+
+.rating-area > input:checked + label:hover,
+.rating-area > input:checked + label:hover ~ label,
+.rating-area > input:checked ~ label:hover,
+.rating-area > input:checked ~ label:hover ~ label,
+.rating-area > label:hover ~ input:checked ~ label {
+  color: gold;
+}
+
+.rate-area > label:active {
+  position: relative;
+}

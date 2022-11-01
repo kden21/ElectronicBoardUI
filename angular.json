@@ -90,7 +90,8 @@
               "src/assets",
               "src/assets/svg/*",
               "src/assets/img/*",
-              "src/assets/fonts/*"
+              "src/assets/fonts/*",
+              "src/app/*"
             ],
             "styles": [
               "src/styles.css"
