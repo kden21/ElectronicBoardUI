@@ -4,6 +4,8 @@ test-project-host-*
 dist/
 dist-schema/
 
+.angular/
+
 # IDEs
 jsconfig.json
 
