@@ -2,16 +2,16 @@
 
 <div class="advt-add">
   <div class="content-area">
-    <div class="advt-add-card">
+    <div class="advt-add-card" [formGroup]="form" (ngSubmit)="submit()">
       <h1>Создание объявления</h1>
       <span>Название</span>
-      <input class="advt-add-input">
+      <input class="advt-add-input" formControlName="name">
       <span>Цена</span>
-      <input class="advt-add-input" id="input-price">
+      <input class="advt-add-input" id="input-price" type="number" formControlName="price" >
       <span>Город</span>
-      <input class="advt-add-input">
+      <input class="advt-add-input" formControlName="location">
       <span>Описание</span>
-      <textarea id="input-add-photo" class="advt-add-input"></textarea>
+      <textarea id="input-add-photo" class="advt-add-input" formControlName="description" ></textarea>
       <span>Добавить фото</span>
       <form method="post" enctype="multipart/form-data">
         <label class="input-file">
@@ -22,7 +22,7 @@
       </span>
         </label>
       </form>
-      <a routerLink="" class="glo">Подать объявление</a>
+      <a  class="glo" type="submit" (click)="submit()" routerLink="/">Подать объявление</a>
     </div>
   </div>
 </div>

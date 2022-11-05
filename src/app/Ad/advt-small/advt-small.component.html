@@ -1,16 +1,16 @@
 <!-- Компонент, отражающий данные объявления -->
 
-<div class="advt">
+<div class="advt" >
   <div class="advt-card-photo">
     <img class="advt-photo" src="../../../assets/img/55.jpg"/>
   </div>
   <div class="advt-card">
     <div class="name-advt-area">
-      <a class="name-advt" routerLink="/advt">
-        <p class="name-advt">Ноутбук ASUS Laptop 11 E210MA-GJ185T</p>
+      <a class="name-advt" routerLink="/advts/{{advt.id}}">
+        <p class="name-advt">{{advt.name}}</p>
       </a>
     </div>
-    <span class="price-advt">17000 ₽</span>
-    <span class="location-advt">Симферополь</span>
+    <span class="price-advt">{{advt.price}} ₽</span>
+    <span class="location-advt">{{advt.location}}</span>
   </div>
 </div>

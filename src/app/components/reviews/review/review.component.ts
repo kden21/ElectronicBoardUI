@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {IUserReview} from "../../../models/review";
+import {UserService} from "../../../services/user.service";
+import {IUser} from "../../../models/user";
 
 @Component({
   selector: 'app-review',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReviewComponent implements OnInit {
 
-  constructor() { }
+  @Input() userReview: IUserReview
+  user: IUser
+
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit(): void {
+    this.userService.getById(this.userReview.authorId).subscribe(user => this.user = user);
   }
 
 }

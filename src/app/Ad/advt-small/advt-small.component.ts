@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {IAdvt} from "../../models/advt";
+import {ActivatedRoute} from "@angular/router";
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-advt-small',
@@ -6,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./advt-small.component.css']
 })
 export class AdvtSmallComponent implements OnInit {
+  id: number | number;
+  private subscription: Subscription;
 
-  constructor() { }
+  @Input() advt: IAdvt
+
+  constructor(private route: ActivatedRoute){
+    this.subscription = route.params.subscribe(params=>this.id=params['id']);
+  }
 
   ngOnInit(): void {
   }
+
+
 
 }

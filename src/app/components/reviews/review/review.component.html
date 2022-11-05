@@ -1,11 +1,11 @@
 <!--Отзыв-->
 
-<div class="review-card">
+<div class="review-card" *ngIf="user!=null&&userReview!=null">
   <div class="user-photo-area">
     <img class="user-photo" src="../../../../assets/img/profile.jpg">
   </div>
   <div title="Отзыв" class="review">
-    <a routerLink="/user" class="name-user">Ксения Денисюк</a>
+    <a routerLink="/user" class="name-user">{{user.name}}</a>
     <span class="data-review">2 октября</span>
     <div class="rating-mini">
       <span class="active"></span>
@@ -15,10 +15,7 @@
       <span></span>
     </div>
     <p class="comment">Комментарий</p>
-    <span class="data-review">Все отлично, виноград супер, продавец ответственный.
-Будем брать еще.Все отлично, виноград супер, продавец ответственный.
-Будем брать еще.Все отлично, виноград супер, продавец ответственный.
-Будем брать еще.</span>
+    <span class="data-review">{{userReview.description}}</span>
   </div>
 </div>
 

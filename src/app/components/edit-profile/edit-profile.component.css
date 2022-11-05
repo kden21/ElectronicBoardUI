@@ -7,7 +7,7 @@
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.6);
-  display: none;
+  display: flex;
   align-content: center;
   justify-content: center;
 }

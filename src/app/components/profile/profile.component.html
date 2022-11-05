@@ -1,56 +1,130 @@
-
 <!--Компонент профиля пользователя-->
 
-<div class="profile-card">
-  <div class="profile-card-area">
-    <div class="profile">
-      <div class="profile-photo-area">
-        <img class="profile-photo" src="assets/img/profile.jpg"/>
+<div *ngIf="user!=null">
+  <div class="profile-card">
+    <div class="profile-card-area">
+      <div class="profile">
+
+        <!--фото пользователя-->
+        <div class="profile-photo-area">
+          <img class="profile-photo" src="assets/img/profile.jpg"/>
+        </div>
+
+        <!--рэйтинг пользователя-->
+        <div class="rating-result">
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <!--блок с именем-->
+        <div style="margin: auto; display: flex;align-content: center">
+          <a routerLink="/users/{{user.id}}" class="profile-name"> {{user.name + " " + user.lastName[0]}}. </a>
+          <div style="width: 3px"></div>
+          <a (click)="editProfile = true">
+            <img title="Редактировать профиль" class="icon-edit-profile" src="assets/svg/edit.svg"
+                 *ngIf="user.id==viewingUser.id">
+          </a>
+        </div>
+
       </div>
-      <div class="rating-result">
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div style="margin: auto; display: flex;align-content: center">
-        <a routerLink="/user" class="profile-name">Ксения Д.</a>
-        <a href="">
-          <img title="Редактировать профиль" class="icon-edit-profile" src="assets/svg/edit.svg"/>
-        </a>
-      </div>
-    </div>
-    <div class="data-profile-area">
-      <div class="data-profile">
-        <img class="icon" src="assets/svg/at.svg"/>
-        <p class="data-profile-text">ks230den@gmail.com</p>
-      </div>
-      <div class="data-profile">
-        <img class="icon" src="assets/svg/phone.svg"/>
-        <p class="data-profile-text">+7(978)580-85-86</p>
-      </div>
-      <div class="data-profile">
-        <img class="icon" src="assets/svg/time.svg"/>
-        <p class="data-profile-text">На EBoard с октября
-          2022</p>
-      </div>
-    </div>
-    <div class="data-block"></div>
-    <div class="data-profile-area">
-      <div class="data-profile" id="profile-report">
-        <img class="icon" src="assets/svg/cancel.svg"/>
-        <a class="data-profile-text">Ограничить доступ(A)/Пожаловаться(U)</a>
-      </div>
-      <div class="data-profile" id="profile-write">
-        <img class="icon" src="assets/svg/email.svg"/>
-        <a routerLink="" class="data-profile-text">Написать</a>
-      </div>
-      <div class="data-profile" >
-        <img class="icon" src="assets/svg/star.svg"/>
-        <a class="data-profile-text" >Отзыв</a>
+
+      <!--блок с данными профиля-->
+      <div class="data-profile-area">
+        <div class="data-profile">
+
+          <!--email-->
+          <div class="data-profile-item">
+            <img class="icon" src="assets/svg/at.svg"/>
+            <a [routerLink]="'/account/login'" class="data-profile-text" *ngIf="viewingUser.role==2; else show_email">Посмотреть
+              email</a>
+            <ng-template #show_email>
+              <a class="data-profile-text" (click)="editProfile = true"
+                 *ngIf="user.email==null&&user.id==viewingUser.id">Укажите email</a>
+              <span class="data-profile-text" *ngIf="user.email==null&&user.id!=viewingUser.id">email не указан</span>
+              <span class="data-profile-text" *ngIf="user.email!=null">{{user.email}}</span>
+            </ng-template>
+          </div>
+
+          <!--номер телефона-->
+          <div class="data-profile-item">
+            <img class="icon" src="assets/svg/phone.svg"/>
+            <a [routerLink]="'/account/login'" class="data-profile-text" *ngIf="viewingUser.role==2; else show_phone">Посмотреть
+              номер</a>
+            <ng-template #show_phone>
+              <a class="data-profile-text" (click)="editProfile = true"
+                 *ngIf="user.phoneNumber==null&&user.id==viewingUser.id">Укажите номер</a>
+              <span class="data-profile-text"
+                    *ngIf="user.phoneNumber==null&&user.id!=viewingUser.id">Номер не указан</span>
+              <span class="data-profile-text" *ngIf="user.phoneNumber!=null">{{user.phoneNumber}}</span>
+            </ng-template>
+          </div>
+
+          <!--данные о дате регистрации-->
+          <div class="data-profile-item">
+            <img class="icon" src="assets/svg/time.svg"/>
+            <span [routerLink]="'/account/login'" class="data-profile-text">На EBoard с октября 2022</span>
+          </div>
+
+        </div>
+
+        <div style="background-color: lightgray; width: 1px; height: 170px"></div>
+
+        <div class="data-profile" style="">
+
+          <!--жалоба-->
+          <div class="data-profile-item">
+            <img class="icon" src="assets/svg/cancel.svg"/>
+            <a [routerLink]="'/account/login'" class="data-profile-text"
+               *ngIf="viewingUser.role==2; else show_write_report">Подать жалобу</a>
+            <ng-template #show_write_report>
+              <a class="data-profile-text" *ngIf="user.id==viewingUser.id;else show_write_report_userRole">Избранное</a>
+              <ng-template #show_write_report_userRole>
+                <a class="data-profile-text" *ngIf="viewingUser.role==0; else show_write_report_else">Ограничить
+                  доступ</a>
+                <ng-template #show_write_report_else>
+                  <a class="data-profile-text" (click)="writeReport = true">Подать жалобу</a>
+                </ng-template>
+              </ng-template>
+            </ng-template>
+          </div>
+
+          <!--отзыв-->
+          <div class="data-profile-item">
+            <img class="icon" src="assets/svg/star.svg"/>
+            <a [routerLink]="'/account/login'" class="data-profile-text"
+               *ngIf="viewingUser.role==2; else show_write_review">Написать отзыв</a>
+            <ng-template #show_write_review>
+              <a class="data-profile-text" *ngIf="viewingUser.id==user.id; else write_review">Посмотреть отзывы</a>
+              <ng-template #write_review>
+                <a class="data-profile-text" (click)="writeReview = true">Написать отзыв</a>
+              </ng-template>
+            </ng-template>
+          </div>
+
+          <!--написать пользователю в чат-->
+          <div class="data-profile-item">
+            <img class="icon" src="assets/svg/email.svg"/>
+            <a [routerLink]="'/account/login'" class="data-profile-text"
+               *ngIf="viewingUser.role==2; else write_message">В чат</a>
+            <ng-template #write_message>
+              <a class="data-profile-text" *ngIf="viewingUser.id!=user.id; else delete_profile">В чат</a>
+              <ng-template #delete_profile>
+                <a class="data-profile-text">Удалить профиль</a>
+              </ng-template>
+            </ng-template>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+  <app-write-review *ngIf="writeReview" (writeReview)="showWriteReview($event)"></app-write-review>
+
+  <app-write-report *ngIf="writeReport" (writeReport)="showWriteReport($event)"></app-write-report>
+
+  <app-edit-profile *ngIf="editProfile" (editProfile)="editProfileData($event)"></app-edit-profile>
+
+</div>

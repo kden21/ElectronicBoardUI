@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {IAdvt} from "../../models/advt";
+import {AdvtService} from "../../services/advt.service";
 
 @Component({
   selector: 'app-advt-card',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvtCardComponent implements OnInit {
 
-  constructor() { }
+  @Input() advtList: IAdvt[] = []
+
+  constructor(private advtService: AdvtService) { }
 
   ngOnInit(): void {
+    this.advtService.getAll().subscribe(advtList =>{
+        this.advtList=advtList
+      }
+    )
   }
 
 }

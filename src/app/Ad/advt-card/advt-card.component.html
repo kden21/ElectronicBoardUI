@@ -1,15 +1,6 @@
 <!-- Компонент с объявлениями-->
 <div class="advt-content">
   <div class="advt-content-card">
-    <app-advt-small style="flex: 1 0 calc(25% - 20px); min-width: 300px; max-width: calc(25%)"></app-advt-small>
-    <app-advt-small style="flex: 1 0 calc(25% - 20px); min-width: 300px; max-width: calc(25%)"></app-advt-small>
-    <app-advt-small class="advt-card"></app-advt-small>
-    <app-advt-small class="advt-card"></app-advt-small>
-    <app-advt-small class="advt-card"></app-advt-small>
-    <app-advt-small class="advt-card"></app-advt-small>
-    <app-advt-small class="advt-card"></app-advt-small>
-    <app-advt-small class="advt-card"></app-advt-small>
-    <app-advt-small class="advt-card"></app-advt-small>
-    <app-advt-small class="advt-card"></app-advt-small>
+    <app-advt-small class="advt-card" *ngFor="let advt of advtList" [advt]="advt"></app-advt-small>
   </div>
 </div>

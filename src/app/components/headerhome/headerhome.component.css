@@ -22,7 +22,9 @@
 .header-home-card {
   display: flex;
   width: 50%;
-  justify-content: left
+  justify-content: left;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .header-home-card-itemsSearch {

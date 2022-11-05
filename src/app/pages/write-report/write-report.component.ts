@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-write-report',
@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WriteReportComponent implements OnInit {
 
+  @Output() writeReport = new EventEmitter<boolean>();
+
   constructor() { }
+
+  showWriteReport(showElement: boolean){
+    this.writeReport.emit(showElement)
+  }
 
   ngOnInit(): void {
   }

@@ -29,7 +29,9 @@ import { EditAdvtComponent } from './Ad/edit-advt/edit-advt.component';
 import { ElementActiveArchiveComponent } from './components/element-active-archive/element-active-archive.component';
 import { TitleComponent } from './components/title/title.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {AuthInterceptor} from "./services/auth-interceptor.service";
 
 const appRoutes: Routes =[
 
@@ -37,13 +39,13 @@ const appRoutes: Routes =[
   { path: 'account/login', component: SignInCardComponent },
   { path: 'account/register', component: RegisterCardComponent },
   { path: 'create_advt', component:AdvtAddCardComponent },
-  { path: 'profile', component:ProfileComponent },
-  { path: 'user', component:UserComponent },
-  { path: 'collection_users', component:ColllectionUsersComponent },
-  { path: 'advt', component:AdvtPageComponent },
+  { path: 'users/:id', component:UserComponent },
+  { path: 'users', component:ColllectionUsersComponent },
+  { path: 'advts/:id', component:AdvtComponent },
   { path: 'write_report', component:WriteReportComponent },
   { path: 'report', component:ReportComponent },
-  { path: 'reports', component:ReportsComponent }
+  { path: 'reports', component:ReportsComponent },
+  { path: 'edit_profile', component:EditProfileComponent}
 ];
 
 @NgModule({
@@ -77,9 +79,16 @@ const appRoutes: Routes =[
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
