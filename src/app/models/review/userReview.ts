@@ -2,5 +2,6 @@ export interface IUserReview {
   id: number,
   authorId: number,
   userId: number,
-  description: string
+  description: string,
+  createDate?:Date
 }

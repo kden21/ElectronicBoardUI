@@ -1,4 +1,4 @@
-.reviews {
+.reviews-profile {
   width: 100%;
   max-width: 1300px;
   padding: 1% 0;
@@ -10,7 +10,7 @@
   border-radius: 10px
 }
 
-.reviews-area {
+.reviews-area-profile {
   display: flex;
   align-content: center;
   justify-content: center;

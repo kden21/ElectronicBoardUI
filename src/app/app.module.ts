@@ -15,8 +15,6 @@ import { RegisterCardComponent } from './pages/register-card/register-card.compo
 import { AdvtAddCardComponent } from './Ad/advt-add-card/advt-add-card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ReviewsProfileComponent} from "./components/reviews/reviews-profile/reviews-profile.component";
-import { ReviewComponent } from './components/reviews/review/review.component';
 import { UserComponent } from './pages/user/user.component';
 import { ColllectionUsersComponent } from './Admin/colllection-users/colllection-users.component';
 import { AdvtComponent } from './components/advt/advt.component';
@@ -32,6 +30,10 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AuthInterceptor} from "./services/auth-interceptor.service";
+import {ReviewsAdvtComponent} from "./components/reviews/reviews-advt/reviews-advt.component";
+import {ReviewAdvtComponent} from "./components/reviews/review-advt/review-advt.component";
+import {ReviewProfileComponent} from "./components/reviews/review/review-profile.component";
+import {ReviewsProfileComponent} from "./components/reviews/reviews-profile/reviews-profile.component";
 
 const appRoutes: Routes =[
 
@@ -62,7 +64,7 @@ const appRoutes: Routes =[
     FooterComponent,
     ProfileComponent,
     ReviewsProfileComponent,
-    ReviewComponent,
+    ReviewProfileComponent,
     UserComponent,
     ColllectionUsersComponent,
     AdvtComponent,
@@ -74,7 +76,9 @@ const appRoutes: Routes =[
     EditAdvtComponent,
     ElementActiveArchiveComponent,
     TitleComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    ReviewAdvtComponent,
+    ReviewsAdvtComponent
   ],
   imports: [
     BrowserModule,

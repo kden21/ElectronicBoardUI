@@ -1,4 +1,4 @@
-<div class="advt-card">
+<div class="advt-card" *ngIf="advtShow!=null">
   <div class="advt-card-area">
     <div class="advt" style="">
       <div class="advt-photo-area">
@@ -55,15 +55,16 @@
   </div>
 
 </div>
-<div class="advt-card" style="">
+<div class="advt-card" *ngIf="advtShow!=null">
   <div class="advt-card-area" style="justify-content: left; flex-direction: column;">
-    <h2 style="margin:0 15px; font-family: Roboto-Bold;color: #25AF5C; ">Описание</h2>
-    <p style="margin:20px 15px;font-family: Roboto-Light">{{advtShow.description}}</p>
+    <h2 style=" margin: 5px 20px;font-family: Roboto-Bold;color: #25AF5C; ">Описание</h2>
+    <p style="margin: 20px;font-family: Roboto-Light">{{advtShow.description}}</p>
+    <p style="margin: 20px;font-family: Roboto-Bold;color: darkseagreen; text-align: right">{{advtShow.createDate}}</p>
   </div>
 </div>
 
-<app-profile [userId]="userOwnAdvtId"></app-profile>
-<app-reviews-profile></app-reviews-profile>
+<app-profile [userId]="userOwnAdvtId" *ngIf="advtShow!=null"></app-profile>
+<app-reviews-advt [advtIdReview]="advtShow.id" *ngIf="advtShow!=null"></app-reviews-advt>
 
 
 <app-write-report *ngIf="writeReport" (writeReport)="showWriteReport($event)"></app-write-report>

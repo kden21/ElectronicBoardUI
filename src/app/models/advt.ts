@@ -1,4 +1,4 @@
-export interface IAdvt{
+export interface IAdvt {
   id: number;
   name: string,
   price: number,
@@ -7,6 +7,7 @@ export interface IAdvt{
   statusAdvt: number,
   categoryId: number,
   userId: number,
-  createDate?: Date,
-  location: string
+  location: string,
+  createDate?: string
+
 }
