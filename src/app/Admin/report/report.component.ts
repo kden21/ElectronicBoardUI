@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {IUserReport} from "../../models/reports/userReport";
+import {IUser} from "../../models/user";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-report',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
 
-  constructor() { }
+  @Input() userReport:IUserReport;
+  user: IUser;
+  author: IUser;
+  constructor(private userService:UserService) { }
 
   ngOnInit(): void {
+    this.userService.getById(this.userReport.userId).subscribe(user=>this.user=user);
+    this.userService.getById(this.userReport.authorId).subscribe(author=>this.author=author);
   }
 
 }

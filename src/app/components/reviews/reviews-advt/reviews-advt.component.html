@@ -1,0 +1,8 @@
+<!--Область для отображения отзывов-->
+
+<div class="reviews-area-advt" style="" *ngIf="advtReviews!=null">
+  <div class="reviews-advt">
+    <app-review-advt *ngFor="let advtReview of advtReviews" [advtReview]="advtReview"></app-review-advt>
+  </div>
+</div>
+

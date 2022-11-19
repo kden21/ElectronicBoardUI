@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WriteReportComponent } from './write-report.component';
+import { NotFoundComponent } from './not-found.component';
 
-describe('WriteReportComponent', () => {
-  let component: WriteReportComponent;
-  let fixture: ComponentFixture<WriteReportComponent>;
+describe('NotFoundComponent', () => {
+  let component: NotFoundComponent;
+  let fixture: ComponentFixture<NotFoundComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WriteReportComponent ]
+      declarations: [ NotFoundComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WriteReportComponent);
+    fixture = TestBed.createComponent(NotFoundComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

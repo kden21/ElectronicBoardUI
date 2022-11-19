@@ -7,13 +7,16 @@
       <p class="logo-text">Board</p>
     </a>
     <div class="style1">
-      <div class="style2">
-        <input type="text" class="searchTerm" placeholder="Поиск">
-        <button type="submit" class="searchButton">
+      <div class="style2" [formGroup]="form">
+        <input type="text" class="searchTerm" placeholder="Поиск" formControlName="description">
+        <button type="submit" class="searchButton" >
           <img src="./assets/svg/search.svg" class="search-icon"/>
         </button>
       </div>
-      <a routerLink="/create_advt" class="glo">Разместить объявление</a>
+      <a routerLink="/create_advt" class="glo" *ngIf="user!=null; else create_advt" >Разместить объявление</a>
+      <ng-template #create_advt>
+        <a routerLink="/account/login" class="glo" >Разместить объявление</a>
+      </ng-template>
     </div>
   </div>
 </div>

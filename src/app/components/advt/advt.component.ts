@@ -26,7 +26,7 @@ export class AdvtComponent implements OnInit {
 
   @Output() user: IUser;
   @Output() userOwnAdvtId: number;
-  @Output() advtList: IAdvt[];
+  //@Output() advtList: IAdvt[];
 
   constructor(private route: ActivatedRoute, private advtService: AdvtService, private userService: UserService) {
 
@@ -52,21 +52,22 @@ export class AdvtComponent implements OnInit {
 
     this.advtService.getById(this.id).subscribe(advt => {
       this.advtShow = advt,
-        this.userOwnAdvtId = advt.userId
+        this.userOwnAdvtId = advt.userId;
       /*this.createDateAdvt=this.advtShow.createDate!.toString();
       this.advtShow.createDate=new Date(this.createDateAdvt);
       console.log(this.advtShow.createDate.toLocaleDateString())
       this.createDateAdvt=this.advtShow.createDate.toLocaleDateString();*/
     });
     this.viewingUser = this.userService.getViewUser();
-    //const a:AdvtFilter=new class AdvtFilter
-    this.advtList = this.advtService.getAllFilter(new AdvtFilter()).subscribe(advtList=>this.advtList=advtList)
 
 
   }
 
+  deleteAdvt(advtId:number){
+    this.advtService.deleteAdvt(advtId).subscribe(c=>console.log("deleteADVT"));
+  }
 
   ngOnDestroy() {
-    this.routeSub.unsubscribe();
+    //this.routeSub.unsubscribe();
   }
 }

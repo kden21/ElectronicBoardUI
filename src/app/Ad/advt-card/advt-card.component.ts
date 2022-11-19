@@ -9,15 +9,13 @@ import {AdvtService} from "../../services/advt.service";
 })
 export class AdvtCardComponent implements OnInit {
 
-  @Input() advtList: IAdvt[] = []
+  @Input() advtList: IAdvt[]|null;
 
   constructor(private advtService: AdvtService) { }
 
   ngOnInit(): void {
-    this.advtService.getAll().subscribe(advtList =>{
-        this.advtList=advtList
-      }
-    )
   }
 
+  ngOnDestroy() {
+  }
 }

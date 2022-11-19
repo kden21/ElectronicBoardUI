@@ -1,6 +1,5 @@
 <div>
   <app-element-active-archive></app-element-active-archive>
-  <app-report></app-report>
-  <app-report></app-report>
+  <app-report *ngFor="let rep of userReports" [userReport]="rep"></app-report>
 </div>
 

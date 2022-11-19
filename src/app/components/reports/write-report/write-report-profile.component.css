@@ -1,0 +1,125 @@
+.modal-window {
+  height: 385px;
+  width: 500px;
+  background-color: rgba(255, 255, 255);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.modal-window-block {
+  display: flex;
+  align-content: center
+}
+
+h2 {
+  font-family: Roboto-Bold;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-size: x-large;
+}
+
+textarea{
+  outline:none;
+}
+.contain-report {
+  resize: none;
+  width: 484px;
+  height: 200px;
+  font-family: Roboto-Light;
+  font-size: medium;
+  padding: 8px;
+  background-color: rgba(255, 255, 255);
+}
+
+.modal-contain {
+  margin: auto;
+  display: flex
+}
+
+.btn {
+  height: 40px;
+  width: 120px;
+  background-color: #2EDA73;
+  color: white;
+  font-family: Roboto-Bold;
+  font-size: medium;
+  border: none;
+  border-radius: 4px;
+  margin-top: 20px;
+  transition: 0.4s;
+  cursor: pointer;
+}
+.btn:hover{
+  background-color: #F2F1F1;
+  color: #25AF5C;
+  transition: 0.4s;
+}
+
+.window-close {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.icon-sad {
+  height: 30px;
+  width: 30px;
+  margin-top: 5px;
+  margin-left: 5px
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: Roboto-Light;
+  font-size: medium;
+  margin-bottom: 20px;
+  height: 30px;
+  padding:0  5px;
+  width: 98%;
+  cursor: pointer;
+  border-bottom: #2EDA73 solid 3px;
+
+}
+.dropdown ul {
+  display: none;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 100%;
+  z-index: 1;
+  border: #2EDA73 solid 1px;
+  box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+  margin-block-start: 30px;
+}
+
+.dropdown:hover ul{
+  display: block;
+  padding: 0;
+}
+
+.dropdown ul li{
+  background-color: white;
+  list-style-type: none;
+  min-height: 30px;
+
+  border: #2EDA73 solid 1px;
+  line-height: 30px;
+  padding: 0 5px;
+}
+.dropdown ul li:hover{
+  background-color: #D9FFE6 ;
+
+}
+textarea{
+  border: #2EDA73 solid 1px;
+}
+
+.disabled{
+  pointer-events: none;
+  background-position: 100% 0;
+  background-color: #F2F1F1;
+  color:#29B525;
+  font-weight: bold;
+}

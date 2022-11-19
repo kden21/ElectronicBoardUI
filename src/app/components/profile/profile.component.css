@@ -70,10 +70,7 @@
   font-family: Roboto-Bold;
   font-size: large;
   color: black;
-}
-
-.profile-name:hover {
-  color: #5F40A2;
+  cursor: auto;
 }
 
 .icon-edit-profile {

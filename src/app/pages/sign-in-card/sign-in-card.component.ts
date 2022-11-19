@@ -9,6 +9,7 @@ import {AuthService} from "../../services/auth.service";
 })
 export class SignInCardComponent implements OnInit {
 
+  
   constructor(private  authService:AuthService) { }
 
   form = new FormGroup({
@@ -19,8 +20,8 @@ export class SignInCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async submit(){
-    await this.authService.login({
+  submit(){
+    this.authService.login({
       login: this.form.value['login'] as string,
       password: this.form.value['password'] as string
     })

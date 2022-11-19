@@ -1,10 +1,10 @@
 <div class="area-block">
   <div class="card-block">
-    <button class="block">
-      <p style="">Активные</p>
+    <button class="block"  [ngClass]="{active: statusCheck==0}" (click)="getAdvtByStatus(0)">
+      <p >Активные</p>
     </button>
-    <button class="block">
-      <p style="">Обработанные</p>
+    <button class="block" [ngClass]="{active: statusCheck==1}" (click)="getAdvtByStatus(1)">
+      <p >{{value2}}</p>
     </button>
     <div class="block" id="block-end">
     </div>

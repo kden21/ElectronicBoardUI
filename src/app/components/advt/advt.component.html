@@ -2,7 +2,7 @@
   <div class="advt-card-area">
     <div class="advt" style="">
       <div class="advt-photo-area">
-        <img class="advt-photo" src="../../../assets/img/55.jpg"/>
+        <img class="advt-photo" src="data:image/png;base64,{{advtShow.photo}}">
       </div>
     </div>
     <div class="data-advt-area">
@@ -43,7 +43,7 @@
       <div class="data-advt" style="justify-content: left" *ngIf="advtShow.userId==viewingUser.id; else other_content">
         <button class="btn" (click)="editAdvt = true">Редактировать</button>
         <div style="width: 10px"></div>
-        <button class="btn" id="delete">Снять с публикации</button>
+        <button class="btn" id="delete" (click)="deleteAdvt(advtShow.id)" routerLink="">Снять с публикации</button>
       </div>
       <ng-template #other_content>
         <div class="data-advt" style="justify-content: left">
@@ -55,18 +55,18 @@
   </div>
 
 </div>
-<div class="advt-card" *ngIf="advtShow!=null">
+<div class="advt-card" *ngIf="advtShow!=null" style="display: flex;">
   <div class="advt-card-area" style="justify-content: left; flex-direction: column;">
     <h2 style=" margin: 5px 20px;font-family: Roboto-Bold;color: #25AF5C; ">Описание</h2>
+    <app-user-owner-advt [userId]="userOwnAdvtId"></app-user-owner-advt>
     <p style="margin: 20px;font-family: Roboto-Light">{{advtShow.description}}</p>
     <p style="margin: 20px;font-family: Roboto-Bold;color: darkseagreen; text-align: right">{{advtShow.createDate}}</p>
   </div>
 </div>
 
-<app-profile [userId]="userOwnAdvtId" *ngIf="advtShow!=null"></app-profile>
 <app-reviews-advt [advtIdReview]="advtShow.id" *ngIf="advtShow!=null"></app-reviews-advt>
 
 
-<app-write-report *ngIf="writeReport" (writeReport)="showWriteReport($event)"></app-write-report>
+<app-write-report-advt *ngIf="writeReport" (writeReport)="showWriteReport($event)"></app-write-report-advt>
 <app-write-review *ngIf="writeReview" (writeReview)="showWriteReview($event)"></app-write-review>
 <app-edit-advt *ngIf="editAdvt" (editAdvt)="showEditAdvt($event)" [advt]="advtShow"></app-edit-advt>

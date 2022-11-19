@@ -2,27 +2,53 @@
 
 <div class="advt-add">
   <div class="content-area">
-    <div class="advt-add-card" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="advt-add-card" [formGroup]="form" (ngSubmit)="submit('/', 1000)">
       <h1>Создание объявления</h1>
-      <span>Название</span>
-      <input class="advt-add-input" formControlName="name">
-      <span>Цена</span>
-      <input class="advt-add-input" id="input-price" type="number" formControlName="price" >
+
+      <span>Название*</span>
+      <input class="advt-add-input" formControlName="name"/>
+
+      <span>Категория*</span>
+      <span class="advt-add-input" id="category-span"><div style="text-overflow: ellipsis;height: 35px">
+        {{subCategory.name}}
+        <img src="assets/svg/down.svg" style="width: 25px;">
+      </div>
+
+        <ul>
+          <ng-container *ngFor="let cat of categories">
+            <li *ngIf="cat.parentCategoryId===null">{{cat.name}}
+              <ul>
+              <ng-container *ngFor="let subCat of categories">
+                <li *ngIf="subCat.parentCategoryId==cat.id" style="" (click)="subCategory=subCat">{{subCat.name}}</li>
+                </ng-container>
+              </ul>
+            </li>
+         </ng-container>
+        </ul>
+      </span>
+
+      <span>Цена*</span>
+      <input class="advt-add-input" id="input-price" type="number" formControlName="price">
+
       <span>Город</span>
       <input class="advt-add-input" formControlName="location">
-      <span>Описание</span>
-      <textarea id="input-add-photo" class="advt-add-input" formControlName="description" ></textarea>
+
+      <span>Описание*</span>
+      <textarea id="input-add-description" class="advt-add-input" formControlName="description"></textarea>
+
       <span>Добавить фото</span>
-      <form method="post" enctype="multipart/form-data">
+      <form method="post" enctype="multipart/form-data" class="add-photo">
         <label class="input-file">
           <span class="input-file-text" type="text">Выберите файл</span>
-          <input type="file" name="photo" multiple accept="image/*,image/jpeg">
+          <input type="file" name="photo" accept="image/*,image/jpeg" (change)="onPhoto($event)">
           <span class="input-file-btn">
-        <img class="file-icon" src="../../../assets/svg/file-image.svg"/>
+        <img *ngIf="photoUploaded==true" class="file-icon" src="../../../assets/svg/file-image.svg"/>
+        <img *ngIf="photoUploaded==false" src="assets/gif/load3.gif" class="file-icon">
       </span>
         </label>
       </form>
-      <a  class="glo" type="submit" (click)="submit()" routerLink="/">Подать объявление</a>
+      <a class="glo" type="submit"  (click)="submit('/', 2000)"  [ngClass]="{ disabled: clicked ==true}">Подать объявление</a>
     </div>
   </div>
 </div>
+<app-result-notification *ngIf="advtUploaded==true"></app-result-notification>

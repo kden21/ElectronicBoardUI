@@ -122,6 +122,8 @@ a:hover {
   margin: 0;
   margin-left: 1%;
   cursor: auto;
+  word-break: break-word;
+
 }
 
 #location-advt {

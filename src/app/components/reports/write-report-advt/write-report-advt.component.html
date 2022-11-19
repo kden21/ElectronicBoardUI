@@ -1,0 +1,38 @@
+<div class="modal">
+  <div class="modal-contain">
+    <div class="modal-window" *ngIf="isUploaded==false;else upload">
+      <div class="modal-window-block" >
+        <h2>Укажите причину жалобы</h2>
+        <img class="icon-sad" src="../../../../assets/svg/sad.svg"/>
+      </div>
+      <div class="dropdown">{{selectedCat.name}}
+        <img src="../../../../assets/svg/down.svg" style="width: 20px;">
+        <ul>
+          <li *ngFor="let cat of categories" (click)="selectedCat=cat">{{cat.name}}</li>
+        </ul>
+      </div>
+      <div [formGroup]="form" (ngSubmit)="submit()" >
+        <textarea class="contain-report" placeholder="В тексте не должно быть оскорблений и мата" formControlName="description"></textarea>
+
+      </div>
+      <div *ngIf="load==false; else loading">
+        <button class="btn" (click)="submit()">Отправить</button>
+      </div>
+      <ng-template #loading>
+        <button class="btn" [ngClass]="{ disabled: load ==true}">Отправляется</button>
+      </ng-template>
+    </div>
+    <div class="window-close">
+      <a (click)="showWriteReport(false)"><img src="../../../../assets/svg/window-close.svg"/></a>
+    </div>
+    <ng-template #upload>
+      <div class="modal-window" style="text-align: center">
+        <img src="../../../../assets/gif/succes.gif" style="width: 450px">
+
+        <h2 >Жалоба отправлена на рассмотрение!</h2>
+      </div>
+
+    </ng-template>
+
+  </div>
+</div>

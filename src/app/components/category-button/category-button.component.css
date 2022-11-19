@@ -1,0 +1,21 @@
+.category-parent {
+  padding: 0.3em;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.category-parent:hover {
+  border: 2px solid #2EDA73;
+}
+
+.category-parent:active {
+  border: 2px solid #2EDA73;
+  background-color: #2EDA73;
+}

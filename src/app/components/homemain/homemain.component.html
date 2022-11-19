@@ -1,34 +1,39 @@
 <!-- HomeMain -->
 
-<div class="home-main">
+<div class="home-main" >
   <div class="home-main-card" style="background-image:  url(./assets/img/home-header-fill.jpg);">
     <div class="navigation-panel">
-      <div class="category-parent">Недвижимость</div>
-      <div class="category-parent">Транспорт</div>
-      <div class="category-parent">Для Бизнеса</div>
-      <div class="category-parent">Услуги</div>
-      <div class="category-parent">Животные</div>
-      <div class="category-parent">Электроника</div>
-      <div class="category-parent">Личные вещи</div>
+      <ng-container *ngFor="let cat of categories" >
+        <app-category-button *ngIf="cat.parentCategoryId==null" [category]="cat" (click)="selectedCategory = cat; changeSubCategory(cat)"
+                             [ngClass]="{ selected: selectedCategory === cat }" ></app-category-button>
+      </ng-container >
     </div>
-    <div class="search-nav">
+    <div class="search-nav" [formGroup]="form" (ngSubmit)="getFilterAdvtList()">
       <div class="searchTerm" id="search-category">
-        <span class="subcategory">Подкатегория</span>
+        <div >{{selectedSubCategory.name}}</div>
         <ul class="subcategory-nav">
-          <li class="category-navigation">Категория1</li>
-          <li class="category-navigation">Категория2</li>
-          <li class="category-navigation">Категория3</li>
+          <ng-container *ngFor="let subCat of categories" >
+            <li class="category-navigation" *ngIf="subCat.parentCategoryId==selectedCategory.id" (click)="changeSubCategory(subCat)">{{subCat.name}}</li>
+          </ng-container>
         </ul>
       </div>
-      <input type="text" class="searchTerm" id="search-city" placeholder="Укажите город">
-      <div class="searchTerm" style="display: flex; align-items: center;" id="search-photo">
+
+      <input type="text" class="searchTerm" id="search-city" placeholder="Укажите город" formControlName="location">
+      <div class="searchTerm" style="display: flex; align-items: center;" id="search-photo" >
         <input type="checkbox" style="display: flex;" value="true" placeholder="С фото">
         <span style="vertical-align: middle; white-space: nowrap;">С фото</span>
       </div>
-      <input type="text" class="searchTerm" id="search-s" placeholder="Поиск">
-      <a href="#" class="glo">Поиск</a>
+      <input type="text" class="searchTerm" id="search-s" placeholder="Поиск" formControlName="description">
+      <a (click)="getFilterAdvtList()" class="glo">Поиск</a>
     </div>
   </div>
 </div>
-<app-title></app-title>
-<app-advt-card></app-advt-card>
+<app-title [valueStr]="valueTitle"></app-title>
+<app-advt-card  [advtList]="advtList"></app-advt-card>
+<div class="show-more">
+  <div (click)="getFilterAdvtList()" *ngIf="ss==false; else end_of_list" class="show-more-contain">Показать еще...</div>
+  <ng-template #end_of_list>
+    <div class="show-more-contain disabled" >Похоже, это все, что мы нашли...</div>
+  </ng-template>
+</div>
+

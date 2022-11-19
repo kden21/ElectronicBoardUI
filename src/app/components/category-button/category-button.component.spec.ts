@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WriteReviewComponent } from './write-review.component';
+import { CategoryButtonComponent } from './category-button.component';
 
-describe('WriteReviewComponent', () => {
-  let component: WriteReviewComponent;
-  let fixture: ComponentFixture<WriteReviewComponent>;
+describe('CategoryButtonComponent', () => {
+  let component: CategoryButtonComponent;
+  let fixture: ComponentFixture<CategoryButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WriteReviewComponent ]
+      declarations: [ CategoryButtonComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WriteReviewComponent);
+    fixture = TestBed.createComponent(CategoryButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

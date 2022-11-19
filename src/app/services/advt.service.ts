@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {IAdvt} from "../models/advt";
 import {AdvtFilter} from "../models/filters/advtFilter";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +15,40 @@ export class AdvtService {
   }
 
   getAll(): Observable<IAdvt[]> {
-    return this.http.get<IAdvt[]>('https://localhost:7097/v1/advts')
+    return this.http.get<IAdvt[]>( `${environment.apiUrl}/v1/advts`)
   }
 
-  getAllFilter(advtFilter: AdvtFilter): Observable<IAdvt[]> {
+  getAllFilter(advtFilter:AdvtFilter): Observable<IAdvt[]> {
 
-    return this.http.get<IAdvt[]>('https://localhost:7097/v1/advts/advtFilter/' +advtFilter)
+    let params = new HttpParams();
+    if(advtFilter.userId!=null)
+      params=params.set("UserId", advtFilter.userId);
+    if(advtFilter.categoryId!=null&&advtFilter.categoryId!=0)
+      params=params.set("CategoryId", advtFilter.categoryId);
+    if(advtFilter.count!=null)
+      params=params.set("Count", advtFilter.count);
+    if(advtFilter.location!=null)
+      params=params.set("location", advtFilter.location);
+    if(advtFilter.description!=null)
+      params=params.set("description", advtFilter.description);
+    if(advtFilter.status!=null)
+      params=params.set("status", advtFilter.status);
+    if(advtFilter.count!=null)
+      params=params.set("count", advtFilter.count);
+    if(advtFilter.lastAdvtId!=null)
+      params=params.set("lastAdvtId", advtFilter.lastAdvtId)
+    return this.http.get<IAdvt[]>(`${environment.apiUrl}/v1/advts/advtFilter`, {params} );
+
   }
 
   getById(id: number): Observable<IAdvt> {
-    return this.http.get<IAdvt>('https://localhost:7097/v1/advts/' + id)
+    return this.http.get<IAdvt>(`${environment.apiUrl}/v1/advts/` + id)
   }
 
   create(advt: IAdvt): Observable<IAdvt> {
     return this.http.post<IAdvt>('https://localhost:7097/v1/advts/', advt)
+  }
+  deleteAdvt(advtId:number){
+    return this.http.delete(`${environment.apiUrl}/v1/advts/` + advtId)
   }
 }

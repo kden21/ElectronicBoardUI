@@ -1,16 +1,23 @@
 <!-- Компонент, отражающий данные объявления -->
 
-<div class="advt" >
+<div class="advt" [ngClass]="{ archive: advt.status==1}">
   <div class="advt-card-photo">
-    <img class="advt-photo" src="../../../assets/img/55.jpg"/>
+
+    <img class="advt-photo" routerLink="/advts/{{advt.id}}" src="data:image/png;base64,{{advt.photo}}" *ngIf="(advt.photo ?? '') != '';else no_photo"/>
+    <ng-template #no_photo>
+      <img class="advt-photo" routerLink="/advts/{{advt.id}}" src="/assets/img/no-photo.jpg"/>
+    </ng-template>
   </div>
   <div class="advt-card">
     <div class="name-advt-area">
       <a class="name-advt" routerLink="/advts/{{advt.id}}">
-        <p class="name-advt">{{advt.name}}</p>
+        <p class="name-advt">{{advt.id+advt.name}}</p>
       </a>
     </div>
     <span class="price-advt">{{advt.price}} ₽</span>
-    <span class="location-advt">{{advt.location}}</span>
+    <div style="display: flex;justify-content: space-between;padding: 3px 15px 0px 0px">
+      <span class="location-advt">{{advt.location}}</span>
+      <span class="location-advt">{{advt.createDate}}</span>
+    </div>
   </div>
 </div>

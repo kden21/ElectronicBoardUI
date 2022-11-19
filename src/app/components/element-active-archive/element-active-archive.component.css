@@ -26,13 +26,14 @@ p {
 }
 
 .block {
-  border: 5px solid #3C4654;
+  border-bottom: 5px solid #3C4654;
   border-right: none;
   border-top: none;
   border-left: none;
   width: 15%;
   text-align: center;
   background-color: white;
+  cursor: pointer;
 }
 
 .block:hover {
@@ -46,4 +47,8 @@ p {
 
 #block-end:hover {
   border-color: #272634;
+}
+.active{
+  border-color: #2EDA73;
+  color: #2EDA73;
 }

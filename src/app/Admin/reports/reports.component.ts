@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserReportService} from "../../services/reports/user-report.service";
+import {IUserReport} from "../../models/reports/userReport";
 
 @Component({
   selector: 'app-reports',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportsComponent implements OnInit {
 
-  constructor() { }
+  userReports:IUserReport[]=[];
+  constructor(private  userReportService:UserReportService) { }
 
   ngOnInit(): void {
+    this.userReportService.getAll().subscribe(userReports=>this.userReports=userReports);
   }
 
 }

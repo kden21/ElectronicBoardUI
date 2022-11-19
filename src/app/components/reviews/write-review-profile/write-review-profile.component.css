@@ -28,6 +28,11 @@ h1 {
   font-size: x-large;
 }
 
+h2{
+  font-family: Roboto-Bold;
+  font-size: x-large;
+  margin-top: 0;
+}
 .contain-report {
   resize: none;
   width: 484px;
@@ -55,6 +60,7 @@ h1 {
   border-radius: 4px;
   margin-top: 20px;
   transition: 0.4s;
+  cursor: pointer;
 }
 .btn:hover{
   background-color: #F2F1F1;
@@ -64,7 +70,8 @@ h1 {
 
 .window-close {
   width: 30px;
-  height: 30px
+  height: 30px;
+  cursor: pointer;
 }
 
 .rating-area {
@@ -110,4 +117,15 @@ h1 {
 
 .rate-area > label:active {
   position: relative;
+}
+
+.contain-center{
+  text-align: center
+}
+.disabled{
+  pointer-events: none;
+  background-position: 100% 0;
+  background-color: #F2F1F1;
+  color:#29B525;
+  font-weight: bold;
 }

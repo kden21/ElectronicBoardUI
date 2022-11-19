@@ -1,0 +1,13 @@
+.user-owner {
+  margin: 5px 20px;
+  font-size: medium;
+  font-family: Roboto-Light
+}
+
+.user-name {
+  font-family: Roboto-Bold;
+  cursor: pointer
+}
+.user-name:hover{
+  color: #293976;
+}

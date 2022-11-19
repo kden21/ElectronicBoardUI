@@ -1,6 +1,6 @@
 <app-profile [user]="user"></app-profile>
-<app-reviews-profile [userIdReview]="userId"></app-reviews-profile>
+<app-reviews-profile [userIdReview]="userId" ></app-reviews-profile>
 
-<app-title></app-title>
-<app-element-active-archive></app-element-active-archive>
-<app-advt-card></app-advt-card>
+<app-title *ngIf="showAdvtList" [valueStr]="'Объявления пользователя'" ></app-title>
+<app-element-active-archive [value2]="'Заверешнные'" *ngIf="showAdvtList" (status)="getStatusAdvt($event)"></app-element-active-archive>
+<app-advt-card [advtList]="adList" *ngIf="showAdvtList"></app-advt-card>
