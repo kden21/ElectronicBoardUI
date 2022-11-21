@@ -9,7 +9,7 @@
     <div class="style1">
       <div class="style2" [formGroup]="form">
         <input type="text" class="searchTerm" placeholder="Поиск" formControlName="description">
-        <button type="submit" class="searchButton" >
+        <button type="submit" class="searchButton" (click)="submit()">
           <img src="./assets/svg/search.svg" class="search-icon"/>
         </button>
       </div>

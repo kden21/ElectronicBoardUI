@@ -8,7 +8,7 @@
                              [ngClass]="{ selected: selectedCategory === cat }" ></app-category-button>
       </ng-container >
     </div>
-    <div class="search-nav" [formGroup]="form" (ngSubmit)="getFilterAdvtList()">
+    <div class="search-nav" [formGroup]="form" (ngSubmit)="navigation()">
       <div class="searchTerm" id="search-category">
         <div >{{selectedSubCategory.name}}</div>
         <ul class="subcategory-nav">
@@ -24,16 +24,14 @@
         <span style="vertical-align: middle; white-space: nowrap;">С фото</span>
       </div>
       <input type="text" class="searchTerm" id="search-s" placeholder="Поиск" formControlName="description">
-      <a (click)="getFilterAdvtList()" class="glo">Поиск</a>
+      <a (click)="navigation()" class="glo">Поиск</a>
     </div>
   </div>
 </div>
 <app-title [valueStr]="valueTitle"></app-title>
 <app-advt-card  [advtList]="advtList"></app-advt-card>
-<div class="show-more">
-  <div (click)="getFilterAdvtList()" *ngIf="ss==false; else end_of_list" class="show-more-contain">Показать еще...</div>
-  <ng-template #end_of_list>
-    <div class="show-more-contain disabled" >Похоже, это все, что мы нашли...</div>
-  </ng-template>
+<div class="show-more" *ngIf="ss!==null">
+  <div (click)="getFilterAdvtList()" *ngIf="ss==false" class="show-more-contain">Показать еще...</div>
+    <div class="show-more-contain disabled" *ngIf="ss==true">Похоже, это все, что мы нашли...</div>
 </div>
 

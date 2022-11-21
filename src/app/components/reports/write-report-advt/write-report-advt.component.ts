@@ -1,14 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {CategoryReportService} from "../../../services/reports/category-report.service";
 import {ICategoryReport} from "../../../models/reports/categoryReport";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserReportService} from "../../../services/reports/user-report.service";
-import {AuthService} from "../../../services/auth.service";
-import {IUser} from "../../../models/user";
-import {delay, Subscription, timeout} from "rxjs";
+import {FormControl, FormGroup} from "@angular/forms";
+import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {AdvtService} from "../../../services/advt.service";
-import { AdvtReportService } from 'src/app/services/reports/advt-report.service';
+import {AdvtReportService} from 'src/app/services/reports/advt-report.service';
+import {StatusAdvtReport} from "../../../models/filters/reports/adReportFilter";
 
 @Component({
   selector: 'app-write-report-advt',
@@ -48,6 +45,7 @@ export class WriteReportAdvtComponent implements OnInit {
       authorId: this.authorReportId,
       advtId: this.advtReportId,
       categoryReportId:this.selectedCat.id,
+      statusCheck:StatusAdvtReport.Actual
     }).subscribe(res=> {
       this.isUploaded=true;//showWriteReport(true)
     } )

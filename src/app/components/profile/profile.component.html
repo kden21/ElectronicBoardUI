@@ -21,7 +21,7 @@
 
         <!--блок с именем-->
         <div style="margin: auto; display: flex;align-content: center">
-          <a class="profile-name"> {{user.name + " " + user.lastName[0]}}. </a>
+          <a class="profile-name" [routerLink]="'/users/'+user.id"> {{user.name + " " + user.lastName[0]}}. </a>
           <div style="width: 3px"></div>
           <a (click)="editProfile = true">
             <img title="Редактировать профиль" class="icon-edit-profile" src="assets/svg/edit.svg"

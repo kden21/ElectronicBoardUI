@@ -70,8 +70,13 @@
   font-family: Roboto-Bold;
   font-size: large;
   color: black;
-  cursor: auto;
+  cursor: pointer;
 }
+
+.profile-name:hover{
+  color:#5834A2;
+}
+
 
 .icon-edit-profile {
   height: 20px;
@@ -127,7 +132,7 @@ a:hover {
   justify-content: left;
 }
 
-#profile-report {
+#profile-user-report-card {
   margin-bottom: 30px;
 }
 
@@ -167,6 +172,6 @@ a:hover {
 #review{
   cursor: pointer;
 }
-#report{
+#user-report-card{
   cursor: pointer;
 }*/

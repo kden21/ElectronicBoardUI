@@ -1,0 +1,13 @@
+<div *ngIf="isLoading$|async; else loading">
+  <app-element-active-archive [value2]="'Просмотренные'"
+                              (status)="checkStatusReport($event)"></app-element-active-archive>
+  <ng-container *ngIf="advtReports.length!=0; else o">
+    <app-advt-report-card *ngFor="let rep of advtReports" [advtReport]="rep"></app-advt-report-card>
+  </ng-container>
+  <ng-template #o>
+    <app-title [valueStr]="'Жалоб нет'"></app-title>
+  </ng-template>
+</div>
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>

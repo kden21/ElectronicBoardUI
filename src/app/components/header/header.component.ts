@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {IUser, StatusRole} from "../../models/user";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, Subscription} from "rxjs";
 import {ILoginResponse} from "../../models/loginResponse";
 import {AuthService} from "../../services/auth.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,11 @@ export class HeaderComponent implements OnInit {
   user: IUser
 
   public isLogin$: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
-  constructor(public authService: AuthService, private userService:UserService) {
+  private routeSubscription: Subscription;
+  private querySubscription: Subscription;
+
+  constructor(public authService: AuthService, private userService:UserService,private route: ActivatedRoute) {
+
   }
 
   ngOnInit(): void {
@@ -26,19 +31,23 @@ export class HeaderComponent implements OnInit {
       this.userService.getById(this.user.id).subscribe(res=>{
         this.user=res;
         this.isLogin$.next(true);
-        console.log(this.isLogin$+" loading")
-        console.log(this.user.id+" user1id")
-        console.log(this.user.name+" user1")
       })
     }
-    console.log(this.isLogin$+" loading2")
-    console.log(this.user.name+" user2")
     // this.authService.user$.subscribe(user=> {
     //   if(user===null)
     //     console.log("null")
     //   this.user = user
     // })
     // console.log(this.user+" 5")
+  }
+
+  search(){
+    //this.routeSubscription = route.params.subscribe(params=>this.id=params['id']);
+    this.querySubscription = this.route.queryParams.subscribe(
+      (queryParam: any) => {
+        //this.product = queryParam['product'];
+      }
+    );
   }
 
 }

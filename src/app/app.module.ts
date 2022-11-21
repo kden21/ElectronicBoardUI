@@ -20,8 +20,8 @@ import { ColllectionUsersComponent } from './Admin/colllection-users/colllection
 import { AdvtComponent } from './components/advt/advt.component';
 import { AdvtPageComponent } from './pages/advt-page/advt-page.component';
 import { WriteReviewComponent } from './components/reviews/write-review/write-review.component';
-import { ReportComponent } from './Admin/report/report.component';
-import { ReportsComponent } from './Admin/reports/reports.component';
+import { UserReportCardComponent } from './Admin/user-report-card/user-report-card.component';
+import { UserReportsComponent } from './Admin/user-reports/user-reports.component';
 import { EditAdvtComponent } from './Ad/edit-advt/edit-advt.component';
 import { ElementActiveArchiveComponent } from './components/element-active-archive/element-active-archive.component';
 import { TitleComponent } from './components/title/title.component';
@@ -36,11 +36,14 @@ import {ReviewsProfileComponent} from "./components/reviews/reviews-profile/revi
 import { CategoryButtonComponent } from './components/category-button/category-button.component';
 import { ResultNotificationComponent } from './components/result-notification/result-notification.component';
 import {AuthGuard} from "./services/auth.guard";
-import { UserOwnerAdvtComponent } from './components/user-owner-advt/user-owner-advt.component';
-import {WriteReportProfileComponent} from "./components/reports/write-report/write-report-profile.component";
-import { WriteReportAdvtComponent } from './components/reports/write-report-advt/write-report-advt.component';
 import {WriteReviewProfileComponent} from "./components/reviews/write-review-profile/write-review-profile.component";
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import {UserOwnerAdvtComponent} from "./components/user-owner-advt/user-owner-advt.component";
+import {WriteReportProfileComponent} from "./components/reports/write-report-profile/write-report-profile.component";
+import {WriteReportAdvtComponent} from "./components/reports/write-report-advt/write-report-advt.component";
+import { AdvtReportCardComponent } from './Admin/advt-report-card/advt-report-card.component';
+import { AdvtReportsComponent } from './Admin/advt-reports/advt-reports.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 const appRoutes: Routes =[
 
@@ -52,10 +55,10 @@ const appRoutes: Routes =[
   { path: 'users', component:ColllectionUsersComponent },
   { path: 'advts/:id', component:AdvtComponent },
   { path: 'write_report-profile', component:WriteReportProfileComponent },
-  { path: 'report', component:ReportComponent },
-  { path: 'reports', component:ReportsComponent },
+  { path: 'report', component:UserReportCardComponent },
+  { path: 'user-reports', component:UserReportsComponent },
+  { path: 'advt-reports', component:AdvtReportsComponent },
   { path: 'edit_profile', component:EditProfileComponent},
-  { path: 'all', component:AdvtCardComponent},
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -79,8 +82,8 @@ const appRoutes: Routes =[
     AdvtComponent,
     AdvtPageComponent,
     WriteReviewComponent,
-    ReportComponent,
-    ReportsComponent,
+    UserReportCardComponent,
+    UserReportsComponent,
     EditAdvtComponent,
     ElementActiveArchiveComponent,
     TitleComponent,
@@ -89,11 +92,15 @@ const appRoutes: Routes =[
     ReviewsAdvtComponent,
     CategoryButtonComponent,
     WriteReportProfileComponent,
+    WriteReportAdvtComponent,
     ResultNotificationComponent,
     UserOwnerAdvtComponent,
-    WriteReportAdvtComponent,
+
     WriteReviewProfileComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AdvtReportCardComponent,
+    AdvtReportsComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

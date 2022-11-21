@@ -1,0 +1,37 @@
+<!--Компонент жалобы на объявление-->
+
+<div class="report-card" *ngIf="(isLoadAuthor$|async)&&(isLoadAdvt$|async); else lo">
+  <div class="report-card-area">
+    <div style="width: 16.5%;text-align: center;padding: 20px 0">
+      <div style="width: 100px; height: 100px;margin: auto">
+        <img style="object-fit: cover;width: 100%;height: 100%;border-radius: 50px" src="assets/img/profile.jpg"/>
+      </div>
+      <a class="user-name" [routerLink]="'/users/'+author.id">
+        <p class="user-name">{{author.name + " " + author.lastName[0] + "."}}</p>
+      </a>
+    </div>
+    <div style="width: 80%; display: flex; flex-direction: column;justify-content: space-between">
+      <div>
+        <a [routerLink]="'/advts/'+advt.id" class="advt-name"><p class="advt-name"><span>Жалоба на объявление: {{advt.name}}</span>
+        </p></a>
+        <div style="width: 100%">
+          <p class="description-report">{{advtReport.description}}</p>
+        </div>
+      </div>
+      <div class="record-block-date">
+        <div style="width: 100%" >
+          <button class="btn" *ngIf="advtReport.statusCheck==0;else isArchive" (click)="archived(advtReport)">Обработать</button>
+          <ng-template #isArchive>
+            <button class="btn disabled" >Обработана</button>
+          </ng-template>
+
+        </div>
+        <p class="user-name" id="date">{{advtReport.createDate}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #lo>
+  <app-loading ></app-loading>
+</ng-template>
+

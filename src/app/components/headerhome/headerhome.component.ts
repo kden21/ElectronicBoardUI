@@ -4,6 +4,9 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AdvtService} from "../../services/advt.service";
 import {Status} from "../../models/filters/advtFilter";
 import {IAdvt} from "../../models/advt";
+import {HttpParams} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-headerhome',
@@ -12,14 +15,25 @@ import {IAdvt} from "../../models/advt";
 })
 export class HeaderhomeComponent implements OnInit {
   user: IUser
-  @Output() contain:string;
   form = new FormGroup({
     description: new FormControl<string>(""),
   })
-  constructor(private advtService:AdvtService) { }
+  constructor(private advtService:AdvtService,  private router: Router) { }
 
   ngOnInit(): void {
     this.user=JSON.parse(localStorage.getItem('user')!);
-    this.contain= this.form.value['description'] as string;
+
+  }
+  submit(){
+    let desc=this.form.value['description'] as string
+    if(desc.toString().length!=0) {
+      this.router.navigate(
+        ['/'],
+        {queryParams: {
+          'search': desc
+          }}
+      );
+    }
+    //this.router.navigateByUrl(`/${params}`);
   }
 }

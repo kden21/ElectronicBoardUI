@@ -78,6 +78,7 @@ span {
   font-size: medium;
   font-family: Roboto-Bold;
   transition-duration: .6s;
+  cursor: pointer;
 }
 
 .btn:hover {
@@ -88,5 +89,13 @@ span {
 
 .record-block-date {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+}
+
+.disabled{
+  pointer-events: none;
+  background-position: 100% 0;
+  background-color: white;
+  color: #29B525;
+  font-weight: bold;
 }

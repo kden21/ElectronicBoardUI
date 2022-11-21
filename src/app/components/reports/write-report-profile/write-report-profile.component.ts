@@ -1,13 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {CategoryReportService} from "../../../services/reports/category-report.service";
 import {ICategoryReport} from "../../../models/reports/categoryReport";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 import {UserReportService} from "../../../services/reports/user-report.service";
-import {AuthService} from "../../../services/auth.service";
-import {IUser} from "../../../models/user";
-import {delay, Subscription, timeout} from "rxjs";
+import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {AdvtService} from "../../../services/advt.service";
+import {StatusUserReport} from "../../../models/filters/reports/userReportFilter";
 
 @Component({
   selector: 'app-write-report-profile',
@@ -47,16 +45,14 @@ export class WriteReportProfileComponent implements OnInit {
       authorId: this.authorReportId,
       userId: this.userReportId,
       categoryReportId:this.selectedCat.id,
+      statusCheck:StatusUserReport.Actual
     }).subscribe(res=> {
       this.isUploaded=true;//showWriteReport(true)
     } )
   }
 
   ngOnInit(): void {
-    this.categoryReportService.getAll().subscribe(categories=>this.categories=categories);
-    console.log(this.userReportId+"_aaaaaaaa");
-    this.authorReportId=JSON.parse(localStorage.getItem('user')!).id
-    console.log(this.authorReportId+"_addddd");
+    this.categoryReportService.getAll().subscribe(categories => this.categories = categories);
+    this.authorReportId = JSON.parse(localStorage.getItem('user')!).id
   }
-
 }

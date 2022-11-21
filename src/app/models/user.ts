@@ -1,3 +1,5 @@
+import {StatusUser} from "./filters/userFilter";
+
 export interface IUser{
   id: number,
   name: string,
@@ -9,7 +11,8 @@ export interface IUser{
   photo: "",
   email: string,
   accountId: number,
-  token?: string
+  token?: string,
+  statusCheck:StatusUser
 }
 
 export enum StatusRole {
@@ -17,3 +20,4 @@ export enum StatusRole {
   User,
   Anon
 }
+

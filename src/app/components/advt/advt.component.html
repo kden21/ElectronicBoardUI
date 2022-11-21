@@ -55,10 +55,12 @@
   </div>
 
 </div>
+
+<app-user-owner-advt [userId]="advtShow.userId" *ngIf="advtShow.userId!=viewingUser.id"></app-user-owner-advt>
 <div class="advt-card" *ngIf="advtShow!=null" style="display: flex;">
   <div class="advt-card-area" style="justify-content: left; flex-direction: column;">
     <h2 style=" margin: 5px 20px;font-family: Roboto-Bold;color: #25AF5C; ">Описание</h2>
-    <app-user-owner-advt [userId]="userOwnAdvtId"></app-user-owner-advt>
+
     <p style="margin: 20px;font-family: Roboto-Light">{{advtShow.description}}</p>
     <p style="margin: 20px;font-family: Roboto-Bold;color: darkseagreen; text-align: right">{{advtShow.createDate}}</p>
   </div>

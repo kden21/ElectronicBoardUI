@@ -1,3 +1,68 @@
-<div class="user-owner">Объявление пользователя:
-  <span routerLink="/users/{{user.id}}" class="user-name"> {{user.name +" " +user.lastName[0]+"." }}</span>
+<div class="profile-card">
+  <div class="profile-card-area">
+    <div class="profile">
+
+      <!--фото пользователя-->
+      <div class="profile-photo-area">
+        <img class="profile-photo" src="assets/img/profile.jpg"/>
+      </div>
+
+      <!--рэйтинг пользователя-->
+      <div class="rating-result">
+        <span class="active"></span>
+        <span class="active"></span>
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <!--блок с именем-->
+      <div style="margin: auto; display: flex;align-content: center">
+        <a [routerLink]="'/users/'+ userId" class="profile-name"> {{user.name + " " + user.lastName[0]}}. </a>
+        <div style="width: 3px"></div>
+
+          <img title="Редактировать профиль" class="icon-edit-profile" src="assets/svg/edit.svg"
+               *ngIf="user.id==viewingUser.id">
+
+      </div>
+
+    </div>
+
+    <!--блок с данными профиля-->
+    <div class="data-profile-area">
+      <div class="data-profile">
+
+        <!--email-->
+        <div class="data-profile-item">
+          <img class="icon" src="assets/svg/at.svg"/>
+          <a [routerLink]="'/account/login'" class="data-profile-text" *ngIf="viewingUser.role==2; else show_email">Посмотреть
+            email</a>
+          <ng-template #show_email>
+            <span class="data-profile-text" *ngIf="user.email==null&&user.id!=viewingUser.id">email не указан</span>
+            <span class="data-profile-text" *ngIf="user.email!=null">{{user.email}}</span>
+          </ng-template>
+        </div>
+
+        <!--номер телефона-->
+        <div class="data-profile-item">
+          <img class="icon" src="assets/svg/phone.svg"/>
+          <a [routerLink]="'/account/login'" class="data-profile-text" *ngIf="viewingUser.role==2; else show_phone">Посмотреть
+            номер</a>
+          <ng-template #show_phone>
+            <span class="data-profile-text"
+                  *ngIf="user.phoneNumber==null&&user.id!=viewingUser.id">Номер не указан</span>
+            <span class="data-profile-text" *ngIf="user.phoneNumber!=null">{{user.phoneNumber}}</span>
+          </ng-template>
+        </div>
+
+        <!--данные о дате регистрации-->
+        <div class="data-profile-item">
+          <img class="icon" src="assets/svg/time.svg"/>
+          <span class="data-profile-text">На EBoard с октября 2022</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 </div>

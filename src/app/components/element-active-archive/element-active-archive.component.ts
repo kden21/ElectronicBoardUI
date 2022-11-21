@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Status} from "../../models/filters/advtFilter";
+import {StatusUserReport} from "../../models/filters/reports/userReportFilter";
 
 @Component({
   selector: 'app-element-active-archive',
@@ -10,8 +11,12 @@ import {Status} from "../../models/filters/advtFilter";
 export class ElementActiveArchiveComponent implements OnInit {
 
   @Input() value2: string;
-  @Output() status = new EventEmitter<Status>();
-  statusCheck: Status = 0
+  @Output() status = new EventEmitter<number>();
+  statusCheck: number = 0
+
+
+  @Output() statusUserReport = new EventEmitter<Status|StatusUserReport>();
+  statusUserReportCheck: StatusUserReport = StatusUserReport.Actual
 
   constructor() {
   }
@@ -20,6 +25,11 @@ export class ElementActiveArchiveComponent implements OnInit {
     this.status.emit(status);
     this.statusCheck = status;
   }
+
+  // getUserReportByStatus(status: StatusUserReport) {
+  //   this.statusAdvt.emit(status);
+  //   this.statusAdvtCheck = status;
+  // }
 
   ngOnInit(): void {
   }

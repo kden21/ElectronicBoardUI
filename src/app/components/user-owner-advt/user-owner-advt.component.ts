@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {UserService} from "../../services/user.service";
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {IUser} from "../../models/user";
+import {ActivatedRoute} from "@angular/router";
+import {Subscription} from "rxjs";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-user-owner-advt',
@@ -9,12 +11,25 @@ import {IUser} from "../../models/user";
 })
 export class UserOwnerAdvtComponent implements OnInit {
 
-  @Input() userId:number;
-  user:IUser
-  constructor(private userService:UserService) { }
+  viewingUser: IUser;
+
+  user: IUser;
+  @Input() userId: number;
+  @Output() userIdReview: number;
+
+  private routeSub: Subscription;
+
+  constructor(private route: ActivatedRoute, private userService: UserService) {
+  }
+
 
   ngOnInit(): void {
-    this.userService.getById(this.userId).subscribe(user=>this.user=user);
+    this.userService.getById(this.userId).subscribe(user => {
+      this.user = user;
+      console.log(this.userId)
+    });
+
+    this.viewingUser = this.userService.getViewUser();
   }
 
 }

@@ -1,7 +1,9 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {IUser, StatusRole} from "../models/user";
+import {StatusUser, UserFilter} from "../models/filters/userFilter";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +14,18 @@ export class UserService {
   }
 
   getAll(): Observable<IUser[]> {
-    return this.http.get<IUser[]>('https://localhost:7097/v1/users')
+    return this.http.get<IUser[]>(`${environment.apiUrl}/v1/users`)
+  }
+
+  getAllFilter(userFilter:UserFilter): Observable<IUser[]> {
+    let params = new HttpParams();
+    if(userFilter.status!=null)
+      params=params.set("StatusUser", userFilter.status);
+    return this.http.get<IUser[]>(`${environment.apiUrl}/v1/users/userFilter`,{params})
   }
 
   getById(id: number): Observable<IUser> {
-    return this.http.get<IUser>('https://localhost:7097/v1/users/' + id)
+    return this.http.get<IUser>(`${environment.apiUrl}/v1/users/${id}`)
   }
 
   getViewUser(): IUser{
@@ -33,6 +42,7 @@ export class UserService {
         phoneNumber: string;
         photo: "";
         role: StatusRole;
+        statusCheck:StatusUser.Actual;
       }
       userView.id=0;
       userView.role=StatusRole.Anon;

@@ -1,0 +1,101 @@
+.report-card {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding: 1% 0;
+}
+
+.report-card-area {
+  width: 100%;
+  max-width: 1300px;
+  padding: 1% 0;
+  display: flex;
+  align-content: center;
+  justify-content: left;
+  box-shadow: 0em 0.2em 8px rgba(122, 122, 122, 0.3);
+  border-radius: 10px;
+  background-color: #FEEAEA;
+}
+
+.user-name {
+  white-space: nowrap;
+  overflow: hidden;
+  color: darkslategray;
+  font-family: Roboto-Bold;
+  font-size: large;
+  text-decoration: none;
+  text-overflow: ellipsis;
+}
+
+.user-name:hover {
+  color: gray;
+}
+
+.advt-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #29B525;
+  font-family: Roboto-Bold;
+  font-size: large;
+  text-decoration: none;
+}
+
+.advt-name:hover {
+  color: gray;
+}
+
+#date {
+  margin: auto 0;
+  font-size: medium;
+}
+
+.a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+span {
+  color: #272634;
+}
+
+.description-report {
+  font-family: Roboto-Light;
+  font-size: medium;
+}
+
+.btn {
+  width: 20%;
+  height: 35px;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-top: 7px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2EDA73;
+  color: white;
+  font-size: medium;
+  font-family: Roboto-Bold;
+  transition-duration: .6s;
+  cursor: pointer;
+}
+
+.btn:hover {
+  color: #2EDA73;
+  background-color: white;
+  transition-duration: .7s;
+}
+
+.record-block-date {
+  display: flex;
+  justify-content: space-between;
+}
+
+.disabled{
+  pointer-events: none;
+  background-position: 100% 0;
+  background-color: white;
+  color: #29B525;
+  font-weight: bold;
+}

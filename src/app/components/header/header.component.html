@@ -2,21 +2,33 @@
 
 <div class="header">
   <div class="header-card" [ngStyle]="{'justify-content':  user==null||user.role!=0?'right':'space-between'}">
-    <div class="header-card-content" *ngIf="user.role==0">
-      <a href="/users/{{user.id}}" class="icon icon-admin" title="admin">
+    <div class="header-card-content dropdown" style="" *ngIf="user.role==0">
+      <a class="icon icon-admin" title="admin">
         <img class="profile-icon-svg" data-name="profile" src="./assets/svg/admin.svg"/>
-        <span class="icon-text">Дополнительно</span>
+        <span class="icon-text ">Дополнительно
+            <ul class="dropdown-content">
+          <li [routerLink]="'/user-reports'">
+            Жалобы на пользователей
+          </li>
+          <li [routerLink]="'/advt-reports'">
+            Жалобы на объявления
+          </li>
+          <li [routerLink]="'/users'">
+            Список пользователей
+          </li>
+        </ul>
+        </span>
       </a>
     </div>
-    <div class="header-card-content" >
+    <div class="header-card-content">
       <a href="/users/{{user.id}}" class="icon" title="profile" *ngIf="(isLogin$|async); else no_auth">
         <img class="profile-icon-svg" data-name="location" src="./assets/svg/profile.svg"/>
-        <span class="icon-text" >{{user.name}}</span>
+        <span class="icon-text">{{user.name}}</span>
       </a>
       <ng-template #no_auth>
         <a routerLink="/account/login" class="icon" title="profile" *ngIf="user==null">
           <img class="profile-icon-svg" data-name="profile" src="./assets/svg/profile.svg"/>
-          <span class="icon-text" >Войти</span>
+          <span class="icon-text">Войти</span>
         </a>
       </ng-template>
 
