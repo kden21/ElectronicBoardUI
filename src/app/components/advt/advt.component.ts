@@ -1,11 +1,10 @@
-import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component,OnInit, Output} from '@angular/core';
 import {IAdvt} from "../../models/advt";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
+import {BehaviorSubject, Subscription} from "rxjs";
 import {AdvtService} from "../../services/advt.service";
 import {IUser, StatusRole} from "../../models/user";
 import {UserService} from "../../services/user.service";
-import {AdvtFilter} from "../../models/filters/advtFilter";
 
 @Component({
   selector: 'app-advt',
@@ -26,10 +25,13 @@ export class AdvtComponent implements OnInit {
 
   @Output() user: IUser;
   @Output() userOwnAdvtId: number;
-  //@Output() advtList: IAdvt[];
+
+  isLoadAdvt$:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
 
   constructor(private route: ActivatedRoute, private advtService: AdvtService, private userService: UserService) {
-
+    this.routeSub = this.route.params.subscribe(params => {
+      this.id = parseInt(params['id'])
+    });
   }
 
   showEditAdvt(showElement: boolean) {
@@ -46,17 +48,10 @@ export class AdvtComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params => {
-      this.id = parseInt(params['id'])
-    });
-
     this.advtService.getById(this.id).subscribe(advt => {
       this.advtShow = advt,
         this.userOwnAdvtId = advt.userId;
-      /*this.createDateAdvt=this.advtShow.createDate!.toString();
-      this.advtShow.createDate=new Date(this.createDateAdvt);
-      console.log(this.advtShow.createDate.toLocaleDateString())
-      this.createDateAdvt=this.advtShow.createDate.toLocaleDateString();*/
+      this.isLoadAdvt$.next(true);
     });
     this.viewingUser = this.userService.getViewUser();
 
@@ -68,6 +63,5 @@ export class AdvtComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    //this.routeSub.unsubscribe();
   }
 }

@@ -1,18 +1,113 @@
 <!--Компонент регистрации пользователя-->
 
 <div class="register">
-  <div class="register-card" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="register-card" *ngIf="isCreateAccount|async;else create_user" [formGroup]="form"  (ngSubmit)="createUser()">
     <h1>Регистрация</h1>
-    <input class="register-input" placeholder="Логин" formControlName="login">
-    <input type="password" class="register-input" placeholder="Пароль" formControlName="password">
+
+    <!--Логин-->
+    <div >
+      <input class="register-input" placeholder="Логин" formControlName="login" (error)="error_login" >
+      <ng-container *ngTemplateOutlet="error_login"></ng-container>
+      <ng-template #error_login let-control>
+        <div style="font-family: Roboto-Light;color: red"  autocomplete="disabled" *ngIf="form.get('login')?.invalid && form.get('login')?.touched">
+          *поле заполнено неверно</div>
+      </ng-template>
+    </div>
+
+    <!--Пароль-->
+    <div>
+      <input type="password" class="register-input" placeholder="Пароль" formControlName="password" (error)="error_password" >
+      <ng-container *ngTemplateOutlet="error_password"></ng-container>
+      <ng-template #error_password let-control>
+        <div style="font-family: Roboto-Light;color: red"  autocomplete="off" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+          *поле заполнено неверно</div>
+      </ng-template>
+    </div>
+
+    <!--Повторите пароль-->
+    <div>
+      <input type="password" class="register-input" placeholder="Повторите пароль" formControlName="passwordConfirm" (error)="error_passwordConfirm" >
+      <ng-container *ngTemplateOutlet="error_passwordConfirm"></ng-container>
+      <ng-template #error_passwordConfirm let-control>
+        <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('passwordConfirm')?.invalid && form.get('passwordConfirm')?.touched">
+          *поле заполнено неверно</div>
+      </ng-template>
+    </div>
+
+
+
+
     <!--<input type="password" class="register-input" placeholder="Подтвердите пароль">-->
     <a href="" class="sing-in-password-recovery">Забыли пароль?</a>
     <div style="width: 100%; display: flex; align-content: center; justify-content: start ">
-      <a class="glo" (click)="submit()" routerLink="">Зарегистрироваться</a>
+      <a class="glo" (click)="createUser()" [ngClass]="{disabled:((form.get('password')?.invalid) || (form.get('passwordConfirm')?.invalid)||(form.get('login')?.invalid))}">Далее</a>
       <div style="margin: auto ;">
         <a [routerLink]="'/account/login'" class="sing-in-password-recovery">Уже есть аккаунт</a>
       </div>
     </div>
   </div>
+
+
+
+  <ng-template #create_user>
+
+    <div class="register-card" [formGroup]="form" (ngSubmit)="submit()">
+      <h1>Регистрация</h1>
+      <!--Имя-->
+      <div>
+        <input type="text" class="register-input" placeholder="Имя" formControlName="name" (error)="error_name" >
+        <ng-container *ngTemplateOutlet="error_name"></ng-container>
+        <ng-template #error_name let-control>
+          <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+            *поле заполнено неверно</div>
+        </ng-template>
+      </div>
+
+      <!--Фамилия-->
+      <div>
+        <input type="text" class="register-input" placeholder="Фамилия" formControlName="lastName" (error)="error_lastName" >
+        <ng-container *ngTemplateOutlet="error_lastName"></ng-container>
+        <ng-template #error_lastName let-control>
+          <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched">
+            *поле заполнено неверно</div>
+        </ng-template>
+      </div>
+
+
+
+      <!--Дата рождения-->
+      <div>
+        <input  type="text" mask="00.00.0000"  class="register-input" placeholder="dd.mm.yyyy"
+                formControlName="birthday" (error)="error_birthday" >
+        <ng-container *ngTemplateOutlet="error_birthday"></ng-container>
+        <ng-template #error_birthday let-control>
+          <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('birthday')?.invalid && form.get('birthday')?.touched">
+            *поле заполнено неверно</div>
+        </ng-template>
+      </div>
+
+      <!--Номер телефона-->
+      <div>
+        <input type="text" mask="+0(000)000-00-00" class="register-input" placeholder="+7(XXX)XXX-XX-XX" formControlName="phone" (error)="error_phone" >
+        <ng-container *ngTemplateOutlet="error_phone"></ng-container>
+        <ng-template #error_phone let-control>
+          <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched">
+            *поле заполнено неверно</div>
+        </ng-template>
+
+
+      </div>
+
+      <a href="" class="sing-in-password-recovery">Забыли пароль?</a>
+      <div style="width: 100%; display: flex; align-content: center; justify-content: start ">
+        <a class="glo" (click)="submit()">Зарегистрироваться</a>
+        <div style="margin: auto ;">
+          <a (click)="createUser()" class="sing-in-password-recovery">Назад</a>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
 </div>
+
 

@@ -2,19 +2,29 @@
 
 <div class="advt-add">
   <div class="content-area">
-    <div class="advt-add-card" [formGroup]="form" (ngSubmit)="submit('/', 1000)">
+    <div class="advt-add-card" [formGroup]="form" (ngSubmit)="submit()">
       <h1>Создание объявления</h1>
 
       <span>Название*</span>
-      <input class="advt-add-input" formControlName="name"/>
-
+      <input (error)="error_tip" class="advt-add-input"
+             [ngStyle]="{'background-color': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'#FEEEEE':'none',
+             'border-color': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'red':'',
+             'border': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'1px solid red':''}"
+             formControlName="name"/>
+      <ng-container  *ngTemplateOutlet="error_tip"></ng-container>
       <span>Категория*</span>
-      <span class="advt-add-input" id="category-span"><div style="text-overflow: ellipsis;height: 35px">
+      <span  (error)="error_tip" class="advt-add-input"
+            [ngStyle]="{'background-color': ((subCategory.id==0)&&(touchedCategory|async))?'#FEEEEE':'white',
+             'border-color': ((subCategory.id==0)&&(touchedCategory|async))?'red':'',
+             'border': ((subCategory.id==0)&&(touchedCategory|async))?'1px solid red':''}"
+            id="category-span"><div style="text-overflow: ellipsis;height: 35px">
         {{subCategory.name}}
-        <img src="assets/svg/down.svg" style="width: 25px;">
+          <img (click)="touchedCat()" [ngStyle]="{'transform':showCategories==true? 'rotate(180deg)':''}"
+               src="assets/svg/down.svg" style="width: 25px;line-height: 45px">
+
       </div>
 
-        <ul>
+        <ul [ngStyle]="{'display':(showCategories)?'block':'none'}">
           <ng-container *ngFor="let cat of categories">
             <li *ngIf="cat.parentCategoryId===null">{{cat.name}}
               <ul>
@@ -28,16 +38,32 @@
       </span>
 
       <span>Цена*</span>
-      <input class="advt-add-input" id="input-price" type="number" formControlName="price">
+      <input (error)="error_tip" class="advt-add-input"
+             [ngStyle]="{'background-color': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'#FEEEEE':'none',
+             'border-color': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'red':'',
+             'border': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'1px solid red':''}"
+             id="input-price" type="number" formControlName="price">
+
+      <ng-container *ngTemplateOutlet="error_tip"></ng-container>
+
 
       <span>Город</span>
-      <input class="advt-add-input" formControlName="location">
+      <input (error)="error_tip" class="advt-add-input"
+             [ngStyle]="{'background-color': ((form.get('location')?.invalid)&&(form.get('location')?.touched))?'#FEEEEE':'none',
+             'border-color': ((form.get('location')?.invalid)&&(form.get('location')?.touched))?'red':'',
+             'border': ((form.get('location')?.invalid)&&(form.get('location')?.touched))?'1px solid red':''}"
+             formControlName="location">
 
       <span>Описание*</span>
-      <textarea id="input-add-description" class="advt-add-input" formControlName="description"></textarea>
+      <textarea (error)="error_tip" class="advt-add-input"
+                [ngStyle]="{'background-color': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'#FEEEEE':'none',
+             'border-color': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'red':'',
+             'border': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'1px solid red':''}"
+                id="input-add-description" formControlName="description"></textarea>
+      <ng-container *ngTemplateOutlet="error_tip"></ng-container>
 
       <span>Добавить фото</span>
-      <form method="post" enctype="multipart/form-data" class="add-photo">
+      <form method="post" enctype="multipart/form-data" class="add-photo" style="margin-top: 0">
         <label class="input-file">
           <span class="input-file-text" type="text">Выберите файл</span>
           <input type="file" name="photo" accept="image/*,image/jpeg" (change)="onPhoto($event)">
@@ -47,7 +73,13 @@
       </span>
         </label>
       </form>
-      <a class="glo" type="submit"  (click)="submit('/', 2000)"  [ngClass]="{ disabled: clicked ==true}">Подать объявление</a>
+
+      <ng-template #error_tip let-control>
+        <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
+          *поле заполнено неверно</div>
+      </ng-template>
+
+      <a class="glo" type="submit" (click)="submit()" [ngClass]="{ disabled: clicked ==true}">Подать объявление</a>
     </div>
   </div>
 </div>

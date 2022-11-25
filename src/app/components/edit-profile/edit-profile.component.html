@@ -1,32 +1,49 @@
 <div class="modal">
   <div class="modal-contain">
     <div class="modal-window">
+      <div class="edit-photo-area">
+        <div class="photo-area">
+          <img *ngIf="photo===null;else photo_profile" class="photo-profile" src="/assets/img/no_photo.png"/>
+          <ng-template #photo_profile>
+            <img class="photo-profile" src="{{photo}}"/>
+          </ng-template>
+
+        </div>
+        <div class="" style="align-content: center">
+          <form method="post" enctype="multipart/form-data">
+            <label class="input-file">
+              <input type="file" name="file" (change)="onPhoto($event)">
+              <span>Редактировать фото</span>
+            </label>
+          </form>
+        </div>
+
+      </div>
       <div class="input-area">
         <label class="input-title">Фамилия</label>
-        <input value="Денисюк"/>
+        <input value="{{user.lastName}}"/>
       </div>
       <div class="input-area">
         <label class="input-title">Имя</label>
-        <input value="Ксения"/>
+        <input value="{{user.name}}"/>
         <div class="input-area">
           <label class="input-title">Отчество</label>
-          <input value="Константиновна"/>
+          <input value="{{(user.middleName==null)?'':user.middleName}}"/>
         </div>
-        <div class="input-area">
-          <label class="input-title">Город</label>
-          <input value="Владивосток"/>
-        </div>
+
         <div class="input-area">
           <label class="input-title">Номер телефона</label>
-          <input value="+7(978)580-85-86"/>
+          <input mask="+0(000)000-00-00" placeholder="+{{user.phoneNumber[1]}}({{user.phoneNumber[2]+
+user.phoneNumber[3]+user.phoneNumber[4]}}){{user.phoneNumber[5]+user.phoneNumber[6]+user.phoneNumber[7]}}-
+{{user.phoneNumber[8]+user.phoneNumber[9]}}-{{user.phoneNumber[10]+user.phoneNumber[11]}}"/>
         </div>
         <div class="input-area">
           <label class="input-title">Электронная почта</label>
-          <input type="email" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" value="ks230den@gmail.com"/>
+          <input type="email" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" value="{{user.email}}"/>
         </div>
       </div>
       <div>
-        <button class="btn">Редактировать</button>
+        <button (click)="submit()" [ngClass]="{ disabled: clicked ==true}" class="btn">Редактировать</button>
       </div>
     </div>
     <div class="window-close">

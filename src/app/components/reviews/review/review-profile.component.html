@@ -1,11 +1,16 @@
 <!--Отзыв-->
 
-<div class="review-card" *ngIf="user!=null&&userReview!=null">
-  <div class="user-photo-area">
+<div class="review-card" *ngIf="isLoadAuthor$|async; else loading">
+  <div class="user-photo-area" *ngIf="user.statusUser==0; else user_delete">
     <img class="user-photo" src="../../../../assets/img/profile.jpg">
   </div>
+  <ng-template #user_delete>
+    <div class="user-photo-area">
+      <img class="user-photo" src="../../../../assets/img/user_deleted.jpg">
+    </div>
+  </ng-template>
   <div title="Отзыв" class="review">
-    <a routerLink="/users/{{user.id}}" class="name-user">{{user.name}}</a>
+    <a [routerLink]="'/users/'+user.id"  class="name-user">{{user.name}}</a>
     <span class="data-review">{{userReview.createDate}}</span>
     <div class="rating-mini">
       <span class="active"></span>
@@ -18,3 +23,6 @@
     <span class="data-review">{{userReview.description}}</span>
   </div>
 </div>
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>

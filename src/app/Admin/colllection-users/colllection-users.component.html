@@ -1,4 +1,4 @@
-<div *ngIf="isLoadingData$|async; else loading" >
+<div *ngIf="(isLoadingData$|async); else loading" >
   <app-element-active-archive [value2]="'Неактивные'" (status)="getUsersByStatus($event)"></app-element-active-archive>
   <app-profile *ngFor="let user of userList" [user]="user"></app-profile>
 </div>

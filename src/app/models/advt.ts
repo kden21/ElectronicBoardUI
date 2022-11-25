@@ -4,10 +4,15 @@ export interface IAdvt {
   price: number,
   description?: string,
   photo?: string,
-  status: number,
+  status: StatusAdvt,
   categoryId: number,
   userId: number,
   location: string,
   createDate?: string
 
+}
+
+export enum StatusAdvt{
+  Actual,
+  Archive
 }

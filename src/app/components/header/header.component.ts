@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     this.user=JSON.parse(localStorage.getItem('user')!);
 
     if(this.user!==null){
-      this.userService.getById(this.user.id).subscribe(res=>{
+      this.userService.getById(this.user.id!).subscribe(res=>{
         this.user=res;
         this.isLogin$.next(true);
       })

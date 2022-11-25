@@ -13,7 +13,7 @@
 }
 
 .modal-window {
-  height: 565px;
+  height: 750px;
   width: 500px;
   background-color: rgba(255, 255, 255);
   padding: 30px;
@@ -24,14 +24,18 @@
   justify-content: start;
   flex-direction: column;
 }
+
 .modal-contain {
   margin: auto;
   display: flex
 }
+
 .window-close {
   width: 30px;
-  height: 30px
+  height: 30px;
+  cursor: pointer;
 }
+
 .btn {
   height: 40px;
   width: 150px;
@@ -41,15 +45,17 @@
   font-size: medium;
   border: none;
   border-radius: 4px;
-  margin-top: 10px ;
+  margin-top: 10px;
   transition: 0.4s;
 }
-.btn:hover{
+
+.btn:hover {
   background-color: #F2F1F1;
   color: #25AF5C;
   transition: 0.4s;
 }
-input{
+
+input {
   border-radius: 10px;
   border: 1px solid #2EDA73;
   height: 25px;
@@ -61,27 +67,109 @@ input{
   margin-bottom: 15px;
   font-family: Roboto-Bold;
 }
-input:focus{
+
+input:focus {
   border: 1px solid #649E42;
   background-color: #F4FEEE;
 }
-.input-area{
+
+.input-area {
   width: 480px
 }
-.input-title{
+
+.input-title {
   margin-left: 5px;
   font-family: Roboto-Bold;
   margin-bottom: 15px;
 }
-.description{
-  border-radius: 10px;
-  border: 1px solid #2EDA73;
-  height: 100px;
-  font-size: medium;
-  padding: 10px;
-  outline: none;
+
+.disabled {
+  pointer-events: none;
+  background-position: 100% 0;
+  color: #2EDA73;
+  background-color: #DDDDDD;
+  font-weight: bold;
+}
+
+.photo-area {
+  width: 200px;
+  height: 200px;
+  margin:0 auto;
+  text-align: center;
+}
+.edit-photo-area{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.photo-profile {
+  object-fit: cover;
+  border-radius: 100px;
   width: 100%;
-  margin-top: 5px;
-  resize: none;
-  font-family: Roboto-Light;
+  height: 100%
+}
+.edit-photo{
+  text-align: center;
+  font-family: Roboto-Bold;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.edit-photo:hover{
+  color: #5834A2;
+}
+
+.input-file {
+  margin: 10px auto;
+  position: relative;
+  display: inline-block;
+  font-family: Roboto-Bold;
+}
+.input-file span {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  font-size: medium;
+  vertical-align: middle;
+  color: rgb(255 255 255);
+  text-align: center;
+  border-radius: 4px;
+  background-color: #2EDA73;
+  line-height: 22px;
+  height: 40px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  transition: background-color 0.2s;
+}
+.input-file input[type=file] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+/* Focus */
+.input-file input[type=file]:focus + span {
+}
+
+/* Hover/active */
+.input-file:hover span {
+  background-color: #59be6e;
+}
+.input-file:active span {
+  background-color: #2E703A;
+}
+
+/* Disabled */
+.input-file input[type=file]:disabled + span {
+  background-color: #eee;
 }

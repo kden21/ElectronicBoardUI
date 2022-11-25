@@ -8,7 +8,7 @@
       <div class="dropdown">
         <div style="display: flex;">
           <div>{{selectedCat.name}}</div>
-          <div style=""><img src="../../../../assets/svg/down.svg" style="width: 20px"></div>
+          <div ><img src="../../../../assets/svg/down.svg" style="width: 20px"></div>
         </div>
         <ul>
           <li *ngFor="let cat of categories" (click)="selectedCat=cat">{{cat.name}}</li>

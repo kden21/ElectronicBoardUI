@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import {Routes, RouterModule} from '@angular/router';
 
+import {NgxMaskModule} from 'ngx-mask';
 
 import { AppComponent } from './app.component';
 import { HeaderhomeComponent } from "./components/headerhome/headerhome.component";
@@ -44,6 +45,8 @@ import {WriteReportAdvtComponent} from "./components/reports/write-report-advt/w
 import { AdvtReportCardComponent } from './Admin/advt-report-card/advt-report-card.component';
 import { AdvtReportsComponent } from './Admin/advt-reports/advt-reports.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import {ErrorInterceptor} from "./services/error.interceptor";
+import { NotificationComponent } from './components/notification/notification.component';
 
 const appRoutes: Routes =[
 
@@ -100,21 +103,30 @@ const appRoutes: Routes =[
     NotFoundComponent,
     AdvtReportCardComponent,
     AdvtReportsComponent,
-    LoadingComponent
+    LoadingComponent,
+    NotificationComponent,
+
+
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true,
-  }],
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

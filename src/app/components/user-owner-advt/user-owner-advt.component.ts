@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
 import {IUser} from "../../models/user";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
+import {BehaviorSubject, Subscription} from "rxjs";
 import {UserService} from "../../services/user.service";
 
 @Component({
@@ -17,18 +17,19 @@ export class UserOwnerAdvtComponent implements OnInit {
   @Input() userId: number;
   @Output() userIdReview: number;
 
-  private routeSub: Subscription;
+  isLoadUser$:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+
+  private subscription: Subscription;
 
   constructor(private route: ActivatedRoute, private userService: UserService) {
+    //this.subscription = route.params.subscribe(params => this.userId = params['id']);
   }
-
 
   ngOnInit(): void {
     this.userService.getById(this.userId).subscribe(user => {
       this.user = user;
-      console.log(this.userId)
+      this.isLoadUser$.next(true);
     });
-
     this.viewingUser = this.userService.getViewUser();
   }
 

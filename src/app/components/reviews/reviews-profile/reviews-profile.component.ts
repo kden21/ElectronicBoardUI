@@ -10,18 +10,14 @@ import {AdvtReviewService} from "../../../services/review/advtReview.service";
 })
 export class ReviewsProfileComponent implements OnInit {
 
-  @Input() userIdReview: number;
-  userReviews: IUserReview[] | null = null;
+  // @Input() userIdReview: number;
+  @Input() userReviews:IUserReview[];
+  // userReviews: IUserReview[] | null = null;
 
   constructor(private userReviewService: UserReviewService) {
   }
 
   ngOnInit(): void {
-      this.userReviewService.getAll(this.userIdReview).subscribe(userReviews => {
-          if (userReviews.length != 0)
-            this.userReviews = userReviews;
-        }
-      );
   }
 
 }

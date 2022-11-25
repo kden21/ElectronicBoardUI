@@ -1,6 +1,7 @@
 h1 {
-  font-size: xx-large;
+  font-size: xxx-large;
   font-family: Roboto-Light;
+  color: #29B525;
 }
 
 .advt-add {
@@ -16,37 +17,37 @@ h1 {
   color: #575656;
   flex-direction: column;
   padding: 10px;
-  width: 50%;
+  width: 80%;
   min-height: 750px;
   display: flex;
   align-content: center;
   justify-content: center;
-  -webkit-box-shadow: 0px 0px 16px 2px rgba(34, 60, 80, 0.2);
-  -moz-box-shadow: 0px 0px 16px 2px rgba(34, 60, 80, 0.2);
-  box-shadow: 0px 0px 16px 2px rgba(34, 60, 80, 0.2);
-  border-radius: 10px;
-  margin: 20px 0;
+  margin: 20px auto;
+
 }
 
 .advt-add-input {
-  border-radius: 5px;
-  height: 35px;
+
+  border-radius: 3px;
+  height: 45px;
   border: 1px solid #2EDA73;
-  font-size: medium;
+  font-size: large;
   color: #575656;
   font-family: Roboto-Light;
   font-weight: bold;
   padding: 0 7px;
   width: 80%;
-  margin-bottom: 20px;
-outline:none;
+  outline: none;
+  color: darkslategray;
+  margin-bottom: 0;
 }
-.advt-add-input:active{
+
+.advt-add-input:active {
   border: none;
 }
+
 #input-price {
-  width: 27%;
-  height: 35px;
+  width: 30%;
 }
 
 #input-add-description {
@@ -54,13 +55,13 @@ outline:none;
   resize: none;
   width: 80%;
   margin-bottom: 20px;
-  height: 150px;
+  height: 200px;
   padding: 5px 5px;
 }
 
 .file-icon {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   margin: 5px auto
 }
 
@@ -107,9 +108,12 @@ textarea {
 }
 
 span {
-  font-family: Roboto-Light;
+  font-family: Roboto-Bold;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
+  margin-top: 18px;
+  font-size: xx-large;
+  color: darkslategray;
 }
 
 a.glo {
@@ -124,9 +128,10 @@ a.glo {
   transition: all .25s ease-in;
   border-radius: 5px;
   font-family: "Roboto-Light";
-  width: 40%;
+  width: 25%;
   border: 1px solid #2EDA73;
   height: 30px;
+  margin-top: 20px;
   white-space: nowrap;
   font-size: x-large;
   align-content: center;
@@ -139,7 +144,7 @@ a.glo:hover {
   font-weight: bold;
 }
 
-a.disabled{
+a.disabled {
   pointer-events: none;
   background-position: 100% 0;
   color: #2EDA73;
@@ -147,10 +152,11 @@ a.disabled{
 }
 
 .input-file {
-  width: 80%;
+  width: 81%;
   position: relative;
   display: inline-block;
   cursor: pointer;
+  margin-top: 0;
 }
 
 .input-file-text {
@@ -158,15 +164,15 @@ a.disabled{
   padding: 0 10px;
   line-height: 40px;
   text-align: left;
-  height: 40px;
+  height: 45px;
   display: block;
   float: left;
   box-sizing: border-box;
-  border-radius: 6px 0px 0 6px;
+  border-radius: 3px 0px 0 3px;
   border: 1px solid #2EDA73;
   border-right: none;
   color: #575656;
-font-size: medium;
+  font-size: large;
 }
 
 .input-file-text:hover {
@@ -180,23 +186,23 @@ font-size: medium;
   cursor: pointer;
   outline: none;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 20px;
   vertical-align: middle;
   color: rgb(255 255 255);
   text-align: center;
   border-radius: 0 4px 4px 0;
   background-color: #2EDA73;
-  line-height: 22px;
-  height: 40px;
+  line-height: 45px;
+  height: 45px;
   box-sizing: border-box;
   border: none;
-  margin: 0;
   transition: background-color 0.3s;
 }
 
 .input-file-btn:hover {
   background-color: #25AF5C;
 }
+
 .input-file-btn:active {
   background-color: #272634;
 }
@@ -210,24 +216,28 @@ font-size: medium;
   height: 0;
 
 }
-
+.add-photo{
+  margin-top: 0;
+}
 #category-span {
-  width: 30%;
-  padding: 0 5px ;
+  width: 31%;
+  padding: 0 5px;
   position: relative;
   display: inline-block;
-  margin-bottom: 20px;
-  line-height: 35px;
-  text-overflow:ellipsis;
+  line-height: 45px;
+  text-overflow: ellipsis;
   cursor: pointer;
-
+  color: #575656;
+  font-size: large;
+  margin-top: 0;
 }
 
 ul {
   position: absolute;
-  left: 0%;
+  left: -1px;
   top: 100%;
   width: 100%;
+  right: 50%;
   z-index: 10;
   display: none;
   list-style: none;
@@ -237,13 +247,13 @@ ul {
   box-shadow: 0em 0.2em 5px rgba(122, 122, 122, 0.3);
   border: #25AF5C solid 1px;
   border-radius: 5px;
-  background-color:white ;
+  background-color: white;
 
 }
 
-span:hover > ul {
+/*span:hover > ul {
   display: block;
-}
+}*/
 
 span ul li {
   min-width: 170px;
@@ -251,7 +261,7 @@ span ul li {
   display: list-item;
   position: relative;
   border-radius: 5px;
-  line-height: 35px;
+  line-height: 45px;
   padding: 0 5px;
 }
 

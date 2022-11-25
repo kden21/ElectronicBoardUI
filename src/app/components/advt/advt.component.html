@@ -1,4 +1,5 @@
-<div class="advt-card" *ngIf="advtShow!=null">
+<ng-container  *ngIf="isLoadAdvt$|async; else loading">
+<div class="advt-card">
   <div class="advt-card-area">
     <div class="advt" style="">
       <div class="advt-photo-area">
@@ -23,12 +24,11 @@
 
         <div class="data-advt" *ngIf="advtShow.userId!=viewingUser.id">
           <img class="icon" src="../../../assets/svg/cancel.svg"/>
-          <a class="data-advt-text" (click)="writeReport = true" *ngIf="viewingUser.role==0; else restrict_access">Ограничить
-            доступ</a>
-          <ng-template #restrict_access>
-            <a class="data-advt-text" (click)="writeReport = true" *ngIf="viewingUser.role==1">Пожаловаться</a>
-            <a class="data-advt-text" routerLink="/account/login" *ngIf="viewingUser.role==2">Пожаловаться</a>
-          </ng-template>
+            <a class="data-advt-text" routerLink="/account/login" *ngIf="viewingUser.role==2; else userAuthorized">Пожаловаться</a>
+            <ng-template #userAuthorized>
+              <a class="data-advt-text" (click)="writeReport = true" >Пожаловаться</a>
+            </ng-template>
+
         </div>
 
 
@@ -53,7 +53,6 @@
       </ng-template>
     </div>
   </div>
-
 </div>
 
 <app-user-owner-advt [userId]="advtShow.userId" *ngIf="advtShow.userId!=viewingUser.id"></app-user-owner-advt>
@@ -72,3 +71,7 @@
 <app-write-report-advt *ngIf="writeReport" (writeReport)="showWriteReport($event)"></app-write-report-advt>
 <app-write-review *ngIf="writeReview" (writeReview)="showWriteReview($event)"></app-write-review>
 <app-edit-advt *ngIf="editAdvt" (editAdvt)="showEditAdvt($event)" [advt]="advtShow"></app-edit-advt>
+</ng-container>
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>

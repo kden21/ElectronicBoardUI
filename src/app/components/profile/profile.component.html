@@ -1,14 +1,22 @@
 <!--Компонент профиля пользователя-->
 
-<div *ngIf="user!=null">
+<div *ngIf="(isUserLoading$|async); else loading" >
   <div class="profile-card">
     <div class="profile-card-area">
       <div class="profile">
 
         <!--фото пользователя-->
-        <div class="profile-photo-area">
-          <img class="profile-photo" src="assets/img/profile.jpg"/>
+        <div class="profile-photo-area" *ngIf="user.statusUser==0;else photo_deleted">
+          <img  class="profile-photo" src="assets/img/profile.jpg"/>
+
         </div>
+        <ng-template #photo_deleted>
+          <div class="profile-photo-area">
+            <img class="profile-photo" src="assets/img/user_deleted.jpg"/>
+
+          </div>
+
+        </ng-template>
 
         <!--рэйтинг пользователя-->
         <div class="rating-result">
@@ -32,7 +40,7 @@
       </div>
 
       <!--блок с данными профиля-->
-      <div class="data-profile-area">
+      <div class="data-profile-area" *ngIf="user.statusUser==0;else user_deleted">
         <div class="data-profile">
 
           <!--email-->
@@ -82,7 +90,7 @@
             <ng-template #show_write_report>
               <a class="data-profile-text" *ngIf="user.id==viewingUser.id;else show_write_report_userRole">Избранное</a>
               <ng-template #show_write_report_userRole>
-                <a class="data-profile-text" *ngIf="viewingUser.role==0; else show_write_report_else">Ограничить
+                <a class="data-profile-text"  (click)="showDeleteProfile= true" *ngIf="viewingUser.role==0; else show_write_report_else">Ограничить
                   доступ</a>
                 <ng-template #show_write_report_else>
                   <a class="data-profile-text"  (click)="writeReport = true">Подать жалобу</a>
@@ -112,12 +120,17 @@
             <ng-template #write_message>
               <a class="data-profile-text" *ngIf="viewingUser.id!=user.id; else delete_profile">В чат</a>
               <ng-template #delete_profile>
-                <a class="data-profile-text">Удалить профиль</a>
+                <a class="data-profile-text" (click)="showDeleteProfile= true">Удалить профиль</a>
               </ng-template>
             </ng-template>
           </div>
         </div>
       </div>
+      <ng-template #user_deleted>
+        <div class="data-profile-area user-deleted">
+          <p class="user-deleted-text">Пользователь удален или заблокирован</p>
+        </div>
+      </ng-template>
     </div>
   </div>
 
@@ -125,6 +138,10 @@
 
   <app-write-report-profile *ngIf="writeReport" (writeReport)="showWriteReport($event)"></app-write-report-profile>
 
-  <app-edit-profile *ngIf="editProfile" (editProfile)="editProfileData($event)"></app-edit-profile>
+  <app-edit-profile *ngIf="editProfile" [user]="user" (editProfile)="editProfileData($event)"></app-edit-profile>
 
+  <app-notification *ngIf="showDeleteProfile"  (deleteAction)="deleteUserProfile($event)" (showDelete)="showDelete($event)"></app-notification>
 </div>
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>

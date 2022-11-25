@@ -1,6 +1,7 @@
 h1 {
   font-family: Roboto-Light;
   font-size: xxx-large;
+  margin: 0;
 }
 
 .register {
@@ -13,7 +14,7 @@ h1 {
 
 .register-card {
   display: flex;
-  height: 420px;
+  min-height: 400px;
   width: 420px;
   align-content: center;
   justify-content: space-between;
@@ -33,6 +34,7 @@ h1 {
   border: 1px solid #2EDA73;
   font-size: large;
   padding: 0 10px;
+  outline:none;
 }
 
 .sing-in-input:hover {
@@ -73,9 +75,18 @@ a.glo {
   height: 20px;
   white-space: nowrap;
   font-size: large;
+  cursor: pointer;
 }
 
 a.glo:hover {
+  background-position: 100% 0;
+  color: #2EDA73;
+  font-weight: bold;
+}
+
+a{cursor: pointer}
+.disabled {
+  pointer-events: none;
   background-position: 100% 0;
   color: #2EDA73;
   font-weight: bold;

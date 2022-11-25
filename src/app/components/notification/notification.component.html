@@ -1,0 +1,19 @@
+<div class="modal">
+  <div class="modal-contain">
+    <div class="modal-window">
+      <div class="input-area" *ngIf="!(isActionEnd|async);else no">
+        <div class="message">Хотите подтвердить действие?</div>
+      </div>
+      <div class="action-btns">
+        <div class="btn" (click)="delete(false)" [ngClass]="(deleteAction|async)?'disabled':''" >Подтвердить</div>
+        <div class="btn btn-red" (click)="show(false)">Отменить</div>
+      </div>
+      <ng-template #no>
+        <div class="input-area">
+          <div class="message">fdghjkl</div>
+        </div>
+
+      </ng-template>
+    </div>
+  </div>
+</div>

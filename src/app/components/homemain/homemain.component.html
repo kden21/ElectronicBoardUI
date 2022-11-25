@@ -4,7 +4,7 @@
   <div class="home-main-card" style="background-image:  url(./assets/img/home-header-fill.jpg);">
     <div class="navigation-panel">
       <ng-container *ngFor="let cat of categories" >
-        <app-category-button *ngIf="cat.parentCategoryId==null" [category]="cat" (click)="selectedCategory = cat; changeSubCategory(cat)"
+        <app-category-button *ngIf="cat.parentCategoryId==null" [category]="cat" (click)="selectedCategory = cat; changeCategory(cat)"
                              [ngClass]="{ selected: selectedCategory === cat }" ></app-category-button>
       </ng-container >
     </div>
@@ -13,17 +13,17 @@
         <div >{{selectedSubCategory.name}}</div>
         <ul class="subcategory-nav">
           <ng-container *ngFor="let subCat of categories" >
-            <li class="category-navigation" *ngIf="subCat.parentCategoryId==selectedCategory.id" (click)="changeSubCategory(subCat)">{{subCat.name}}</li>
+            <li class="category-navigation" *ngIf="subCat.parentCategoryId==selectedCategory.id" (click)="changeCategory(subCat)">{{subCat.name}}</li>
           </ng-container>
         </ul>
       </div>
 
-      <input type="text" class="searchTerm" id="search-city" placeholder="Укажите город" formControlName="location">
+      <input type="text" class="searchTerm" id="search-city" placeholder="{{filterAdvt.location==null?'Укажите город':filterAdvt.location}}" formControlName="location">
       <div class="searchTerm" style="display: flex; align-items: center;" id="search-photo" >
-        <input type="checkbox" style="display: flex;" value="true" placeholder="С фото">
+        <input type="checkbox" style="display: flex;" value="true" placeholder="С фото" formControlName="photo">
         <span style="vertical-align: middle; white-space: nowrap;">С фото</span>
       </div>
-      <input type="text" class="searchTerm" id="search-s" placeholder="Поиск" formControlName="description">
+      <input type="text" class="searchTerm" id="search-s" placeholder="{{search==null?'Поиск':search}}" formControlName="description">
       <a (click)="navigation()" class="glo">Поиск</a>
     </div>
   </div>
@@ -31,7 +31,7 @@
 <app-title [valueStr]="valueTitle"></app-title>
 <app-advt-card  [advtList]="advtList"></app-advt-card>
 <div class="show-more" *ngIf="ss!==null">
-  <div (click)="getFilterAdvtList()" *ngIf="ss==false" class="show-more-contain">Показать еще...</div>
+  <div *ngIf="ss==false" class="show-more-contain" (click)="getFilterAdvtList()">Показать еще...</div>
     <div class="show-more-contain disabled" *ngIf="ss==true">Похоже, это все, что мы нашли...</div>
 </div>
 

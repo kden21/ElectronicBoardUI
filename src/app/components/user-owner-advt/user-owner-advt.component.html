@@ -1,4 +1,5 @@
-<div class="profile-card">
+<ng-container *ngIf="isLoadUser$|async; else loading">
+<div class="profile-card" *ngIf="user.statusUser==0; else user_delete">
   <div class="profile-card-area">
     <div class="profile">
 
@@ -6,6 +7,7 @@
       <div class="profile-photo-area">
         <img class="profile-photo" src="assets/img/profile.jpg"/>
       </div>
+
 
       <!--рэйтинг пользователя-->
       <div class="rating-result">
@@ -66,3 +68,42 @@
     </div>
   </div>
 </div>
+  <ng-template #user_delete>
+    <div class="profile-card" *ngIf="user.statusUser==0; else user_delete">
+      <div class="profile-card-area">
+        <div class="profile">
+
+          <!--фото пользователя-->
+          <div class="profile-photo-area">
+            <img class="profile-photo" src="assets/img/user_deleted.jpg"/>
+          </div>
+
+          <!--рэйтинг пользователя-->
+          <div class="rating-result">
+            <span class="active"></span>
+            <span class="active"></span>
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <!--блок с именем-->
+          <div style="margin: auto; display: flex;align-content: center">
+            <a class="profile-name"> {{user.name + " " + user.lastName[0]}}. </a>
+          </div>
+
+        </div>
+
+        <!--блок с данными профиля-->
+        <div>Пользователен удален или заблокирован</div>
+
+      </div>
+    </div>
+  </ng-template>
+</ng-container>
+
+
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>

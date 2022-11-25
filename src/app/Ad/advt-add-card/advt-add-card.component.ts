@@ -1,11 +1,12 @@
-import {Component, EventEmitter, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AdvtService} from "../../services/advt.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { IUser } from 'src/app/models/user';
-import {Observable, ReplaySubject, timeout} from "rxjs";
 import {CategoryService} from "../../services/category.service";
 import {ICategory} from "../../models/category";
 import {Router} from "@angular/router";
+import { StatusAdvt } from 'src/app/models/advt';
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-advt-add-card',
@@ -22,6 +23,9 @@ export class AdvtAddCardComponent implements OnInit {
   clicked=false;
   categories:ICategory[];
 
+  touchedCategory:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  showCategories:boolean=false;
+
   subCategory:ICategory=new class implements ICategory {
     id:number= 0;
     name:string= "Выберите категорию";
@@ -32,10 +36,9 @@ export class AdvtAddCardComponent implements OnInit {
   constructor(private advtService: AdvtService, private  categoryService:CategoryService, private router: Router) { }
 
   form = new FormGroup({
-    name: new FormControl<string>("",[Validators.required, Validators.maxLength(40)]),
+    name: new FormControl<string>("",[Validators.required, Validators.maxLength(80)]),
     price: new FormControl<number>(parseInt("", ),[Validators.required, Validators.maxLength(20)] ),
-    description: new FormControl<string>(""),
-    status: new FormControl<number>(parseInt("")),
+    description: new FormControl<string>("",[Validators.required, Validators.maxLength(1000)]),
     location: new FormControl<string>(""),
   })
 
@@ -43,36 +46,48 @@ export class AdvtAddCardComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user')!);
     this.categoryService.getAll().subscribe((categories) => {
       this.categories = categories;
-      console.log(this.categories)
     });
 
   }
 
-  submit(url: string, delay?: number){
-    this.advtUploaded = false;
-    if (this.photoUploaded == false){
-      console.log("Дождитесь загрузки фото")
+  touchedCat(){
+    this.touchedCategory.next(true);
+    this.showCategories=(!this.showCategories);
+  }
+  submit(){
+    if(this.form.invalid){
+      alert("форма невалидна");
+      Object.values(this.form.controls).forEach(control=>{
+        if(control.invalid){
+          control.markAllAsTouched();
+          control.updateValueAndValidity({onlySelf:true});
+        }
+      })
       return;
     }
+    else {
+      this.advtUploaded = false;
+      if (this.photoUploaded == false) {
+        console.log("Дождитесь загрузки фото")
+        return;
+      }
 
-    this.clicked = true;
+      this.clicked = true;
 
-    this.advtService.create({
-      id: 0,
-      name: this.form.value['name'] as string,
-      price:  this.form.value['price'] as number,
-      description: this.form.value['description'] as string,
-      photo: this.photo,
-      status: 0,
-      location: this.form.value['location'] as string,
-      categoryId: this.subCategory.id,
-      userId: this.user.id
-    }).subscribe( a => {
-      this.advtUploaded=true;
-    })
-    setTimeout(() => {
-      this.router.navigateByUrl(url);
-    }, delay ? delay : this.defaultDelay);
+      this.advtService.create({
+        id: 0,
+        name: this.form.value['name'] as string,
+        price: this.form.value['price'] as number,
+        description: this.form.value['description'] as string,
+        photo: this.photo,
+        status: StatusAdvt.Actual,
+        location: this.form.value['location'] as string,
+        categoryId: this.subCategory.id,
+        userId: this.user.id!
+      }).subscribe(a => {
+        this.advtUploaded = true;
+      })
+    }
   }
 
   public onPhoto(event : any): void {

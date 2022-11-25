@@ -1,0 +1,68 @@
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.modal-window {
+  height: 80px;
+  width: 260px;
+  background-color: rgba(255, 255, 255);
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: 5px;
+  display: flex;
+  align-content: center;
+  justify-content: start;
+  flex-direction: column;
+}
+.modal-contain {
+  margin: auto;
+  display: flex
+}
+
+.message{
+  font-family: Roboto-Light;
+  font-size: large;
+  text-align: center;
+}
+.action-btns{
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+.btn{
+  height: 35px;
+  width: 120px;
+  background-color: #2EDA73;
+  border-radius: 3px;
+  text-align: center;
+  color: white;
+  font-family: Roboto-Light;
+  line-height: 35px;
+  cursor: pointer;
+}
+.btn-red{
+  background-color: #F73953;
+
+}
+
+.btn:hover{
+  background-color: #DDDDDD;
+  color: #272634;
+}
+.disabled {
+  pointer-events: none;
+  background-position: 100% 0;
+  background-color: #DDDDDD;
+  color:#272634;
+}

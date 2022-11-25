@@ -5,6 +5,7 @@ import {IAccount} from "../models/account";
 import {UserService} from "./user.service";
 import {ILoginResponse} from "../models/loginResponse";
 import {environment} from "../../environments/environment";
+import {LoginAccountRequest} from "../models/login-account-request";
 
 @Injectable({
   providedIn: 'root'
@@ -72,7 +73,7 @@ export class AuthService{
 
 
 
-  register(account:IAccount): Observable<IAccount>{
+  register(account:LoginAccountRequest): Observable<IAccount>{
     return this.http.post<IAccount>('https://localhost:7097/v1/account/register', account);
   }
 

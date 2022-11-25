@@ -5,7 +5,8 @@ export class AdvtFilter {
   count?: number;
   description?: string;
   status: Status;
-  lastAdvtId?: number|null
+  lastAdvtId?: number|null;
+  isExistPhoto?:boolean;
 }
 
 export enum Status {

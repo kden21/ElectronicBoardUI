@@ -1,7 +1,9 @@
 import {StatusUser} from "./filters/userFilter";
+import {StatusRole} from "./user";
 
-export interface IUser{
-  id?: number,
+export interface LoginAccountRequest{
+  login: string,
+  password: string,
   name: string,
   middleName?: string,
   lastName: string,
@@ -14,10 +16,3 @@ export interface IUser{
   token?: string,
   statusUser:StatusUser
 }
-
-export enum StatusRole {
-  Admin,
-  User,
-  Anon
-}
-
