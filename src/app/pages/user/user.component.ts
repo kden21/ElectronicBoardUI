@@ -53,7 +53,9 @@ export class UserComponent implements OnInit {
 
     this.userReviewService.getAll(this.userId).subscribe(res=>{
       this.userReviews=res;
-      this.isLoadUserReviews$.next(true);
+      if(res.length!=0) {
+        this.isLoadUserReviews$.next(true);
+      }
     })
   }
 

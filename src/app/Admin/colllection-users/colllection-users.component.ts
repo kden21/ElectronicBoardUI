@@ -11,7 +11,7 @@ import {StatusUser} from "../../models/filters/userFilter";
 })
 export class ColllectionUsersComponent implements OnInit {
 
-  @Input() userList: IUser[] = [];
+  userList: BehaviorSubject<IUser[]>=new BehaviorSubject<IUser[]>([]);
   @Input() status = new EventEmitter<number>();
   isLoadingData$:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
 
@@ -19,15 +19,13 @@ export class ColllectionUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsersByStatus(StatusUser.Actual);
-    console.log('первый запрос сделан')
   }
 
   getUsersByStatus(statusUser:StatusUser){
-    console.log(statusUser+'55555')
     this.userService.getAllFilter({
       status:statusUser
     }).subscribe(userList =>{
-        this.userList=userList;
+        this.userList.next(userList);
         this.isLoadingData$.next(true);
       }
     )

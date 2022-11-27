@@ -3,8 +3,10 @@
 <div class="advt" [ngClass]="{ archive: advt.status==1}">
   <div class="advt-card-photo">
 
-    <img class="advt-photo" routerLink="/advts/{{advt.id}}" src="data:image/png;base64,{{advt.photo}}" *ngIf="(advt.photo ?? '') != '';else no_photo"/>
-    <ng-template #no_photo>
+    <ng-container *ngIf="(isPhotosLoading|async);">
+    <img class="advt-photo" routerLink="/advts/{{advt.id}}" *ngIf="advt.photo!.length!=0;else no_photo"  src="data:image/png;base64,{{advt.photo![0]}}" />
+    </ng-container>
+      <ng-template #no_photo>
       <img class="advt-photo" routerLink="/advts/{{advt.id}}" src="/assets/img/no-photo.jpg"/>
     </ng-template>
   </div>

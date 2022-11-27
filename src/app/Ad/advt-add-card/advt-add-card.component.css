@@ -216,9 +216,11 @@ a.disabled {
   height: 0;
 
 }
-.add-photo{
+
+.add-photo {
   margin-top: 0;
 }
+
 #category-span {
   width: 31%;
   padding: 0 5px;
@@ -294,4 +296,37 @@ span ul li:hover > ul {
   width: 400px;
   border-radius: 5px;
   transition: 0.55s opacity, 0.55s visibility;
+}
+
+.uploaded-photos {
+  display: flex;
+  margin-top: 10px;
+}
+
+.uploaded-photo {
+  position: relative;
+  width: 100px;
+  height: 100px
+}
+
+.delete-uploaded-photo {
+  width: 25px;
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  cursor: pointer;
+  margin-right: 3px;
+  right: 0%;
+}
+
+.icon-delete {
+  width: 25px;
+  height: 25px;
+}
+
+.photo-advt-upload {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 0 3px;
 }

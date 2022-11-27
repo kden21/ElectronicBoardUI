@@ -1,76 +1,98 @@
-<ng-container  *ngIf="isLoadAdvt$|async; else loading">
-<div class="advt-card">
-  <div class="advt-card-area">
-    <div class="advt" style="">
-      <div class="advt-photo-area">
-        <img class="advt-photo" src="data:image/png;base64,{{advtShow.photo}}">
-      </div>
-    </div>
-    <div class="data-advt-area">
-      <div class="data-advt">
-        <h1 class="data-advt-text" id="name-advt">{{advtShow.name}}</h1>
-      </div>
+<ng-container *ngIf="isLoadAdvt$|async; else loading">
+  <div class="advt-card">
+    <div class="advt-card-area">
+      <div class="advt" style="">
+        <div class="advt-photo-area">
+          <div class="advt-photo">
 
-      <div class="data-advt">
-        <h2 class="data-advt-text" id="price-advt">{{advtShow.price}} ₽</h2>
+            <div (click)="getPhotoIndexLeft()" *ngIf="(photoIndex$|async)!=0"
+                 style=" width: 55px;height: 100%;position: absolute;z-index: 2;left: 0%; cursor: pointer;line-height: 100%">
+              <div style="position: absolute;top:calc(50% - 30px) ;width: 55px;height: 60px;">
+                <img style="transform: rotate(90deg);width: 55px;height: 60px;" src="assets/svg/down-white.svg">
+              </div>
+            </div>
+
+            <div (click)="getPhotoIndexRight()" *ngIf="(photoIndex$|async)!=advtShow.photo!.length-1"
+                 style="width: 55px;height: 100%; z-index: 2; position: absolute;right: 0%; cursor: pointer">
+              <div style="position: absolute;top:calc(50% - 30px) ;width: 55px;height: 60px;">
+                <img style="transform: rotate(-90deg);width: 55px;height: 60px;" src="assets/svg/down-white.svg">
+              </div>
+            </div>
+
+            <img (click)="showPhoto= true" class="advt-photo" *ngIf="isLoadAdvt$|async; else loading"
+                 src="data:image/png;base64,{{advtShow.photo![(photoIndex$|async)!]}}">
+          </div>
+        </div>
       </div>
-      <div class="advt-content">
+      <div class="data-advt-area">
+        <div class="data-advt">
+          <h1 class="data-advt-text" id="name-advt">{{advtShow.name}}</h1>
+        </div>
 
         <div class="data-advt">
-          <img class="icon" src="../../../assets/svg/location_advt.svg"/>
-          <p class="data-advt-text" id="location-advt">{{advtShow.location}}</p>
+          <h2 class="data-advt-text" id="price-advt">{{advtShow.price}} ₽</h2>
         </div>
+        <div class="advt-content">
+
+          <div class="data-advt">
+            <img class="icon" src="../../../assets/svg/location_advt.svg"/>
+            <p class="data-advt-text" id="location-advt">{{advtShow.location}}</p>
+          </div>
 
 
-        <div class="data-advt" *ngIf="advtShow.userId!=viewingUser.id">
-          <img class="icon" src="../../../assets/svg/cancel.svg"/>
+          <div class="data-advt" *ngIf="advtShow.authorId!=viewingUser.id">
+            <img class="icon" src="../../../assets/svg/cancel.svg"/>
             <a class="data-advt-text" routerLink="/account/login" *ngIf="viewingUser.role==2; else userAuthorized">Пожаловаться</a>
             <ng-template #userAuthorized>
-              <a class="data-advt-text" (click)="writeReport = true" >Пожаловаться</a>
+              <a class="data-advt-text" (click)="writeReport = true">Пожаловаться</a>
             </ng-template>
 
-        </div>
+          </div>
 
 
-        <div class="data-advt" *ngIf="advtShow.userId!=viewingUser.id">
-          <img class="icon" src="../../../assets/svg/star.svg"/>
-          <a (click)="writeReview = true" class="data-advt-text" *ngIf="viewingUser.role!=2; else report_user_not_null">Отзыв</a>
-          <ng-template #report_user_not_null>
-            <a (click)="writeReview = true" class="data-advt-text" routerLink="/account/login">Отзыв</a>
-          </ng-template>
+          <div class="data-advt" *ngIf="advtShow.authorId!=viewingUser.id">
+            <img class="icon" src="../../../assets/svg/star.svg"/>
+            <a (click)="writeReview = true" class="data-advt-text"
+               *ngIf="viewingUser.role!=2; else report_user_not_null">Отзыв</a>
+            <ng-template #report_user_not_null>
+              <a (click)="writeReview = true" class="data-advt-text" routerLink="/account/login">Отзыв</a>
+            </ng-template>
+          </div>
         </div>
-      </div>
-      <div class="data-advt" style="justify-content: left" *ngIf="advtShow.userId==viewingUser.id; else other_content">
-        <button class="btn" (click)="editAdvt = true">Редактировать</button>
-        <div style="width: 10px"></div>
-        <button class="btn" id="delete" (click)="deleteAdvt(advtShow.id)" routerLink="">Снять с публикации</button>
-      </div>
-      <ng-template #other_content>
-        <div class="data-advt" style="justify-content: left">
-          <img class="icon" src="../../../assets/svg/star.svg"/>
-          <a class="data-advt-text">Добавить в избранное</a>
+        <div class="data-advt" style="justify-content: left"
+             *ngIf="advtShow.authorId==viewingUser.id; else other_content">
+          <button class="btn" (click)="editAdvt = true">Редактировать</button>
+          <div style="width: 10px"></div>
+          <button class="btn" id="delete" (click)="deleteAdvt(advtShow.id)" routerLink="">Снять с публикации</button>
         </div>
-      </ng-template>
+        <ng-template #other_content>
+          <div class="data-advt" style="justify-content: left">
+            <img class="icon" src="../../../assets/svg/star.svg"/>
+            <a class="data-advt-text" (click)="addAdvtInFavorite(advtShow.id, viewingUser.id!)">Добавить в избранное</a>
+          </div>
+        </ng-template>
+      </div>
     </div>
   </div>
-</div>
 
-<app-user-owner-advt [userId]="advtShow.userId" *ngIf="advtShow.userId!=viewingUser.id"></app-user-owner-advt>
-<div class="advt-card" *ngIf="advtShow!=null" style="display: flex;">
-  <div class="advt-card-area" style="justify-content: left; flex-direction: column;">
-    <h2 style=" margin: 5px 20px;font-family: Roboto-Bold;color: #25AF5C; ">Описание</h2>
+  <app-user-owner-advt [userId]="advtShow.authorId" *ngIf="advtShow.authorId!=viewingUser.id"></app-user-owner-advt>
+  <div class="advt-card" *ngIf="advtShow!=null" style="display: flex;">
+    <div class="advt-card-area" style="justify-content: left; flex-direction: column;">
+      <h2 style=" margin: 5px 20px;font-family: Roboto-Bold;color: #25AF5C; ">Описание</h2>
 
-    <p style="margin: 20px;font-family: Roboto-Light">{{advtShow.description}}</p>
-    <p style="margin: 20px;font-family: Roboto-Bold;color: darkseagreen; text-align: right">{{advtShow.createDate}}</p>
+      <p style="margin: 20px;font-family: Roboto-Light">{{advtShow.description}}</p>
+      <p
+        style="margin: 20px;font-family: Roboto-Bold;color: darkseagreen; text-align: right">{{advtShow.createDate}}</p>
+    </div>
   </div>
-</div>
 
-<app-reviews-advt [advtIdReview]="advtShow.id" *ngIf="advtShow!=null"></app-reviews-advt>
+  <app-reviews-advt [advtIdReview]="advtShow.id" *ngIf="advtShow!=null"></app-reviews-advt>
 
 
-<app-write-report-advt *ngIf="writeReport" (writeReport)="showWriteReport($event)"></app-write-report-advt>
-<app-write-review *ngIf="writeReview" (writeReview)="showWriteReview($event)"></app-write-review>
-<app-edit-advt *ngIf="editAdvt" (editAdvt)="showEditAdvt($event)" [advt]="advtShow"></app-edit-advt>
+  <app-write-report-advt *ngIf="writeReport" (writeReport)="showWriteReport($event)"></app-write-report-advt>
+  <app-write-review *ngIf="writeReview" (writeReview)="showWriteReview($event)"></app-write-review>
+  <app-edit-advt *ngIf="editAdvt" (editAdvt)="showEditAdvt($event)" [advt]="advtShow"></app-edit-advt>
+  <app-show-photo-advt *ngIf="showPhoto" (showPhoto)="showPhotoAdvt($event) " [photo]="advtShow.photo![(photoIndex$|async)!]"></app-show-photo-advt>
 </ng-container>
 <ng-template #loading>
   <app-loading></app-loading>

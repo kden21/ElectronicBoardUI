@@ -66,7 +66,7 @@
       <form method="post" enctype="multipart/form-data" class="add-photo" style="margin-top: 0">
         <label class="input-file">
           <span class="input-file-text" type="text">Выберите файл</span>
-          <input type="file" name="photo" accept="image/*,image/jpeg" (change)="onPhoto($event)">
+          <input type="file" multiple="multiple" name="photo" accept="image/*,image/jpeg" (change)="onPhoto($event)">
           <span class="input-file-btn">
         <img *ngIf="photoUploaded==true" class="file-icon" src="../../../assets/svg/file-image.svg"/>
         <img *ngIf="photoUploaded==false" src="assets/gif/load3.gif" class="file-icon">
@@ -79,7 +79,23 @@
           *поле заполнено неверно</div>
       </ng-template>
 
+      <ng-container *ngIf="photos.length!=0">
+        <div class="uploaded-photos" >
+          <div class="uploaded-photo" *ngFor="let photo of photos">
+            <div class="delete-uploaded-photo" (click)="deletePhoto(photos.indexOf(photo))">
+              <img class="icon-delete" src="assets/svg/window-close.svg">
+            </div>
+            <img class="photo-advt-upload" src="{{photo}}">
+          </div>
+
+        </div>
+
+      </ng-container>
+
       <a class="glo" type="submit" (click)="submit()" [ngClass]="{ disabled: clicked ==true}">Подать объявление</a>
+
+
+
     </div>
   </div>
 </div>

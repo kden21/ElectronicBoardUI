@@ -53,7 +53,12 @@
           <ng-template #show_phone>
             <span class="data-profile-text"
                   *ngIf="user.phoneNumber==null&&user.id!=viewingUser.id">Номер не указан</span>
-            <span class="data-profile-text" *ngIf="user.phoneNumber!=null">{{user.phoneNumber}}</span>
+            <span class="data-profile-text" *ngIf="user.phoneNumber!=null">
+              +{{user.phoneNumber[0]}}({{user.phoneNumber[1]+user.phoneNumber[2]+user.phoneNumber[3]}})
+              {{user.phoneNumber[4]+user.phoneNumber[5]+user.phoneNumber[6]}}-
+              {{user.phoneNumber[7]+user.phoneNumber[8]}}-
+              {{user.phoneNumber[9]+user.phoneNumber[10]}}
+            </span>
           </ng-template>
         </div>
 

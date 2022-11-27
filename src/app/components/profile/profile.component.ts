@@ -1,10 +1,11 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IUser} from "../../models/user";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BehaviorSubject, Subscription} from "rxjs";
 import {UserService} from "../../services/user.service";
 import {Status} from "../../models/filters/advtFilter";
 import {AdvtService} from "../../services/advt.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-profile',
@@ -24,6 +25,7 @@ export class ProfileComponent implements OnInit {
   @Input() user: IUser;
   @Input() userId: number;
   @Output() userIdReview: number;
+  userBlocked:boolean = false;
 
   isUserLoading$:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
   isUserDeleted$:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
@@ -31,7 +33,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
-              private advtService:AdvtService,
+              private authService:AuthService,
               private  router:Router
   ) {
   }
@@ -53,8 +55,14 @@ export class ProfileComponent implements OnInit {
   deleteUserProfile(showElement: boolean) {
     this.deleteProfile = showElement;
     this.deleteUser(this.user.id!);
-    console.log('пользователь удален')
+    console.log(this.user.id+' userId')
+    this.router.navigateByUrl('/users/'+this.user.id)
     //this.router.navigateByUrl('/');
+  }
+
+  logout(){
+    this.authService.logout();
+    this.router.navigateByUrl('/');
   }
 
   ngOnInit(): void {

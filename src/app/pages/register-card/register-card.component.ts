@@ -7,6 +7,7 @@ import {IUser, StatusRole} from "../../models/user";
 import {StatusUser} from "../../models/filters/userFilter";
 import {getLocaleDateFormat} from "@angular/common";
 import {BehaviorSubject} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'register',
@@ -20,7 +21,7 @@ export class RegisterCardComponent implements OnInit {
 
   constructor(
     private  authService:AuthService,
-    private userService:UserService) { }
+    ) { }
 
   form = new FormGroup({
     login: new FormControl<string>("",[Validators.required, Validators.maxLength(20),
@@ -73,12 +74,6 @@ export class RegisterCardComponent implements OnInit {
             password: this.form.value['password'] as string
           })
       });
-
-
-
-
-
-
     }
   }
 }

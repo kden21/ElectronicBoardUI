@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IAdvt} from "../../models/advt";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
+import {PhotoService} from "../../services/photo.service";
 
 @Component({
   selector: 'app-advt-small',
@@ -9,16 +10,33 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./advt-small.component.css']
 })
 export class AdvtSmallComponent implements OnInit {
-  id: number | number;
+
+  isPhotosLoading:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false)
   private subscription: Subscription;
 
   @Input() advt: IAdvt
 
-  constructor(private route: ActivatedRoute){
-    this.subscription = route.params.subscribe(params=>this.id=params['id']);
+  constructor(private photoService:PhotoService){
   }
 
   ngOnInit(): void {
+    this.advt.photo=[]
+    this.photoService.getAdvtPhotosFilter({
+      advtId:this.advt.id
+    }).subscribe(res=>
+    {
+      //this.advt.photo=[];
+      if(res.length!=0){
+        res.forEach((item)=>
+          {
+            this.advt.photo=this.advt.photo!.concat(item.base64Str);
+          }
+        )
+      }
+      //if(this.advt.photo!.length!=0) {
+        this.isPhotosLoading.next(true)
+      //}
+    })
   }
 
 

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {IUser, StatusRole} from "../../models/user";
-import {BehaviorSubject, Observable, Subscription} from "rxjs";
+import {BehaviorSubject, Observable, Subject, Subscription} from "rxjs";
 import {ILoginResponse} from "../../models/loginResponse";
 import {AuthService} from "../../services/auth.service";
 import {ActivatedRoute} from "@angular/router";
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   resp:ILoginResponse
   user: IUser
 
-  public isLogin$: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
+  public isLogin$: BehaviorSubject<IUser|null> = new BehaviorSubject<IUser | null>(null);
   private routeSubscription: Subscription;
   private querySubscription: Subscription;
 
@@ -25,20 +25,13 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user=JSON.parse(localStorage.getItem('user')!);
-
-    if(this.user!==null){
-      this.userService.getById(this.user.id!).subscribe(res=>{
-        this.user=res;
-        this.isLogin$.next(true);
-      })
-    }
-    // this.authService.user$.subscribe(user=> {
-    //   if(user===null)
-    //     console.log("null")
-    //   this.user = user
-    // })
-    // console.log(this.user+" 5")
+    // this.user=JSON.parse(localStorage.getItem('user')!);
+    // if(this.user!==null){
+    //   this.userService.getById(this.user.id!).subscribe(res=>{
+    //     this.user=res;
+    //     this.isLogin$.next(this.user);
+    //   })
+    // }
   }
 
   search(){

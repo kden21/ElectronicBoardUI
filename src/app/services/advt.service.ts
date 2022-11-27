@@ -15,29 +15,29 @@ export class AdvtService {
   }
 
   getAll(): Observable<IAdvt[]> {
-    return this.http.get<IAdvt[]>( `${environment.apiUrl}/v1/advts`)
+    return this.http.get<IAdvt[]>(`${environment.apiUrl}/v1/advts`)
   }
 
-  getAllFilter(advtFilter:AdvtFilter): Observable<IAdvt[]> {
+  getAllFilter(advtFilter: AdvtFilter): Observable<IAdvt[]> {
 
     let params = new HttpParams();
-    if(advtFilter.userId!=null)
-      params=params.set("UserId", advtFilter.userId);
-    if(advtFilter.categoryId!=null&&advtFilter.categoryId!=0)
-      params=params.set("CategoryId", advtFilter.categoryId);
-    if(advtFilter.count!=null)
-      params=params.set("Count", advtFilter.count);
-    if(advtFilter.location!=null)
-      params=params.set("location", advtFilter.location);
-    if(advtFilter.description!=null)
-      params=params.set("description", advtFilter.description);
-    if(advtFilter.status!=null)
-      params=params.set("status", advtFilter.status);
-    if(advtFilter.count!=null)
-      params=params.set("count", advtFilter.count);
-    if(advtFilter.lastAdvtId!=null)
-      params=params.set("lastAdvtId", advtFilter.lastAdvtId)
-    return this.http.get<IAdvt[]>(`${environment.apiUrl}/v1/advts/advtFilter`, {params} );
+    if (advtFilter.userId != null)
+      params = params.set("UserId", advtFilter.userId);
+    if (advtFilter.categoryId != null && advtFilter.categoryId != 0)
+      params = params.set("CategoryId", advtFilter.categoryId);
+    if (advtFilter.count != null)
+      params = params.set("Count", advtFilter.count);
+    if (advtFilter.location != null)
+      params = params.set("location", advtFilter.location);
+    if (advtFilter.description != null)
+      params = params.set("description", advtFilter.description);
+    if (advtFilter.status != null)
+      params = params.set("status", advtFilter.status);
+    if (advtFilter.count != null)
+      params = params.set("count", advtFilter.count);
+    if (advtFilter.lastAdvtId != null)
+      params = params.set("lastAdvtId", advtFilter.lastAdvtId)
+    return this.http.get<IAdvt[]>(`${environment.apiUrl}/v1/advts/advtFilter`, {params});
 
   }
 
@@ -48,7 +48,12 @@ export class AdvtService {
   create(advt: IAdvt): Observable<IAdvt> {
     return this.http.post<IAdvt>('https://localhost:7097/v1/advts/', advt)
   }
-  deleteAdvt(advtId:number){
+
+  deleteAdvt(advtId: number) {
     return this.http.delete(`${environment.apiUrl}/v1/advts/` + advtId)
+  }
+
+  updateAdvt(advtId: number, userId: number) {
+    return this.http.put(`${environment.apiUrl}/v1/advts/`+advtId+'/'+userId, advtId)
   }
 }

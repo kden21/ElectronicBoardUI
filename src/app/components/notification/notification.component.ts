@@ -15,6 +15,7 @@ export class NotificationComponent implements OnInit {
 
   delete(del:boolean){
     this.deleteAction.emit(del);
+    this.showDelete.emit(del);
   }
   show(show:boolean){
     this.showDelete.emit(show);

@@ -1,8 +1,8 @@
 <!-- Header -->
 
 <div class="header">
-  <div class="header-card" [ngStyle]="{'justify-content':  user==null||user.role!=0?'right':'space-between'}">
-    <div class="header-card-content dropdown" style="" *ngIf="user.role==0">
+  <div class="header-card" [ngStyle]="{'justify-content':  authService.userLogin$.value?.role!=0?'right':'space-between'}">
+    <div class="header-card-content dropdown" style="" *ngIf="authService.userLogin$.value?.role==0">
       <a class="icon icon-admin" title="admin">
         <img class="profile-icon-svg" data-name="profile" src="./assets/svg/admin.svg"/>
         <span class="icon-text ">Дополнительно
@@ -21,17 +21,16 @@
       </a>
     </div>
     <div class="header-card-content">
-      <a href="/users/{{user.id}}" class="icon" title="profile" *ngIf="(isLogin$|async); else no_auth">
+      <a href="/users/{{user.id}}" class="icon" title="profile" *ngIf="authService.userLogin$|async as user; else no_auth">
         <img class="profile-icon-svg" data-name="location" src="./assets/svg/profile.svg"/>
-        <span class="icon-text">{{user.name}}</span>
+        <span class="icon-text">{{authService.userLogin$.value?.name}}</span>
       </a>
       <ng-template #no_auth>
-        <a routerLink="/account/login" class="icon" title="profile" *ngIf="user==null">
+        <a routerLink="/account/login" class="icon" title="profile">
           <img class="profile-icon-svg" data-name="profile" src="./assets/svg/profile.svg"/>
           <span class="icon-text">Войти</span>
         </a>
       </ng-template>
-
 
       <a class="icon" title="location" href="https://www.svgrepo.com/vectors/location/">
         <img class="location-icon-svg" data-name="location" src="./assets/svg/location.svg"/>

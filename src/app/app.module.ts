@@ -47,6 +47,7 @@ import { AdvtReportsComponent } from './Admin/advt-reports/advt-reports.componen
 import { LoadingComponent } from './components/loading/loading.component';
 import {ErrorInterceptor} from "./services/error.interceptor";
 import { NotificationComponent } from './components/notification/notification.component';
+import { ShowPhotoAdvtComponent } from './components/show-photo-advt/show-photo-advt.component';
 
 const appRoutes: Routes =[
 
@@ -105,6 +106,7 @@ const appRoutes: Routes =[
     AdvtReportsComponent,
     LoadingComponent,
     NotificationComponent,
+    ShowPhotoAdvtComponent,
 
 
   ],

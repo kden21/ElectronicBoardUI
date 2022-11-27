@@ -5,8 +5,10 @@ import { IUser } from 'src/app/models/user';
 import {CategoryService} from "../../services/category.service";
 import {ICategory} from "../../models/category";
 import {Router} from "@angular/router";
-import { StatusAdvt } from 'src/app/models/advt';
+import {IAdvt, StatusAdvt} from 'src/app/models/advt';
 import {BehaviorSubject} from "rxjs";
+import {PhotoService} from "../../services/photo.service";
+import {IPhoto} from "../../models/photo";
 
 @Component({
   selector: 'app-advt-add-card',
@@ -17,7 +19,11 @@ export class AdvtAddCardComponent implements OnInit {
 
   @Input() user: IUser;
   base64Output : string;
-  photo?: string;
+
+  photo: string;
+  photos: string[]=[];
+
+  advtResult:IAdvt;
   photoUploaded:boolean = true;
   advtUploaded:boolean|null = null;
   clicked=false;
@@ -33,7 +39,12 @@ export class AdvtAddCardComponent implements OnInit {
 
   private defaultDelay = 2000;
 
-  constructor(private advtService: AdvtService, private  categoryService:CategoryService, private router: Router) { }
+  constructor(
+    private advtService: AdvtService,
+    private  categoryService:CategoryService,
+    private router: Router,
+    private photoService:PhotoService
+  ) { }
 
   form = new FormGroup({
     name: new FormControl<string>("",[Validators.required, Validators.maxLength(80)]),
@@ -48,6 +59,12 @@ export class AdvtAddCardComponent implements OnInit {
       this.categories = categories;
     });
 
+  }
+
+  deletePhoto(photoIndex:number){
+    this.photos.splice(photoIndex, 1)
+    console.log(photoIndex)
+    console.log(this.photos)
   }
 
   touchedCat(){
@@ -69,36 +86,57 @@ export class AdvtAddCardComponent implements OnInit {
       this.advtUploaded = false;
       if (this.photoUploaded == false) {
         console.log("Дождитесь загрузки фото")
+        this.advtUploaded = true;
         return;
       }
 
       this.clicked = true;
+
 
       this.advtService.create({
         id: 0,
         name: this.form.value['name'] as string,
         price: this.form.value['price'] as number,
         description: this.form.value['description'] as string,
-        photo: this.photo,
+        //photo: this.photos,
         status: StatusAdvt.Actual,
         location: this.form.value['location'] as string,
         categoryId: this.subCategory.id,
-        userId: this.user.id!
-      }).subscribe(a => {
+        authorId: this.user.id!
+      }).subscribe(advt => {
+        this.advtResult=advt;
+        console.log(this.advtResult.id+" id добавленного объявления")
+        this.photos.forEach((item) => {
+          let photo:IPhoto=new class implements IPhoto {
+            base64Str: string;
+            advtId: number;
+          };
+          photo.base64Str=item;
+          photo.advtId=this.advtResult.id;
+
+          this.photoService.createAdvtPhoto(photo).subscribe(res=>{
+            console.log(item+' фото добавлеяется')
+          });
+        });
+
         this.advtUploaded = true;
       })
     }
   }
 
   public onPhoto(event : any): void {
-    const file = event.target.files[0];
-    if (file == null){
-      return;
+    for(let i=0;i<event.target.files.length;i++){
+      const file = event.target.files[i];
+      if (file == null){
+        return;
+      }
+
+      this.photoUploaded = false;
+
+      this.convertFile(file);
     }
 
-    this.photoUploaded = false;
 
-    this.convertFile(file);
   }
 
   convertFile(file: File){
@@ -108,8 +146,13 @@ export class AdvtAddCardComponent implements OnInit {
       if (typeof(reader.result) == 'string') {
         this.photo = reader.result.toString();
         console.log(this.photo)
-        this.photoUploaded = true;
+
       }
+      this.photos=this.photos.concat(this.photo!)
+      //this.photos.
+      console.log(this.photos)
+      this.photoUploaded = true;
     };
+
   }
 }

@@ -3,10 +3,10 @@ export interface IAdvt {
   name: string,
   price: number,
   description?: string,
-  photo?: string,
+  photo?: string[],
   status: StatusAdvt,
   categoryId: number,
-  userId: number,
+  authorId: number,
   location: string,
   createDate?: string
 
