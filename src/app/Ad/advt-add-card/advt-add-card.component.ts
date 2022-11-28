@@ -118,8 +118,8 @@ export class AdvtAddCardComponent implements OnInit {
             console.log(item+' фото добавлеяется')
           });
         });
-
         this.advtUploaded = true;
+        this.router.navigateByUrl(`/advts/${ this.advtResult.id}`)
       })
     }
   }

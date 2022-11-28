@@ -6,6 +6,7 @@ import {UserService} from "../../services/user.service";
 import {Status} from "../../models/filters/advtFilter";
 import {AdvtService} from "../../services/advt.service";
 import {AuthService} from "../../services/auth.service";
+import {IUserReview} from "../../models/review/userReview";
 
 @Component({
   selector: 'app-profile',
@@ -19,12 +20,14 @@ export class ProfileComponent implements OnInit {
   editProfile: boolean = false;
   deleteProfile: boolean = false;
   showDeleteProfile: boolean = false;
+  @Input() userRating:number;
 
   viewingUser: IUser;
 
   @Input() user: IUser;
   @Input() userId: number;
   @Output() userIdReview: number;
+  //@Input() userReviews:IUserReview[];
   userBlocked:boolean = false;
 
   isUserLoading$:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
@@ -37,6 +40,14 @@ export class ProfileComponent implements OnInit {
               private  router:Router
   ) {
   }
+
+  /*getRating(){
+    this.userReviews.forEach((item)=>{
+      console.log(item.rating+' item р')
+      this.userRating=this.userRating+item.rating
+    })
+    console.log(this.userRating+' итог')
+  }*/
 
   showWriteReview(showElement: boolean) {
     this.writeReview = showElement;
@@ -55,9 +66,7 @@ export class ProfileComponent implements OnInit {
   deleteUserProfile(showElement: boolean) {
     this.deleteProfile = showElement;
     this.deleteUser(this.user.id!);
-    console.log(this.user.id+' userId')
     this.router.navigateByUrl('/users/'+this.user.id)
-    //this.router.navigateByUrl('/');
   }
 
   logout(){
@@ -67,22 +76,17 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.user == null) {
-
       this.routeSub = this.route.params.subscribe(params => {
         this.userId = parseInt(params['id']);
-        console.log('Параметры'+this.userId)
       });
     }
     else{
       this.userId=this.user.id!
-      console.log(this.userId+' userId')
     }
 
     this.userService.getById(this.userId).subscribe(user => {
       this.user = user;
-      console.log(user+' user')
       this.isUserLoading$.next(true);
-      console.log('aaaaaaaa')
     });
 
     this.userIdReview = this.userId;
@@ -90,7 +94,6 @@ export class ProfileComponent implements OnInit {
     this.viewingUser = this.userService.getViewUser();
   }
 
-  //todo: доделать logout
   deleteUser(userId:number){
     this.userService.deleteUser(userId, this.isUserDeleted$);
   }

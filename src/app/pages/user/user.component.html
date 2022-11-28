@@ -1,4 +1,4 @@
-<app-profile [user]="user"></app-profile>
+<app-profile *ngIf="isLoadUser$|async" [userRating]="userRating" [user]="user"></app-profile>
 <ng-container *ngIf="(isLoadUser$|async)">
 <ng-container *ngIf="user.statusUser==0">
 <app-reviews-profile *ngIf="(isLoadUserReviews$|async); else loading" [userReviews]="userReviews" ></app-reviews-profile>

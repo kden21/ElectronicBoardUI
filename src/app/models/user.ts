@@ -8,7 +8,7 @@ export interface IUser{
   birthday: string,
   phoneNumber: string,
   role: StatusRole,
-  photo: "",
+  photo?: string|null,
   email: string,
   accountId?: number,
   token?: string,

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {AdvtReviewService} from "../../../services/review/advtReview.service";
 import {IAdvtReview} from "../../../models/review/advtReview";
 

@@ -7,7 +7,10 @@
 
         <!--фото пользователя-->
         <div class="profile-photo-area" *ngIf="user.statusUser==0;else photo_deleted">
-          <img  class="profile-photo" src="assets/img/profile.jpg"/>
+          <img  class="profile-photo" *ngIf="user.photo!=null;else no_avatar" src="data:image/png;base64,{{user.photo}}"/>
+          <ng-template #no_avatar>
+            <img  class="profile-photo" src="assets/img/no_photo.png"/>
+          </ng-template>
 
         </div>
         <ng-template #photo_deleted>
@@ -20,11 +23,11 @@
 
         <!--рэйтинг пользователя-->
         <div class="rating-result">
-          <span class="active"></span>
-          <span class="active"></span>
-          <span class="active"></span>
-          <span></span>
-          <span></span>
+          <span [className]="userRating>0 ? 'active' : ''" ></span>
+          <span [className]="userRating>1 ? 'active' : ''" ></span>
+          <span [className]="userRating>2 ? 'active' : ''" ></span>
+          <span [className]="userRating>3 ? 'active' : ''" ></span>
+          <span [className]="userRating>4 ? 'active' : ''" ></span>
         </div>
 
         <!--блок с именем-->

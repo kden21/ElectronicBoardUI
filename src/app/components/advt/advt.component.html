@@ -6,14 +6,14 @@
           <div class="advt-photo">
 
             <div (click)="getPhotoIndexLeft()" *ngIf="(photoIndex$|async)!=0"
-                 style=" width: 55px;height: 100%;position: absolute;z-index: 2;left: 0%; cursor: pointer;line-height: 100%">
+                 style=" width: 55px;height: 100%;position: absolute;z-index: 1;left: 0%; cursor: pointer;line-height: 100%">
               <div style="position: absolute;top:calc(50% - 30px) ;width: 55px;height: 60px;">
                 <img style="transform: rotate(90deg);width: 55px;height: 60px;" src="assets/svg/down-white.svg">
               </div>
             </div>
 
             <div (click)="getPhotoIndexRight()" *ngIf="(photoIndex$|async)!=advtShow.photo!.length-1"
-                 style="width: 55px;height: 100%; z-index: 2; position: absolute;right: 0%; cursor: pointer">
+                 style="width: 55px;height: 100%; z-index: 1; position: absolute;right: 0%; cursor: pointer">
               <div style="position: absolute;top:calc(50% - 30px) ;width: 55px;height: 60px;">
                 <img style="transform: rotate(-90deg);width: 55px;height: 60px;" src="assets/svg/down-white.svg">
               </div>

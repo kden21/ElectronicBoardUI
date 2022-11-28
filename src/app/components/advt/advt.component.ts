@@ -1,6 +1,6 @@
 import {Component, OnInit, Output} from '@angular/core';
 import {IAdvt} from "../../models/advt";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {BehaviorSubject, Subscription} from "rxjs";
 import {AdvtService} from "../../services/advt.service";
 import {IUser, StatusRole} from "../../models/user";
@@ -28,6 +28,8 @@ export class AdvtComponent implements OnInit {
   @Output() user: IUser;
   @Output() userOwnAdvtId: number;
 
+
+
   isLoadAdvt$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoadAdvtPhotos$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   photoIndex$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -35,7 +37,8 @@ export class AdvtComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private advtService: AdvtService,
               private userService: UserService,
-              private photoService: PhotoService
+              private photoService: PhotoService,
+              private router:Router
   ) {
     this.routeSub = this.route.params.subscribe(params => {
       this.id = parseInt(params['id'])
@@ -90,23 +93,11 @@ export class AdvtComponent implements OnInit {
   }
 
   deleteAdvt(advtId: number) {
-    this.advtService.deleteAdvt(advtId).subscribe(c => console.log("deleteADVT"));
+    this.advtService.deleteAdvt(advtId).subscribe(c => this.router.navigateByUrl(`/users/${this.viewingUser.id}`));
   }
 
   addAdvtInFavorite(advtId:number, userId:number) {
-    this.advtService.updateAdvt(advtId,userId).subscribe(res=>console.log('okkkkkkkkkkkkkkkkkkkkkk'))
-    /*this.userService.updateUser(this.viewingUser.id!,{
-      accountId: 0,
-      birthday: this.viewingUser.birthday,
-      email: this.viewingUser.email,
-      lastName: this.viewingUser.lastName,
-      name: this.viewingUser.name,
-      phoneNumber: this.viewingUser.phoneNumber,
-      photo: this.viewingUser.photo,
-      role: this.viewingUser.role,
-      statusUser: this.viewingUser.statusUser
-
-    })*/
+    this.advtService.addInFavorite(advtId,userId).subscribe(res=>console.log('okkkkkkkkkkkkkkkkkkkkkk'))
   }
 
   ngOnDestroy() {

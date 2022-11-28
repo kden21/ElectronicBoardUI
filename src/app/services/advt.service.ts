@@ -53,7 +53,11 @@ export class AdvtService {
     return this.http.delete(`${environment.apiUrl}/v1/advts/` + advtId)
   }
 
-  updateAdvt(advtId: number, userId: number) {
+  addInFavorite(advtId: number, userId: number) {
     return this.http.put(`${environment.apiUrl}/v1/advts/`+advtId+'/'+userId, advtId)
+  }
+
+  updateAdvt(advtId:number, model:IAdvt){
+    return this.http.put(`${environment.apiUrl}/v1/advts/`+advtId, model)
   }
 }

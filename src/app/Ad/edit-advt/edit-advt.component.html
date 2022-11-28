@@ -1,26 +1,73 @@
 <div class="modal" >
   <div class="modal-contain">
-    <div class="modal-window">
-      <div class="input-area">
+    <div class="modal-window" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="input-area" >
         <label class="input-title">
           Название
         </label>
-        <input [value]="advt.name"/>
+        <input formControlName="name" (error)="error_tip_name"
+               [ngStyle]="{'background-color': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'#FEEEEE':'none',
+             'border-color': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'red':'',
+             'border': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'1px solid red':''}" [ngModel]="advt.name"/>
+        <ng-container  *ngTemplateOutlet="error_tip_name">*поле заполнено неверное</ng-container>
       </div>
+
       <div class="input-area">
         <label class="input-title">
           Цена
         </label>
-        <input [value]="advt.price"/>
+        <input formControlName="price" type="number"
+               (error)="error_tip_price" [ngModel]="advt.price"
+               [ngStyle]="{'background-color': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'#FEEEEE':'none',
+             'border-color': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'red':'',
+             'border': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'1px solid red':''}"/>
+        <ng-container  *ngTemplateOutlet="error_tip_price"></ng-container>
       </div>
       <div class="input-area" >
         <label class="input-title">
           Описание
         </label>
-        <textarea class="description" [value]="advt.description"></textarea>
+        <textarea class="description" formControlName="description"  placeholder="{{advt.description}}"
+                  (error)="error_tip_description" [ngModel]="advt.description"
+                  [ngStyle]="{'background-color': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'#FEEEEE':'none',
+             'border-color': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'red':'',
+             'border': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'1px solid red':''}"></textarea>
+        <ng-container  *ngTemplateOutlet="error_tip_description"></ng-container>
+      </div>
+      <div class="photos-advt-edit">
+        <div *ngFor="let p of photosAdvt" class="photos-advt-area">
+          <img class="photos-advt" src="data:image/png;base64,{{p.base64Str}}">
+          <div class="delete-photo" (click)="addPhotoInDelete(p.id!, photosAdvt.indexOf(p), photosAdvt)">
+            <img src="assets/svg/window-close.svg">
+          </div>
+        </div>
+
+        <ng-container *ngIf="uploadPhotos.length!=0">
+          <div *ngFor="let uploadedPhoto of uploadPhotos" class="photos-advt-area">
+            <img class="photos-advt" src="{{uploadedPhoto}}">
+            <div class="delete-photo" (click)="addPhotoInDelete(null, uploadPhotos.indexOf(uploadedPhoto), uploadPhotos)">
+              <img src="assets/svg/window-close.svg">
+            </div>
+          </div>
+        </ng-container>
+
+        <div style="margin-top: 10px;align-content: center;width: 112px;height: 112px">
+          <form  method="post" enctype="multipart/form-data">
+            <label class="input-file">
+              <input type="file" name="file" (change)="onPhoto($event)">
+              <div style="width: 112px;height: 112px;text-align: center">
+                <div style="margin: 10% ;height: 80%">
+                  <img style="width: 100%;object-fit: cover;" src="/assets/img/add-photo.png">
+                </div>
+
+              </div>
+            </label>
+          </form>
+        </div>
+
       </div>
       <div>
-        <button class="btn">Редактировать</button>
+        <button class="btn" (click)="submit()">Сохранить</button>
       </div>
     </div>
     <div class="window-close">
@@ -28,3 +75,16 @@
     </div>
   </div>
 </div>
+
+<ng-template #error_tip_name let-control>
+  <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+    *поле заполнено неверно</div>
+</ng-template>
+<ng-template #error_tip_price let-control>
+  <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('price')?.invalid && form.get('price')?.touched">
+    *поле заполнено неверно</div>
+</ng-template>
+<ng-template #error_tip_description let-control>
+  <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
+    *поле заполнено неверно</div>
+</ng-template>

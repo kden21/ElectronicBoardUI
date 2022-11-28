@@ -2,7 +2,10 @@
 
 <div class="review-card" *ngIf="isLoadAuthor$|async; else loading">
   <div class="user-photo-area" *ngIf="user.statusUser==0; else user_delete">
-    <img class="user-photo" src="../../../../assets/img/profile.jpg">
+    <img class="user-photo" *ngIf="user.photo!=null; else no_avatar" src="data:image/png;base64,{{user.photo}}">
+    <ng-template #no_avatar>
+      <img class="user-photo" src="/assets/img/no_photo.png">
+    </ng-template>
   </div>
   <ng-template #user_delete>
     <div class="user-photo-area">
@@ -13,11 +16,11 @@
     <a [routerLink]="'/users/'+user.id"  class="name-user">{{user.name}}</a>
     <span class="data-review">{{userReview.createDate}}</span>
     <div class="rating-mini">
-      <span class="active"></span>
-      <span class="active"></span>
-      <span class="active"></span>
-      <span></span>
-      <span></span>
+      <span [className]="userReview.rating>0 ? 'active' : ''"></span>
+      <span [className]="userReview.rating>1 ? 'active' : ''"></span>
+      <span [className]="userReview.rating>2 ? 'active' : ''"></span>
+      <span [className]="userReview.rating>3 ? 'active' : ''"></span>
+      <span [className]="userReview.rating>4 ? 'active' : ''"></span>
     </div>
     <p class="comment">Комментарий</p>
     <span class="data-review">{{userReview.description}}</span>

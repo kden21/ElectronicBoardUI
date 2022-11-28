@@ -17,6 +17,7 @@ import {UserService} from "../../services/user.service";
 export class UserComponent implements OnInit {
   private routeSub: Subscription;
 
+  userRating:number=0;
   viewingUser: IUser;
   showAdvtList$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
   advtFilter: AdvtFilter = new AdvtFilter();
@@ -54,8 +55,13 @@ export class UserComponent implements OnInit {
     this.userReviewService.getAll(this.userId).subscribe(res=>{
       this.userReviews=res;
       if(res.length!=0) {
+        res.forEach((item)=>{
+          this.userRating=this.userRating+item.rating
+        })
+        this.userRating=Math.floor(this.userRating/res.length);
         this.isLoadUserReviews$.next(true);
       }
+
     })
   }
 

@@ -3,6 +3,7 @@ import {IUser} from "../../models/user";
 import {StatusAdvt} from "../../models/advt";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
+import {PhotoService} from "../../services/photo.service";
 
 @Component({
   selector: 'app-edit-profile',
@@ -20,14 +21,15 @@ export class EditProfileComponent implements OnInit {
   advtUploaded:boolean|null = null;
   clicked=false;
   constructor(
-    private userService:UserService
+    private userService:UserService,
   ) { }
 
   form = new FormGroup({
-    name: new FormControl<string>("",[Validators.maxLength(20)]),
-    lastName: new FormControl<string>("", [Validators.maxLength(20)]),
-    email: new FormControl<string>("",[Validators.maxLength(40)]),
-    phone: new FormControl<string>("",[Validators.maxLength(11)]),
+    name: new FormControl<string>("",[Validators.required,Validators.maxLength(20)]),
+    lastName: new FormControl<string>("", [Validators.required,Validators.maxLength(20)]),
+    email: new FormControl<string>("",[Validators.required,Validators.maxLength(40),
+      Validators.pattern('^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$')]),
+    phone: new FormControl<string>("",[Validators.required,Validators.maxLength(11)]),
     middleName: new FormControl<string>("",[Validators.maxLength(20)]),
   })
 
@@ -60,31 +62,19 @@ export class EditProfileComponent implements OnInit {
       console.log('clicked true'+this.user.id)
       this.userService.updateUser(this.user.id!,{
         birthday: '11112002',
-        email: (this.form.value['email'] as string)===null? this.user.email:(this.form.value['email'] as string),
-        lastName: this.form.value['lastName'] as string,
+        email: (this.form.value['email'] as string)==""? this.user.email:(this.form.value['email'] as string),
+        lastName: (this.form.value['lastName'] as string)==""? this.user.email:(this.form.value['lastName'] as string),
         name: (this.form.value['name'] as string)===null? this.user.email:(this.form.value['name'] as string),
-        phoneNumber: this.user.phoneNumber,
-        photo: this.user.photo,
+        phoneNumber: (this.form.value['phone'] as string)===null? this.user.email:(this.form.value['phone'] as string),
+        photo: this.photo==null?this.user.photo:this.photo!,
         role: this.user.role,
         statusUser: this.user.statusUser,
-        middleName:this.form.value['middleName'] as string,
+        middleName:(this.form.value['middleName'] as string)===null? this.user.email:(this.form.value['middleName'] as string),
         accountId:this.user.accountId
 
-      }).subscribe(res=>console.log(this.user))
-
-      /*this.advtService.create({
-        id: 0,
-        name: this.form.value['name'] as string,
-        price: this.form.value['price'] as number,
-        description: this.form.value['description'] as string,
-        photo: this.photo,
-        status: StatusAdvt.Actual,
-        location: this.form.value['location'] as string,
-        categoryId: this.subCategory.id,
-        userId: this.user.id!
-      }).subscribe(a => {
-        this.advtUploaded = true;
-      })*/
+      }).subscribe(res=> {
+        console.log('фото загружено')
+      })
     }
   }
 

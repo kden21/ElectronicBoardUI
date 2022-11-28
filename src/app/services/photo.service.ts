@@ -24,4 +24,8 @@ export class PhotoService {
       params=params.set("AdvtId", photoFilter.advtId);
     return this.http.get<IPhoto[]>(`${environment.apiUrl}/v1/photos/photoFilter`,{params})
   }
+
+  deletePhoto(photoId:number){
+    return this.http.delete(`${environment.apiUrl}/v1/photos/`+photoId)
+  }
 }

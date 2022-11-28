@@ -1,6 +1,6 @@
 .modal {
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 5; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -13,8 +13,8 @@
 }
 
 .modal-window {
-  height: 410px;
-  width: 500px;
+  min-height: 410px;
+  min-width: 500px;
   background-color: rgba(255, 255, 255);
   padding: 20px;
   border-radius: 10px;
@@ -24,14 +24,18 @@
   justify-content: start;
   flex-direction: column;
 }
+
 .modal-contain {
   margin: auto;
   display: flex
 }
+
 .window-close {
   width: 30px;
-  height: 30px
+  height: 30px;
+  cursor: pointer;
 }
+
 .btn {
   height: 40px;
   width: 150px;
@@ -44,12 +48,14 @@
   margin-top: 20px;
   transition: 0.4s;
 }
-.btn:hover{
+
+.btn:hover {
   background-color: #F2F1F1;
   color: #25AF5C;
   transition: 0.4s;
 }
-input{
+
+input {
   border-radius: 10px;
   border: 1px solid #2EDA73;
   height: 25px;
@@ -58,22 +64,26 @@ input{
   outline: none;
   width: 100%;
   margin-top: 5px;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   font-family: Roboto-Bold;
 }
-input:focus{
+
+input:focus {
   border: 1px solid #649E42;
   background-color: #F4FEEE;
 }
-.input-area{
+
+.input-area {
   width: 480px
 }
-.input-title{
+
+.input-title {
+  margin-top: 10px;
   margin-left: 5px;
   font-family: Roboto-Bold;
-  margin-bottom: 15px;
 }
-.description{
+
+.description {
   border-radius: 10px;
   border: 1px solid #2EDA73;
   height: 100px;
@@ -85,3 +95,50 @@ input:focus{
   resize: none;
   font-family: Roboto-Light;
 }
+
+.photos-advt-area {
+  width: 112px;
+  height: 112px;
+  position: relative;
+  margin: 10px 3px 3px 3px;
+}
+
+.photos-advt {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+
+}
+
+.delete-photo {
+  width: 20px;
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.photos-advt-edit {
+  display: flex;
+  flex-wrap: wrap;
+  width: 480px;
+}
+
+.input-file {
+  position: relative;
+  font-family: Roboto-Bold;
+  cursor: pointer;
+}
+
+.input-file input[type=file] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
+}
+

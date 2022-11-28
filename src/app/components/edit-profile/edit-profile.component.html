@@ -1,6 +1,6 @@
 <div class="modal">
   <div class="modal-contain">
-    <div class="modal-window">
+    <div class="modal-window" [formGroup]="form" (ngSubmit)="submit()">
       <div class="edit-photo-area">
         <div class="photo-area">
           <img *ngIf="photo===null;else photo_profile" class="photo-profile" src="/assets/img/no_photo.png"/>
@@ -17,31 +17,66 @@
             </label>
           </form>
         </div>
-
       </div>
+
+
       <div class="input-area">
         <label class="input-title">Фамилия</label>
-        <input value="{{user.lastName}}"/>
+        <input [ngModel]="user.lastName" formControlName="lastName"
+               (error)="error_tip_lastName"/>
+        <ng-container  *ngTemplateOutlet="error_tip_lastName"></ng-container>
+        <ng-template #error_tip_lastName let-control>
+          <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched">
+            *поле заполнено неверно</div>
+        </ng-template>
+
+
       </div>
       <div class="input-area">
-        <label class="input-title">Имя</label>
-        <input value="{{user.name}}"/>
-        <div class="input-area">
-          <label class="input-title">Отчество</label>
-          <input value="{{(user.middleName==null)?'':user.middleName}}"/>
-        </div>
+        <label class="input-title" >Имя</label>
+        <input [ngModel]="user.name" formControlName="name"
+               (error)="error_tip_name"/>
+        <ng-container  *ngTemplateOutlet="error_tip_name"></ng-container>
+        <ng-template #error_tip_name let-control>
+          <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+            *поле заполнено неверно</div>
+        </ng-template>
+
 
         <div class="input-area">
-          <label class="input-title">Номер телефона</label>
-          <input mask="+0(000)000-00-00" placeholder="+{{user.phoneNumber[1]}}({{user.phoneNumber[2]+
-user.phoneNumber[3]+user.phoneNumber[4]}}){{user.phoneNumber[5]+user.phoneNumber[6]+user.phoneNumber[7]}}-
-{{user.phoneNumber[8]+user.phoneNumber[9]}}-{{user.phoneNumber[10]+user.phoneNumber[11]}}"/>
+          <label class="input-title" >Отчество</label>
+          <input [ngModel]="user.middleName" formControlName="middleName"
+                 (error)="error_tip_middleName"/>
         </div>
+        <ng-container  *ngTemplateOutlet="error_tip_middleName"></ng-container>
+        <ng-template #error_tip_middleName let-control>
+          <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('middleName')?.invalid && form.get('middleName')?.touched">
+            *поле заполнено неверно</div>
+        </ng-template>
+
+        <div class="input-area">
+          <label class="input-title" >Номер телефона</label>
+          <input mask="+0(000)000-00-00" [ngModel]="user.phoneNumber[0]+user.phoneNumber[1]+user.phoneNumber[2]+user.phoneNumber[3]
++user.phoneNumber[4]+user.phoneNumber[5]+user.phoneNumber[6]+user.phoneNumber[7]+user.phoneNumber[8]+user.phoneNumber[9]
++user.phoneNumber[10]" formControlName="phone" (error)="error_tip_phone">
+        </div>
+        <ng-container  *ngTemplateOutlet="error_tip_phone"></ng-container>
+        <ng-template #error_tip_phone let-control>
+          <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched">
+            *поле заполнено неверно</div>
+        </ng-template>
+
+
         <div class="input-area">
           <label class="input-title">Электронная почта</label>
-          <input type="email" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" value="{{user.email}}"/>
-        </div>
+          <input type="email" [ngModel]="user.email" formControlName="email" (error)="error_tip_email">
       </div>
+        <ng-container  *ngTemplateOutlet="error_tip_email"></ng-container>
+        <ng-template #error_tip_email let-control>
+          <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+            *поле заполнено неверно</div>
+        </ng-template>
+
       <div>
         <button (click)="submit()" [ngClass]="{ disabled: clicked ==true}" class="btn">Редактировать</button>
       </div>
@@ -50,4 +85,6 @@ user.phoneNumber[3]+user.phoneNumber[4]}}){{user.phoneNumber[5]+user.phoneNumber
       <a (click)="showEditProfile(false)"><img src="assets/svg/window-close.svg"/></a>
     </div>
   </div>
+</div>
+
 </div>

@@ -1,78 +1,75 @@
 <ng-container *ngIf="isLoadUser$|async; else loading">
-<div class="profile-card" *ngIf="user.statusUser==0; else user_delete">
-  <div class="profile-card-area">
-    <div class="profile">
+  <div class="profile-card" *ngIf="user.statusUser==0; else user_delete">
+    <div class="profile-card-area">
+      <div class="profile">
 
-      <!--фото пользователя-->
-      <div class="profile-photo-area">
-        <img class="profile-photo" src="assets/img/profile.jpg"/>
-      </div>
+        <!--фото пользователя-->
+        <div class="profile-photo-area">
+          <img class="profile-photo" src="assets/img/profile.jpg"/>
+        </div>
 
 
-      <!--рэйтинг пользователя-->
-      <div class="rating-result">
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
-        <span></span>
-        <span></span>
-      </div>
+        <!--рэйтинг пользователя-->
+        <div class="rating-result">
+          <span [className]="userRating>0 ? 'active' : ''"></span>
+          <span [className]="userRating>1 ? 'active' : ''"></span>
+          <span [className]="userRating>2 ? 'active' : ''"></span>
+          <span [className]="userRating>3 ? 'active' : ''"></span>
+          <span [className]="userRating>4 ? 'active' : ''"></span>
+        </div>
 
-      <!--блок с именем-->
-      <div style="margin: auto; display: flex;align-content: center">
-        <a [routerLink]="'/users/'+ userId" class="profile-name"> {{user.name + " " + user.lastName[0]}}. </a>
-        <div style="width: 3px"></div>
+        <!--блок с именем-->
+        <div style="margin: auto; display: flex;align-content: center">
+          <a [routerLink]="'/users/'+ userId" class="profile-name"> {{user.name + " " + user.lastName[0]}}. </a>
+          <div style="width: 3px"></div>
 
           <img title="Редактировать профиль" class="icon-edit-profile" src="assets/svg/edit.svg"
                *ngIf="user.id==viewingUser.id">
 
-      </div>
-
-    </div>
-
-    <!--блок с данными профиля-->
-    <div class="data-profile-area">
-      <div class="data-profile">
-
-        <!--email-->
-        <div class="data-profile-item">
-          <img class="icon" src="assets/svg/at.svg"/>
-          <a [routerLink]="'/account/login'" class="data-profile-text" *ngIf="viewingUser.role==2; else show_email">Посмотреть
-            email</a>
-          <ng-template #show_email>
-            <span class="data-profile-text" *ngIf="user.email==null&&user.id!=viewingUser.id">email не указан</span>
-            <span class="data-profile-text" *ngIf="user.email!=null">{{user.email}}</span>
-          </ng-template>
         </div>
 
-        <!--номер телефона-->
-        <div class="data-profile-item">
-          <img class="icon" src="assets/svg/phone.svg"/>
-          <a [routerLink]="'/account/login'" class="data-profile-text" *ngIf="viewingUser.role==2; else show_phone">Посмотреть
-            номер</a>
-          <ng-template #show_phone>
+      </div>
+
+      <!--блок с данными профиля-->
+      <div class="data-profile-area">
+        <div class="data-profile">
+
+          <!--email-->
+          <div class="data-profile-item">
+            <img class="icon" src="assets/svg/at.svg"/>
+            <a [routerLink]="'/account/login'" class="data-profile-text" *ngIf="viewingUser.role==2; else show_email">Посмотреть
+              email</a>
+            <ng-template #show_email>
+              <span class="data-profile-text" *ngIf="user.email==null&&user.id!=viewingUser.id">email не указан</span>
+              <span class="data-profile-text" *ngIf="user.email!=null">{{user.email}}</span>
+            </ng-template>
+          </div>
+
+          <!--номер телефона-->
+          <div class="data-profile-item">
+            <img class="icon" src="assets/svg/phone.svg"/>
+            <a [routerLink]="'/account/login'" class="data-profile-text" *ngIf="viewingUser.role==2; else show_phone">Посмотреть
+              номер</a>
+            <ng-template #show_phone>
             <span class="data-profile-text"
                   *ngIf="user.phoneNumber==null&&user.id!=viewingUser.id">Номер не указан</span>
-            <span class="data-profile-text" *ngIf="user.phoneNumber!=null">
-              +{{user.phoneNumber[0]}}({{user.phoneNumber[1]+user.phoneNumber[2]+user.phoneNumber[3]}})
-              {{user.phoneNumber[4]+user.phoneNumber[5]+user.phoneNumber[6]}}-
-              {{user.phoneNumber[7]+user.phoneNumber[8]}}-
-              {{user.phoneNumber[9]+user.phoneNumber[10]}}
+              <span class="data-profile-text" *ngIf="user.phoneNumber!=null">
+              +{{user.phoneNumber[0]}}({{user.phoneNumber[1] + user.phoneNumber[2] + user.phoneNumber[3]}}){{user.phoneNumber[4] + user.phoneNumber[5] + user.phoneNumber[6]}}-{{user.phoneNumber[7] + user.phoneNumber[8]}}-{{user.phoneNumber[9] + user.phoneNumber[10]}}
             </span>
-          </ng-template>
-        </div>
+            </ng-template>
+          </div>
 
-        <!--данные о дате регистрации-->
-        <div class="data-profile-item">
-          <img class="icon" src="assets/svg/time.svg"/>
-          <span class="data-profile-text">На EBoard с октября 2022</span>
+          <!--данные о дате регистрации-->
+          <div class="data-profile-item">
+            <img class="icon" src="assets/svg/time.svg"/>
+            <span class="data-profile-text">На EBoard с октября 2022</span>
+          </div>
+
         </div>
 
       </div>
-
     </div>
   </div>
-</div>
   <ng-template #user_delete>
     <div class="profile-card" *ngIf="user.statusUser==0; else user_delete">
       <div class="profile-card-area">
@@ -106,7 +103,6 @@
     </div>
   </ng-template>
 </ng-container>
-
 
 
 <ng-template #loading>
