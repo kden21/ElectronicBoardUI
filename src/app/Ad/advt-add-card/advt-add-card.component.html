@@ -6,24 +6,17 @@
       <h1>Создание объявления</h1>
 
       <span>Название*</span>
-      <input (error)="error_tip" class="advt-add-input"
-             [ngStyle]="{'background-color': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'#FEEEEE':'none',
-             'border-color': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'red':'',
-             'border': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'1px solid red':''}"
-             formControlName="name"/>
-      <ng-container  *ngTemplateOutlet="error_tip"></ng-container>
-      <span>Категория*</span>
-      <span  (error)="error_tip" class="advt-add-input"
-            [ngStyle]="{'background-color': ((subCategory.id==0)&&(touchedCategory|async))?'#FEEEEE':'white',
-             'border-color': ((subCategory.id==0)&&(touchedCategory|async))?'red':'',
-             'border': ((subCategory.id==0)&&(touchedCategory|async))?'1px solid red':''}"
-            id="category-span"><div style="text-overflow: ellipsis;height: 35px">
-        {{subCategory.name}}
-          <img (click)="touchedCat()" [ngStyle]="{'transform':showCategories==true? 'rotate(180deg)':''}"
-               src="assets/svg/down.svg" style="width: 25px;line-height: 45px">
-
+      <input class="advt-add-input" formControlName="name"/>
+      <div class="input-invalid" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">*поле заполнено
+        неверно
       </div>
 
+      <span>Категория*</span>
+      <span formControlName="city" class="advt-add-input" id="category-span">
+        <div style="text-overflow: ellipsis;height: 35px">{{subCategory.name}}
+          <img (click)="touchedCat()" [ngStyle]="{'transform':showCategories==true? 'rotate(180deg)':''}"
+               src="assets/svg/down.svg" style="width: 25px;line-height: 45px">
+      </div>
         <ul [ngStyle]="{'display':(showCategories)?'block':'none'}">
           <ng-container *ngFor="let cat of categories">
             <li *ngIf="cat.parentCategoryId===null">{{cat.name}}
@@ -38,29 +31,31 @@
       </span>
 
       <span>Цена*</span>
-      <input (error)="error_tip" class="advt-add-input"
-             [ngStyle]="{'background-color': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'#FEEEEE':'none',
-             'border-color': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'red':'',
-             'border': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'1px solid red':''}"
-             id="input-price" type="number" formControlName="price">
+      <input class="advt-add-input" id="input-price" type="number" formControlName="price">
+      <div class="input-invalid" *ngIf="form.get('ptice')?.invalid && form.get('price')?.touched">*поле заполнено
+        неверно
+      </div>
 
-      <ng-container *ngTemplateOutlet="error_tip"></ng-container>
-
-
-      <span>Город</span>
-      <input (error)="error_tip" class="advt-add-input"
-             [ngStyle]="{'background-color': ((form.get('location')?.invalid)&&(form.get('location')?.touched))?'#FEEEEE':'none',
-             'border-color': ((form.get('location')?.invalid)&&(form.get('location')?.touched))?'red':'',
-             'border': ((form.get('location')?.invalid)&&(form.get('location')?.touched))?'1px solid red':''}"
-             formControlName="location">
+      <span>Город*</span>
+      <div class="city-input">
+        <input [ngModel]="location.cityName" (input)="getLocation()" class="advt-add-input location-advt"
+               (focus)="onLocationFocus()"
+               (blur)="onLocationBlur()" placeholder="Укажите город" formControlName="location">
+        <div *ngIf="citySuggest.value.length!=0" class="input-city-ul"
+             [ngStyle]="{'display':(!(isLocationFocused|async)&&!(isLocationHovered|async))?'none':'block'}"
+             (mouseover)="onLocationHover()" (mouseout)="onLocationNoHover()">
+          <div class="input-city-item" (click)="location=loc" *ngFor="let loc of citySuggest|async">{{loc.cityName}}</div>
+        </div>
+      </div>
+      <div class="input-invalid" *ngIf="(location.cityName==undefined)&&(form.get('location')?.touched)">*поле заполнено
+        неверно
+      </div>
 
       <span>Описание*</span>
-      <textarea (error)="error_tip" class="advt-add-input"
-                [ngStyle]="{'background-color': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'#FEEEEE':'none',
-             'border-color': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'red':'',
-             'border': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'1px solid red':''}"
-                id="input-add-description" formControlName="description"></textarea>
-      <ng-container *ngTemplateOutlet="error_tip"></ng-container>
+      <textarea class="advt-add-input" id="input-add-description" formControlName="description"></textarea>
+      <div class="input-invalid" *ngIf="form.get('description')?.invalid && form.get('description')?.touched">*поле
+        заполнено неверно
+      </div>
 
       <span>Добавить фото</span>
       <form method="post" enctype="multipart/form-data" class="add-photo" style="margin-top: 0">
@@ -74,27 +69,19 @@
         </label>
       </form>
 
-      <ng-template #error_tip let-control>
-        <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
-          *поле заполнено неверно</div>
-      </ng-template>
 
       <ng-container *ngIf="photos.length!=0">
-        <div class="uploaded-photos" >
+        <div class="uploaded-photos">
           <div class="uploaded-photo" *ngFor="let photo of photos">
             <div class="delete-uploaded-photo" (click)="deletePhoto(photos.indexOf(photo))">
               <img class="icon-delete" src="assets/svg/window-close.svg">
             </div>
             <img class="photo-advt-upload" src="{{photo}}">
           </div>
-
         </div>
-
       </ng-container>
 
       <a class="glo" type="submit" (click)="submit()" [ngClass]="{ disabled: clicked ==true}">Подать объявление</a>
-
-
 
     </div>
   </div>

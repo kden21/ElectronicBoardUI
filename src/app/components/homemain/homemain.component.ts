@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CategoryService} from "../../services/category.service";
 import {ICategory} from "../../models/category";
 import {IAdvt} from "../../models/advt";
@@ -8,6 +8,7 @@ import {AdvtFilter, Status} from "../../models/filters/advtFilter";
 import {BehaviorSubject, Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {HttpParams} from "@angular/common/http";
+import {DadataSuggestService} from "../../services/dadata-suggest.service";
 
 @Component({
   selector: 'app-homemain',
@@ -16,18 +17,19 @@ import {HttpParams} from "@angular/common/http";
 })
 export class HomemainComponent implements OnInit {
 
-  //ss: boolean = new BehaviorSubject<boolean>(false)//IAdvt[]=[];
+
   @Output() advtList: IAdvt[] = [];
   @Output() valueTitle: string = "Актуальные объявления";
 
   lastAdvtId: number | null;
   countAdvt: number = 4;
   advtListReset: boolean = true;
-  //isAdvtListExist:boolean=false;
   ss: boolean | null = null;
 
   filterAdvt: AdvtFilter = new AdvtFilter();
-  //nextAdvtList:IAdvt[]=[];
+
+  isLocationFocused:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  isLocationHovered:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
 
   categories: ICategory[];
   subCategories: ICategory[];
@@ -50,8 +52,14 @@ export class HomemainComponent implements OnInit {
 
   private querySubscription: Subscription;
   search?: string;
+  location:string
+  city:BehaviorSubject<string[]>=new BehaviorSubject<string[]>([]);
 
-  constructor(private categoryService: CategoryService, private advtService: AdvtService, private route: ActivatedRoute, private router: Router) {
+  constructor(private categoryService: CategoryService,
+              private advtService: AdvtService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private suggestService: DadataSuggestService) {
     this.querySubscription = this.route.queryParams.subscribe(
       (queryParam: any) => {
         this.search = queryParam['search'];
@@ -121,4 +129,32 @@ export class HomemainComponent implements OnInit {
     this.advtListReset=true;
   }
 
+  getLocation(): void {
+    let cityName=this.form.value['location'] == "" ? "Укажите город" : this.form.value['location'];
+    this.city.next([]);
+    if(cityName!==null) {
+      this.suggestService.getSuggest(cityName!).subscribe(r => {
+        let stringJson = JSON.stringify(r);
+        let objJson = JSON.parse(stringJson);
+        objJson.suggestions.forEach((item:any)=>{
+          this.city.next(this.city.value.concat(item.data.city))
+        })
+      })
+    }
+  }
+
+  onLocationFocus(){
+    this.isLocationFocused.next(true);
+  }
+  onLocationBlur() {
+    this.isLocationFocused.next(false);
+  }
+
+  onLocationHover(){
+    this.isLocationHovered.next(true);
+  }
+
+  onLocationNoHover(){
+    this.isLocationHovered.next(false);
+  }
 }

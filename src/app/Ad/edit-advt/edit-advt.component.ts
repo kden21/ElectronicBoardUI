@@ -105,7 +105,8 @@ export class EditAdvtComponent implements OnInit {
         status: StatusAdvt.Actual,
         location: this.advt.location,
         categoryId: this.advt.categoryId,
-        authorId: this.advt.authorId
+        authorId: this.advt.authorId,
+        createDate:this.advt.createDate
       }).subscribe(advt => {
         //this.advtResult=advt;
         console.log(this.advt.id+" id добавленного объявления")
@@ -116,13 +117,11 @@ export class EditAdvtComponent implements OnInit {
           };
           photo.base64Str=item;
           photo.advtId=this.advt.id;
-
           this.photoService.createAdvtPhoto(photo).subscribe(res=>{
             console.log(item+' фото добавлеяется')
           });
 
         });
-        //this.advtUploaded = true;
         this.deleteAdvtsId.forEach((id)=>{
           console.log('advtsdeletedddd'+this.deleteAdvtsId)
           this.photoService.deletePhoto(id).subscribe(res=>console.log(id+" deletedPhoto"));

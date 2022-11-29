@@ -5,10 +5,7 @@
         <label class="input-title">
           Название
         </label>
-        <input formControlName="name" (error)="error_tip_name"
-               [ngStyle]="{'background-color': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'#FEEEEE':'none',
-             'border-color': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'red':'',
-             'border': ((form.get('name')?.invalid)&&(form.get('name')?.touched))?'1px solid red':''}" [ngModel]="advt.name"/>
+        <input formControlName="name" (error)="error_tip_name" [ngModel]="advt.name"/>
         <ng-container  *ngTemplateOutlet="error_tip_name">*поле заполнено неверное</ng-container>
       </div>
 
@@ -17,10 +14,7 @@
           Цена
         </label>
         <input formControlName="price" type="number"
-               (error)="error_tip_price" [ngModel]="advt.price"
-               [ngStyle]="{'background-color': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'#FEEEEE':'none',
-             'border-color': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'red':'',
-             'border': ((form.get('price')?.invalid)&&(form.get('price')?.touched))?'1px solid red':''}"/>
+               (error)="error_tip_price" [ngModel]="advt.price"/>
         <ng-container  *ngTemplateOutlet="error_tip_price"></ng-container>
       </div>
       <div class="input-area" >
@@ -28,10 +22,7 @@
           Описание
         </label>
         <textarea class="description" formControlName="description"  placeholder="{{advt.description}}"
-                  (error)="error_tip_description" [ngModel]="advt.description"
-                  [ngStyle]="{'background-color': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'#FEEEEE':'none',
-             'border-color': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'red':'',
-             'border': ((form.get('description')?.invalid)&&(form.get('description')?.touched))?'1px solid red':''}"></textarea>
+                  (error)="error_tip_description" [ngModel]="advt.description"></textarea>
         <ng-container  *ngTemplateOutlet="error_tip_description"></ng-container>
       </div>
       <div class="photos-advt-edit">

@@ -6,6 +6,8 @@ import {AdvtService} from "../../services/advt.service";
 import {IUser, StatusRole} from "../../models/user";
 import {UserService} from "../../services/user.service";
 import {PhotoService} from "../../services/photo.service";
+import {DadataSuggestService} from "../../services/dadata-suggest.service";
+import {IAddress} from "../../models/address";
 
 @Component({
   selector: 'app-advt',
@@ -29,7 +31,6 @@ export class AdvtComponent implements OnInit {
   @Output() userOwnAdvtId: number;
 
 
-
   isLoadAdvt$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoadAdvtPhotos$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   photoIndex$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -38,7 +39,8 @@ export class AdvtComponent implements OnInit {
               private advtService: AdvtService,
               private userService: UserService,
               private photoService: PhotoService,
-              private router:Router
+              private router: Router,
+              private suggestService: DadataSuggestService
   ) {
     this.routeSub = this.route.params.subscribe(params => {
       this.id = parseInt(params['id'])
@@ -63,43 +65,47 @@ export class AdvtComponent implements OnInit {
 
   getPhotoIndexLeft() {
     this.photoIndex$.next(this.photoIndex$.value - 1)
-    console.log(this.photoIndex$.value + " -1")
   }
 
   getPhotoIndexRight() {
     this.photoIndex$.next(this.photoIndex$.value + 1)
-    console.log(this.photoIndex$.value + " +1")
   }
 
   ngOnInit(): void {
     this.advtService.getById(this.id).subscribe(advt => {
       this.advtShow = advt,
-        this.userOwnAdvtId = advt.authorId;
+
+      this.userOwnAdvtId = advt.authorId;
+
+      this.suggestService.getSuggest(advt.location).subscribe(res=>{
+        let stringJson = JSON.stringify(res);
+        let objJson = JSON.parse(stringJson);
+        this.advtShow.location=objJson.suggestions[0].data.city;
+      })
+
       this.photoService.getAdvtPhotosFilter({
         advtId: advt.id
       }).subscribe(res => {
-        this.isLoadAdvt$.next(true);
+
+
         this.advtShow.photo = [];
         res.forEach((item) => {
           this.advtShow.photo = this.advtShow.photo?.concat(item.base64Str);
         })
         this.isLoadAdvtPhotos$.next(true);
+        this.isLoadAdvt$.next(true);
       })
 
     });
     this.viewingUser = this.userService.getViewUser();
-
-
   }
 
   deleteAdvt(advtId: number) {
     this.advtService.deleteAdvt(advtId).subscribe(c => this.router.navigateByUrl(`/users/${this.viewingUser.id}`));
   }
 
-  addAdvtInFavorite(advtId:number, userId:number) {
-    this.advtService.addInFavorite(advtId,userId).subscribe(res=>console.log('okkkkkkkkkkkkkkkkkkkkkk'))
+  addAdvtInFavorite(advtId: number, userId: number) {
+    this.advtService.addInFavorite(advtId, userId).subscribe(res => console.log('okkkkkkkkkkkkkkkkkkkkkk'))
   }
 
-  ngOnDestroy() {
-  }
 }

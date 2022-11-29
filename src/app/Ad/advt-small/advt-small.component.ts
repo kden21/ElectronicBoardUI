@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IAdvt} from "../../models/advt";
-import {ActivatedRoute} from "@angular/router";
-import {BehaviorSubject, Subscription} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {PhotoService} from "../../services/photo.service";
+import {DadataSuggestService} from "../../services/dadata-suggest.service";
 
 @Component({
   selector: 'app-advt-small',
@@ -11,34 +11,36 @@ import {PhotoService} from "../../services/photo.service";
 })
 export class AdvtSmallComponent implements OnInit {
 
-  isPhotosLoading:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false)
-  private subscription: Subscription;
+  isPhotosLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
   @Input() advt: IAdvt
 
-  constructor(private photoService:PhotoService){
+  constructor(
+    private photoService: PhotoService,
+    private suggestService:DadataSuggestService
+    ) {
   }
 
   ngOnInit(): void {
-    this.advt.photo=[]
+    this.suggestService.getSuggest(this.advt.location).subscribe(res=>{
+      let stringJson = JSON.stringify(res);
+      let objJson = JSON.parse(stringJson);
+      this.advt.location=objJson.suggestions[0].data.city;
+    })
+
+    this.advt.photo = []
     this.photoService.getAdvtPhotosFilter({
-      advtId:this.advt.id
-    }).subscribe(res=>
-    {
-      //this.advt.photo=[];
-      if(res.length!=0){
-        res.forEach((item)=>
-          {
-            this.advt.photo=this.advt.photo!.concat(item.base64Str);
+      advtId: this.advt.id
+    }).subscribe(res => {
+      if (res.length != 0) {
+        res.forEach((item) => {
+            this.advt.photo = this.advt.photo!.concat(item.base64Str);
           }
         )
       }
-      //if(this.advt.photo!.length!=0) {
-        this.isPhotosLoading.next(true)
-      //}
+      this.isPhotosLoading.next(true)
     })
   }
-
 
 
 }
