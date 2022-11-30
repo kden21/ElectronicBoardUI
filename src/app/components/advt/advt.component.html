@@ -19,8 +19,11 @@
               </div>
             </div>
 
-            <img (click)="showPhoto= true" class="advt-photo" *ngIf="isLoadAdvt$|async; else loading"
+            <img class="advt-photo" *ngIf="advtShow.photo!.length==0; else show_photo" src="assets/img/no-photo.jpg">
+            <ng-template #show_photo>
+            <img (click)="showPhoto=true" class="advt-photo" *ngIf="isLoadAdvtPhotos$|async; else loading"
                  src="data:image/png;base64,{{advtShow.photo![(photoIndex$|async)!]}}">
+            </ng-template>
           </div>
         </div>
       </div>

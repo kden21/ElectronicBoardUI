@@ -37,6 +37,8 @@ export class AdvtService {
       params = params.set("count", advtFilter.count);
     if (advtFilter.lastAdvtId != null)
       params = params.set("lastAdvtId", advtFilter.lastAdvtId)
+    if(advtFilter.isExistPhoto!=null)
+      params=params.set("photo", advtFilter.isExistPhoto)
     return this.http.get<IAdvt[]>(`${environment.apiUrl}/v1/advts/advtFilter`, {params});
 
   }

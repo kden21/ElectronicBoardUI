@@ -3,7 +3,7 @@ export class AdvtFilter {
   categoryId?: number;
   location?: string;
   count?: number;
-  description?: string;
+  description?: string | null;
   status: Status;
   lastAdvtId?: number|null;
   isExistPhoto?:boolean;

@@ -53,7 +53,6 @@ export class EditAdvtComponent implements OnInit {
       if (file == null){
         return;
       }
-      //this.photoUploaded = false
       this.convertFile(file);
     }
   }
@@ -64,15 +63,9 @@ export class EditAdvtComponent implements OnInit {
     reader.onload = () => {
       if (typeof(reader.result) == 'string') {
         this.photo = reader.result.toString();
-        console.log(this.photo)
-
       }
       this.uploadPhotos=this.uploadPhotos.concat(this.photo!)
-      //this.photos.
-      console.log(this.uploadPhotos)
-      //this.photoUploaded = true;
     };
-
   }
 
   submit(){
@@ -87,16 +80,6 @@ export class EditAdvtComponent implements OnInit {
       return;
     }
     else {
-      /*this.advtUploaded = false;
-      if (this.photoUploaded == false) {
-        console.log("Дождитесь загрузки фото")
-        this.advtUploaded = true;
-        return;
-      }
-
-      this.clicked = true;
-*/
-
       this.advtService.updateAdvt(this.advt.id,{
         id: 0,
         name: (this.form.value['name'] as string)==""?this.advt.name:this.form.value['name'] as string,
@@ -123,7 +106,6 @@ export class EditAdvtComponent implements OnInit {
 
         });
         this.deleteAdvtsId.forEach((id)=>{
-          console.log('advtsdeletedddd'+this.deleteAdvtsId)
           this.photoService.deletePhoto(id).subscribe(res=>console.log(id+" deletedPhoto"));
 
         })
@@ -134,10 +116,8 @@ export class EditAdvtComponent implements OnInit {
 
   addPhotoInDelete(photoId:number|null, photoIndex:number, photos:IPhoto[]|string[]){
     photos=photos.splice(photoIndex, 1)
-    console.log(photos)
     if(photoId!=null)
       this.deleteAdvtsId=this.deleteAdvtsId.concat(photoId);
-    console.log(' фото готовится на удаление' + photoId);
   }
   deletePhoto(photo:IPhoto){
     this.photoService.deletePhoto(photo.id!).subscribe(res=>console.log(' !photo deleted'))

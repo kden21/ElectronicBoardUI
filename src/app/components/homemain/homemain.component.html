@@ -19,14 +19,14 @@
       </div>
 
       <div class="searchTerm"  id="search-city" style="padding: 0" >
-        <input placeholder="Укажите город" class="input-city" formControlName="location" type="text" [ngModel]="location" (focus)="onLocationFocus()" (blur)="onLocationBlur()" (input)="getLocation()">
+        <input placeholder="Укажите город" class="input-city" formControlName="location" type="text" [ngModel]="location==undefined?'':location.cityName" (focus)="onLocationFocus()" (blur)="onLocationBlur()" (input)="getLocation()">
         <div class="dropdown-city" [ngStyle]="{'display':(!(isLocationFocused|async)&&!(isLocationHovered|async))?'none':'block'}" (mouseover)="onLocationHover()" (mouseout)="onLocationNoHover()">
-            <div class="city-item" (click)="location=loc" *ngFor="let loc of city|async">{{loc}}</div>
+            <div class="city-item" (click)="location=loc" *ngFor="let loc of cityList|async">{{loc.cityName}}</div>
         </div>
       </div>
 
       <div class="searchTerm" style="display: flex; align-items: center;" id="search-photo" >
-        <input type="checkbox" style="display: flex;" value="true" placeholder="С фото" formControlName="photo">
+        <input  type="checkbox" style="display: flex;" value="true" placeholder="С фото" formControlName="photo">
         <span style="vertical-align: middle; white-space: nowrap;">С фото</span>
       </div>
       <input type="text" class="searchTerm" id="search-s" placeholder="{{search==null?'Поиск':search}}" formControlName="description">
@@ -34,7 +34,7 @@
     </div>
   </div>
 </div>
-<app-title [valueStr]="valueTitle"></app-title>
+<app-title [valueStr]="valueTitle.value"></app-title>
 <app-advt-card  [advtList]="advtList"></app-advt-card>
 <div class="show-more" *ngIf="ss!==null">
   <div *ngIf="ss==false" class="show-more-contain" (click)="getFilterAdvtList()">Показать еще...</div>
