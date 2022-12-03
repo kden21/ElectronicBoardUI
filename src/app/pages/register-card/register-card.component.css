@@ -30,11 +30,11 @@ h1 {
 .register-input {
   border-radius: 5px;
   height: 35px;
-  width: 98%;
+  width: calc(100% - 20px);
   border: 1px solid #2EDA73;
   font-size: large;
   padding: 0 10px;
-  outline:none;
+  outline: none;
 }
 
 .sing-in-input:hover {
@@ -84,10 +84,18 @@ a.glo:hover {
   font-weight: bold;
 }
 
-a{cursor: pointer}
+a {
+  cursor: pointer
+}
+
 .disabled {
   pointer-events: none;
   background-position: 100% 0;
   color: #2EDA73;
   font-weight: bold;
+}
+
+.input-invalid {
+  font-family: Roboto-Light;
+  color: red
 }

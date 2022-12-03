@@ -11,7 +11,7 @@ import {DadataSuggestService} from "../../services/dadata-suggest.service";
 })
 export class AdvtSmallComponent implements OnInit {
 
-  isPhotosLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  isAdvtLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
   @Input() advt: IAdvt
 
@@ -29,6 +29,7 @@ export class AdvtSmallComponent implements OnInit {
     })
 
     this.advt.photo = []
+
     this.photoService.getAdvtPhotosFilter({
       advtId: this.advt.id
     }).subscribe(res => {
@@ -38,9 +39,7 @@ export class AdvtSmallComponent implements OnInit {
           }
         )
       }
-      this.isPhotosLoading.next(true)
+      this.isAdvtLoading.next(true);
     })
   }
-
-
 }

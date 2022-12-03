@@ -17,7 +17,106 @@ body {
   margin: 0; /* Убираем отступы */
   height: 100%;
 }
-.content-area{
+
+.ant-notification-notice {
+  position: relative;
+  width: 384px;
+  max-width: calc(100vw - 48px);
+  margin-bottom: 16px;
+  margin-left: auto;
+  padding: 16px 24px;
+  overflow: hidden;
+  line-height: 1.5715;
+  word-wrap: break-word;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+}
+
+.ant-notification-notice-icon {
+  position: absolute;
+  margin-left: 4px;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+/*.anticon {
+  display: inline-block;
+  color: inherit;
+  font-style: normal;
+  line-height: 0;
+  text-align: center;
+  text-transform: none;
+  vertical-align: -.125em;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+}*/
+
+.ant-notification-notice-with-icon .ant-notification-notice-message {
+  margin-bottom: 4px;
+  margin-left: 48px;
+  font-size: 16px;
+
+}
+
+.ant-notification-notice-closable .ant-notification-notice-message {
+  padding-right: 24px;
+}
+
+.ant-notification-notice-message {
+  margin-bottom: 8px;
+  color: #000000d9;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: Roboto-Light;
+}
+
+.ant-notification-notice-with-icon .ant-notification-notice-description {
+  margin-left: 48px;
+  font-size: 14px;
+  font-family: Roboto-Light;
+}
+
+.ant-notification-notice-close {
+  position: absolute;
+  top: 16px;
+  right: 22px;
+  color: #00000073;
+  outline: none;
+  cursor: pointer;
+}
+
+.ant-notification {
+  box-sizing: border-box;
+  margin: 0 15px 0 0;
+  padding: 0;
+  color: red;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum", "tnum";
+  position: fixed;
+  z-index: 1010;
+}
+
+/*.cdk-overlay-container {
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+}*/
+
+.ant-notification-topRight {
+  margin-top:90px;
+}
+
+.content-area {
   max-width: 1300px;
   width: 100%
 }

@@ -48,8 +48,14 @@ h1 {
   font-size: medium;
 }
 
-.sing-in-password-recovery a {
+.text-password-recovery {
+  margin: auto;
+  font-family: Roboto-Light
+}
+
+.sing-in-password-recovery {
   text-decoration: #2EDA73;
+  cursor: pointer;
 }
 
 .sing-in-password-recovery:hover {

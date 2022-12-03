@@ -1,25 +1,33 @@
 <!-- Компонент, отражающий данные объявления -->
 
 <div class="advt" [ngClass]="{ archive: advt.status==1}">
-  <div class="advt-card-photo">
-
-    <ng-container *ngIf="(isPhotosLoading|async);">
-    <img class="advt-photo" routerLink="/advts/{{advt.id}}" *ngIf="advt.photo!.length!=0;else no_photo"  src="data:image/png;base64,{{advt.photo![0]}}" />
-    </ng-container>
+<ng-container *ngIf="isAdvtLoading|async;else loading">
+    <div class="advt-card-photo">
+      <ng-container>
+        <img class="advt-photo" routerLink="/advts/{{advt.id}}" *ngIf="advt.photo!.length!=0;else no_photo"
+             src="data:image/png;base64,{{advt.photo![0]}}"/>
+      </ng-container>
       <ng-template #no_photo>
-      <img class="advt-photo" routerLink="/advts/{{advt.id}}" src="/assets/img/no-photo.jpg"/>
-    </ng-template>
-  </div>
-  <div class="advt-card">
-    <div class="name-advt-area">
-      <a class="name-advt" routerLink="/advts/{{advt.id}}">
-        <p class="name-advt">{{advt.id+advt.name}}</p>
-      </a>
+        <img class="advt-photo" routerLink="/advts/{{advt.id}}" src="/assets/img/no-photo.jpg"/>
+      </ng-template>
     </div>
-    <span class="price-advt">{{advt.price}} ₽</span>
-    <div style="display: flex;justify-content: space-between;padding: 3px 15px 0px 0px">
-      <span class="location-advt">{{advt.location}}</span>
-      <span class="location-advt">{{advt.createDate}}</span>
+
+    <div class="advt-card">
+      <div class="name-advt-area">
+        <a class="name-advt" routerLink="/advts/{{advt.id}}">
+          <p class="name-advt">{{advt.name}}</p>
+        </a>
+      </div>
+      <span class="price-advt">{{advt.price}} ₽</span>
+      <div class="data-advt">
+        <span class="location-advt">{{advt.location}}</span>
+        <span class="location-advt">{{advt.createDate}}</span>
+      </div>
     </div>
+</ng-container>
   </div>
-</div>
+
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>

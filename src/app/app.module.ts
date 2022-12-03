@@ -4,6 +4,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {Routes, RouterModule} from '@angular/router';
 
 import {NgxMaskModule} from 'ngx-mask';
+import {NgxCaptchaModule} from "ngx-captcha";
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+
 
 import {AppComponent} from './app.component';
 import {HeaderhomeComponent} from "./components/headerhome/headerhome.component";
@@ -48,6 +51,9 @@ import {LoadingComponent} from './components/loading/loading.component';
 import {ErrorInterceptor} from "./services/error.interceptor";
 import {NotificationComponent} from './components/notification/notification.component';
 import {ShowPhotoAdvtComponent} from './components/show-photo-advt/show-photo-advt.component';
+
+import { ErrorNotificationComponent } from './components/error-notification/error-notification.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const appRoutes: Routes = [
 
@@ -107,6 +113,7 @@ const appRoutes: Routes = [
     LoadingComponent,
     NotificationComponent,
     ShowPhotoAdvtComponent,
+    ErrorNotificationComponent,
 
 
   ],
@@ -117,6 +124,9 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
+    NgxCaptchaModule,
+    NzNotificationModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

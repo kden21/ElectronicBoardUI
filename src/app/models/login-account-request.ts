@@ -14,5 +14,5 @@ export interface LoginAccountRequest{
   email: string,
   accountId?: number,
   token?: string,
-  statusUser:StatusUser
+  statusUser:StatusUser,
 }

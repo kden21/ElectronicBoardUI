@@ -19,8 +19,11 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "@kolkov/ngx-dadata": "^1.0.3",
+    "ng-zorro-antd": "^14.2.1",
+    "ngx-captcha": "^12.0.2",
     "ngx-mask": "^14.2.4",
     "rxjs": "~7.5.0",
+    "svg-captcha": "^1.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

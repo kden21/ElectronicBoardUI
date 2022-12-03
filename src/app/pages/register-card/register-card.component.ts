@@ -1,13 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {IAccount} from "../../models/account";
-import {UserService} from "../../services/user.service";
-import {IUser, StatusRole} from "../../models/user";
+import {StatusRole} from "../../models/user";
 import {StatusUser} from "../../models/filters/userFilter";
-import {getLocaleDateFormat} from "@angular/common";
 import {BehaviorSubject} from "rxjs";
-import {Router} from "@angular/router";
+import {environment} from "../../../environments/environment";
+import {MessageNotificationService} from "../../services/message-notification.service";
+import {EmailSendlerService} from "../../services/email-sendler.service";
 
 @Component({
   selector: 'register',
@@ -15,46 +15,75 @@ import {Router} from "@angular/router";
   styleUrls: ['./register-card.component.css']
 })
 export class RegisterCardComponent implements OnInit {
+  siteKey: string;
 
-   account: IAccount;
-   isCreateAccount:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(true);
+  account: IAccount;
+  isCreateAccount: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
+  passwordConfirm:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  isEmailConfirm:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  errorText:BehaviorSubject<string|null>=new BehaviorSubject<string | null>(null);
+ //timeForEmailConfirm:BehaviorSubject<number>=new BehaviorSubject<number>(45);
 
   constructor(
-    private  authService:AuthService,
-    ) { }
-
-  form = new FormGroup({
-    login: new FormControl<string>("",[Validators.required, Validators.maxLength(20),
-      Validators.pattern('^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$')]),
-    password: new FormControl<string>("",[Validators.required, Validators.maxLength(20)]),
-    phone: new FormControl<string>("",[Validators.required, Validators.maxLength(20),
-      Validators.pattern('^(\\s*)?(\\+)?([- _():=+]?\\d[- _():=+]?){10,14}(\\s*)?$')]),
-    passwordConfirm:new FormControl<string>("",[Validators.required, Validators.maxLength(20)]),
-    name:new FormControl<string>("",[Validators.required, Validators.maxLength(20)]),
-    lastName:new FormControl<string>("",[Validators.required, Validators.maxLength(20)]),
-    birthday:new FormControl<string>("",)
-  })
-
-  ngOnInit(): void {
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private emailSendlerService:EmailSendlerService
+  ) {
+    this.siteKey = `${environment.siteKeyReCaptha}`;
   }
 
-  createUser(){
+  form = new FormGroup({
+    login: new FormControl<string>("", [Validators.required, Validators.maxLength(20),
+      Validators.pattern('^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$')]),
+    password: new FormControl<string>("", [Validators.required, Validators.maxLength(20),
+      Validators.minLength(6)]),
+    phone: new FormControl<string>("", [Validators.required, Validators.maxLength(20),
+      Validators.pattern('^(\\s*)?(\\+)?([- _():=+]?\\d[- _():=+]?){10,14}(\\s*)?$')]),
+    passwordConfirm: new FormControl<string>("", [Validators.required, Validators.minLength(6)]),
+    name: new FormControl<string>("", [Validators.required, Validators.maxLength(20)]),
+    lastName: new FormControl<string>("", [Validators.required, Validators.maxLength(20)]),
+    birthday: new FormControl<string>("", [Validators.required, Validators.maxLength(20)]),
+    userCode: new FormControl<number>(parseInt(""),[Validators.required])
+  })
+
+  recaptchaForm: FormGroup;
+
+  ngOnInit(): void {
+    this.recaptchaForm = this.formBuilder.group({
+      recaptcha: ['', Validators.required]
+    });
+  }
+
+  createUser() {
+    this.errorText.next(null)
+    if (this.recaptchaForm.invalid) {
+      this.errorText.next("пройдите капчу");
+      return;
+    }
     this.isCreateAccount.next(!(this.isCreateAccount.value))
   }
 
-  submit(){
-    if(this.form.invalid){
-      alert("форма невалидна");
-      Object.values(this.form.controls).forEach(control=>{
-        if(control.invalid){
+  handleSuccess(event: any) {
+    console.log(' handleSuccess')
+  }
+
+  handleReset(){
+    console.log('handleReset')
+  }
+
+  submit() {
+    this.errorText.next(null);
+    if (this.form.invalid) {
+      this.errorText.next('Заполните все обязательные поля');
+      Object.values(this.form.controls).forEach(control => {
+        if (control.invalid) {
           control.markAllAsTouched();
-          control.updateValueAndValidity({onlySelf:true});
+          control.updateValueAndValidity({onlySelf: true});
         }
       })
       return;
-    }
-    else
-    {
+    } else {
       this.authService.register(
         {
           login: this.form.value['login'] as string,
@@ -65,15 +94,41 @@ export class RegisterCardComponent implements OnInit {
           lastName: this.form.value['lastName'] as string,
           phoneNumber: this.form.value['phone'] as string,
           photo: "",
-          role:StatusRole.User,
+          role: StatusRole.User,
           statusUser: StatusUser.Actual,
-          name:this.form.value['name'] as string
+          name: this.form.value['name'] as string,
         }).subscribe(res => {
-          this.authService.login({
-            login: this.form.value['login'] as string,
-            password: this.form.value['password'] as string
-          })
+        this.isEmailConfirm.next(true);
+        this.account=res;
+        /*this.emailSendlerService.sendMessageToConfirmEmail({
+          receiverMail: this.form.value['login'] as string,
+          receiverName:this.form.value['name'] as string
+        }).subscribe(res=>)*/
+       // this.timerForEmailConfirm();
       });
+
+
+    }
+  }
+
+  confirmEmail(){
+    console.log('confirm '+this.account.id!)
+    console.log(this.form.value['userCode']! as number)
+    this.emailSendlerService.confirmEmail(this.account.id!, this.form.value['userCode']! as number).subscribe(res=>{
+      console.log('login ')
+      this.authService.login({
+        login: this.form.value['login'] as string,
+        password: this.form.value['password'] as string,
+      });
+    })
+  }
+  confirmPassword(){
+    if((this.form.value['password'] as string)==(this.form.value['passwordConfirm'] as string)) {
+      this.passwordConfirm.next(true)
+    }
+    else {
+      this.passwordConfirm.next(false)
     }
   }
 }
+

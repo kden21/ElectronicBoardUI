@@ -7,6 +7,7 @@ import {Status} from "../../models/filters/advtFilter";
 import {AdvtService} from "../../services/advt.service";
 import {AuthService} from "../../services/auth.service";
 import {IUserReview} from "../../models/review/userReview";
+import {UserReviewService} from "../../services/review/userReview.service";
 
 @Component({
   selector: 'app-profile',
@@ -20,34 +21,37 @@ export class ProfileComponent implements OnInit {
   editProfile: boolean = false;
   deleteProfile: boolean = false;
   showDeleteProfile: boolean = false;
-  @Input() userRating:number;
+  @Input() userRating: number;
 
   viewingUser: IUser;
 
   @Input() user: IUser;
   @Input() userId: number;
   @Output() userIdReview: number;
-  //@Input() userReviews:IUserReview[];
-  userBlocked:boolean = false;
+  userBlocked: boolean = false;
 
-  isUserLoading$:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
-  isUserDeleted$:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  isUserLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isUserDeleted$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private routeSub: Subscription;
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
-              private authService:AuthService,
-              private  router:Router
+              private authService: AuthService,
+              private router: Router,
+              private userReviewService: UserReviewService
   ) {
   }
 
-  /*getRating(){
-    this.userReviews.forEach((item)=>{
-      console.log(item.rating+' item р')
-      this.userRating=this.userRating+item.rating
-    })
-    console.log(this.userRating+' итог')
-  }*/
+  getRating() {
+    let rating: number = 0;
+      this.userReviewService.getAll(this.user.id!).subscribe(res => {
+          res.forEach((review) => {
+            rating =rating +review.rating;
+          })
+        this.userRating= Math.floor(rating / res.length);
+        }
+      )
+  }
 
   showWriteReview(showElement: boolean) {
     this.writeReview = showElement;
@@ -60,16 +64,18 @@ export class ProfileComponent implements OnInit {
   editProfileData(showElement: boolean) {
     this.editProfile = showElement;
   }
+
   showDelete(showElement: boolean) {
     this.showDeleteProfile = showElement;
   }
+
   deleteUserProfile(showElement: boolean) {
     this.deleteProfile = showElement;
     this.deleteUser(this.user.id!);
-    this.router.navigateByUrl('/users/'+this.user.id)
+    this.router.navigateByUrl('/users/' + this.user.id)
   }
 
-  logout(){
+  logout() {
     this.authService.logout();
     this.router.navigateByUrl('/');
   }
@@ -79,22 +85,24 @@ export class ProfileComponent implements OnInit {
       this.routeSub = this.route.params.subscribe(params => {
         this.userId = parseInt(params['id']);
       });
-    }
-    else{
-      this.userId=this.user.id!
+    } else {
+      this.userId = this.user.id!
     }
 
     this.userService.getById(this.userId).subscribe(user => {
       this.user = user;
-      this.isUserLoading$.next(true);
+
     });
 
     this.userIdReview = this.userId;
-
+    if(this.userRating===undefined) {
+      this.getRating();
+    }
     this.viewingUser = this.userService.getViewUser();
+    this.isUserLoading$.next(true);
   }
 
-  deleteUser(userId:number){
+  deleteUser(userId: number) {
     this.userService.deleteUser(userId, this.isUserDeleted$);
   }
 }

@@ -1,0 +1,37 @@
+.area-notification{
+  height: 25px;
+  width: 230px;
+  background-color: #2EDA73;
+  position: fixed;
+  bottom: 50px;
+  right: 16px;
+  border-radius: 5px;
+  color: white;
+  font-size: large;
+  font-family: Roboto-Light;
+  padding:8px;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  overflow: auto;
+  animation: 1s show ease;
+  z-index: 1;
+  flex-direction: column;
+  box-shadow: 0em 0.1em 3px rgba(122, 122, 122, 0.5);
+
+}
+
+.notification-contain{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+span{
+  line-height: 25px;
+}
+
+@keyframes show {
+  from { opacity: 0; transform: translateY(15%)}
+  to { opacity: 1; }
+}

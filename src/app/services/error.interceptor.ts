@@ -1,23 +1,25 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
-} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {catchError, Observable, throwError} from 'rxjs';
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(private nzNotificationService:NzNotificationService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(catchError(err=>{
+
       if([err.status===401||err.status===403]) {
-        alert("Пользователь не авторизован")
-      }else if([err.status===400||err.status===500]){
-        alert("400 или 500")
+        this.nzNotificationService.create( 'error','Ошибка3', err.error?.message,{
+        })
+      }
+      else if([err.status===422]) {
+        this.nzNotificationService.error('Ошибка22', err.error?.message)
+      }
+      else if([err.status===400||err.status===500]){
+        this.nzNotificationService.error('Ошибка5', err.error?.message)
       }
       return throwError(err);
     }));

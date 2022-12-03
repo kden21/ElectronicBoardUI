@@ -1,6 +1,6 @@
 <div *ngIf="(isLoadingData$|async); else loading" >
-  <app-element-active-archive [value2]="'Неактивные'" (status)="getUsersByStatus($event)"></app-element-active-archive>
-  <app-profile *ngFor="let user of userList|async" [user]="user"></app-profile>
+  <app-element-active-archive [value2]="'Неактивные'"  (status)="getUsersByStatus($event)"></app-element-active-archive>
+  <app-profile *ngFor="let user of userList.value" [user]="user"></app-profile>
 </div>
 <ng-template #loading>
   <app-loading></app-loading>
