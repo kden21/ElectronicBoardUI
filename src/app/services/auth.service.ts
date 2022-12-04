@@ -1,5 +1,5 @@
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, EMPTY, Observable, switchMap, tap} from "rxjs";
+import {BehaviorSubject, EMPTY, Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {IAccount} from "../models/account";
 import {UserService} from "./user.service";
@@ -21,7 +21,6 @@ export class AuthService {
               private router:Router) {
   }
 
-//todo:переделать тип возвращаемого объекта
   login(account: IAccount) {
     this.http.post<ILoginResponse>('https://localhost:7097/v1/account/login', account).subscribe(response => {
       if (response.userId !== undefined) {

@@ -99,8 +99,6 @@ import { AdvtFavoriteListComponent } from './pages/advt-favorite-list/advt-favor
     ErrorNotificationComponent,
     PasswordRecoveryComponent,
     AdvtFavoriteListComponent,
-
-
   ],
   imports: [
     AppRoutingModule,
