@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit {
 
   isUserLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isUserDeleted$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  showFavoriteAdvts$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private routeSub: Subscription;
 
   constructor(private route: ActivatedRoute,
@@ -55,6 +56,10 @@ export class ProfileComponent implements OnInit {
 
   showWriteReview(showElement: boolean) {
     this.writeReview = showElement;
+  }
+
+  showFavorite() {
+    this.showFavoriteAdvts$.next(true);
   }
 
   showWriteReport(showElement: boolean) {

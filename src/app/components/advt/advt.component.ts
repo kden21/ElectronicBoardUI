@@ -1,13 +1,13 @@
 import {Component, OnInit, Output} from '@angular/core';
-import {IAdvt} from "../../models/advt";
+import {IAdvt, StatusAdvt} from "../../models/advt";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BehaviorSubject, Subscription} from "rxjs";
 import {AdvtService} from "../../services/advt.service";
-import {IUser, StatusRole} from "../../models/user";
+import {IUser} from "../../models/user";
 import {UserService} from "../../services/user.service";
 import {PhotoService} from "../../services/photo.service";
 import {DadataSuggestService} from "../../services/dadata-suggest.service";
-import {IAddress} from "../../models/address";
+import {StatusUser} from "../../models/filters/userFilter";
 
 @Component({
   selector: 'app-advt',
@@ -27,13 +27,16 @@ export class AdvtComponent implements OnInit {
   advtShow: IAdvt;
   viewingUser: IUser;
 
-  @Output() user: IUser;
+
   @Output() userOwnAdvtId: number;
 
 
   isLoadAdvt$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoadAdvtPhotos$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isFavoriteAdvt$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   photoIndex$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
+  userVoters:IUser[]=[];
 
   constructor(private route: ActivatedRoute,
               private advtService: AdvtService,
@@ -75,6 +78,16 @@ export class AdvtComponent implements OnInit {
     this.advtService.getById(this.id).subscribe(advt => {
       this.advtShow = advt,
 
+        this.viewingUser = this.userService.getViewUser();
+
+        this.userService.getAllFilter({
+          advtFavoriteId: advt.id,
+          status: StatusUser.Actual
+        }).subscribe(res=> {
+          this.userVoters=res;
+          this.checkFavoriteAdvt();
+        })
+
       this.userOwnAdvtId = advt.authorId;
 
       this.suggestService.getSuggest(advt.location).subscribe(res=>{
@@ -88,6 +101,7 @@ export class AdvtComponent implements OnInit {
       }).subscribe(res => {
 
 
+
         this.advtShow.photo = [];
         res.forEach((item) => {
           this.advtShow.photo = this.advtShow.photo?.concat(item.base64Str);
@@ -95,9 +109,7 @@ export class AdvtComponent implements OnInit {
         this.isLoadAdvtPhotos$.next(true);
         this.isLoadAdvt$.next(true);
       })
-
     });
-    this.viewingUser = this.userService.getViewUser();
   }
 
   deleteAdvt(advtId: number) {
@@ -105,7 +117,23 @@ export class AdvtComponent implements OnInit {
   }
 
   addAdvtInFavorite(advtId: number, userId: number) {
-    this.advtService.addInFavorite(advtId, userId).subscribe(res => console.log('okkkkkkkkkkkkkkkkkkkkkk'))
+    this.advtService.updateFavoriteAdvt(advtId, userId, StatusAdvt.Actual).subscribe(res =>
+      this.isFavoriteAdvt$.next(true))
+  }
+
+  deleteAdvtFromFavorite(advtId: number, userId: number) {
+    this.advtService.updateFavoriteAdvt(advtId, userId, StatusAdvt.Archive).subscribe(res => this.isFavoriteAdvt$.next(false))
+  }
+
+  checkFavoriteAdvt(){
+    console.log('viewingUser.id '+this.viewingUser.id)
+    this.userVoters.forEach((user)=>{
+      console.log('userId '+user.id)
+      if(user.id==this.viewingUser.id){
+        this.isFavoriteAdvt$.next(true);
+        console.log('Да, оно в избранном')
+      }
+    })
   }
 
 }

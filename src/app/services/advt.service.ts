@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {IAdvt} from "../models/advt";
+import {IAdvt, StatusAdvt} from "../models/advt";
 import {AdvtFilter} from "../models/filters/advtFilter";
 import {environment} from "../../environments/environment";
 
@@ -39,6 +39,8 @@ export class AdvtService {
       params = params.set("lastAdvtId", advtFilter.lastAdvtId)
     if(advtFilter.isExistPhoto!=null)
       params=params.set("photo", advtFilter.isExistPhoto)
+    if(advtFilter.userVoter!=null)
+      params=params.set("userVoter", advtFilter.userVoter)
     return this.http.get<IAdvt[]>(`${environment.apiUrl}/v1/advts/advtFilter`, {params});
 
   }
@@ -55,8 +57,11 @@ export class AdvtService {
     return this.http.delete(`${environment.apiUrl}/v1/advts/` + advtId)
   }
 
-  addInFavorite(advtId: number, userId: number) {
-    return this.http.put(`${environment.apiUrl}/v1/advts/`+advtId+'/'+userId, advtId)
+  updateFavoriteAdvt(advtId: number, userId: number, status:StatusAdvt) {
+    let params = new HttpParams();
+    if (status != null)
+      params = params.set("status", status);
+    return this.http.put(`${environment.apiUrl}/v1/advts/`+advtId+'/'+userId, advtId,{params})
   }
 
   updateAdvt(advtId:number, model:IAdvt){

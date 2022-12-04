@@ -7,10 +7,10 @@ export class AdvtFilter {
   status: Status;
   lastAdvtId?: number|null;
   isExistPhoto?:boolean;
+  userVoter?:number;
 }
 
 export enum Status {
   Actual,
   Archive,
-  f
 }

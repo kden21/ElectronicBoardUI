@@ -60,6 +60,7 @@
   text-align: left;
   margin: auto;
   text-decoration: none;
+  cursor: pointer;
 }
 
 
@@ -100,4 +101,7 @@ ul li{
 
 ul li:hover{
   border: white 2px solid;
+}
+a{
+  cursor: pointer;
 }

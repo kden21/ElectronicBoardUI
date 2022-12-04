@@ -1,12 +1,11 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
-import {Routes, RouterModule} from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 import {NgxMaskModule} from 'ngx-mask';
 import {NgxCaptchaModule} from "ngx-captcha";
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
-
 
 import {AppComponent} from './app.component';
 import {HeaderhomeComponent} from "./components/headerhome/headerhome.component";
@@ -54,23 +53,8 @@ import {ShowPhotoAdvtComponent} from './components/show-photo-advt/show-photo-ad
 
 import { ErrorNotificationComponent } from './components/error-notification/error-notification.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-
-const appRoutes: Routes = [
-
-  {path: '', component: HomemainComponent},
-  {path: 'account/login', component: SignInCardComponent},
-  {path: 'account/register', component: RegisterCardComponent},
-  {path: 'create_advt', component: AdvtAddCardComponent, canActivate: [AuthGuard]},
-  {path: 'users/:id', component: UserComponent},
-  {path: 'users', component: ColllectionUsersComponent},
-  {path: 'advts/:id', component: AdvtComponent},
-  {path: 'write_report-profile', component: WriteReportProfileComponent},
-  {path: 'report', component: UserReportCardComponent},
-  {path: 'user-reports', component: UserReportsComponent},
-  {path: 'advt-reports', component: AdvtReportsComponent},
-  {path: 'edit_profile', component: EditProfileComponent},
-  {path: '**', component: NotFoundComponent}
-];
+import { PasswordRecoveryComponent } from './pages/password-recovery/password-recovery.component';
+import { AdvtFavoriteListComponent } from './pages/advt-favorite-list/advt-favorite-list.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +89,6 @@ const appRoutes: Routes = [
     WriteReportAdvtComponent,
     ResultNotificationComponent,
     UserOwnerAdvtComponent,
-
     WriteReviewProfileComponent,
     NotFoundComponent,
     AdvtReportCardComponent,
@@ -114,12 +97,14 @@ const appRoutes: Routes = [
     NotificationComponent,
     ShowPhotoAdvtComponent,
     ErrorNotificationComponent,
+    PasswordRecoveryComponent,
+    AdvtFavoriteListComponent,
 
 
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

@@ -21,6 +21,8 @@ export class UserService {
 
   getAllFilter(userFilter:UserFilter): Observable<IUser[]> {
     let params = new HttpParams();
+    if(userFilter.advtFavoriteId!=null)
+      params=params.set("AdvtFavoriteId", userFilter.advtFavoriteId);
     if(userFilter.status!=null)
       params=params.set("StatusUser", userFilter.status);
     return this.http.get<IUser[]>(`${environment.apiUrl}/v1/users/userFilter`,{params})

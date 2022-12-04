@@ -15,29 +15,26 @@ import {UserService} from "../../services/user.service";
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  private routeSub: Subscription;
-
-  userRating:number=0;
+  userRating: number = 0;
   viewingUser: IUser;
-  showAdvtList$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  showAdvtList$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   advtFilter: AdvtFilter = new AdvtFilter();
 
   @Input() user: IUser;
-  //@Input() userIdReviews: number;
   @Output() userId: number;
-  @Output() userReviews:IUserReview[];
+  @Output() userReviews: IUserReview[];
   @Output() adList: IAdvt[];
-  isLoadAdvts$:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
-  isLoadUserReviews$:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
-  isLoadUser$:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
+  isLoadAdvts$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoadUserReviews$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoadUser$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   private subscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private advtService: AdvtService,
-    private userReviewService:UserReviewService,
-    private userService:UserService) {
+    private userReviewService: UserReviewService,
+    private userService: UserService) {
     this.subscription = route.params.subscribe(params => this.userId = params['id']);
   }
 
@@ -45,63 +42,57 @@ export class UserComponent implements OnInit {
     this.advtFilter.userId = this.userId;
     this.advtFilter.status = 0;
 
-      this.userService.getById(this.userId).subscribe(res=> {
-        this.user=res;
-        this.isLoadUser$.next(true)
-      });
+    this.userService.getById(this.userId).subscribe(res => {
+      this.user = res;
+      this.isLoadUser$.next(true)
+    });
 
     this.getAdvts(this.advtFilter);
 
-    this.userReviewService.getAll(this.userId).subscribe(res=>{
-      this.userReviews=res;
-      if(res.length!=0) {
-        res.forEach((item)=>{
-          this.userRating=this.userRating+item.rating
+    this.userReviewService.getAll(this.userId).subscribe(res => {
+      this.userReviews = res;
+      if (res.length != 0) {
+        res.forEach((item) => {
+          this.userRating = this.userRating + item.rating
         })
-        this.userRating=Math.floor(this.userRating/res.length);
+        this.userRating = Math.floor(this.userRating / res.length);
         this.isLoadUserReviews$.next(true);
       }
 
     })
   }
 
-  getStatusAdvt(status:number) {
-    this.advtFilter.status= status;
+  getStatusAdvt(status: number) {
+    this.advtFilter.status = status;
     this.getAdvts(this.advtFilter)
   }
 
-  getAdvts(advtFilter:AdvtFilter){
+  getAdvts(advtFilter: AdvtFilter) {
     this.advtService.getAllFilter(advtFilter).subscribe(advtList => {
-      if ((advtList.length === 0)&&(advtFilter.status==0)) {
+      if ((advtList.length === 0) && (advtFilter.status == 0)) {
         console.log('daaaaaa')
         this.advtService.getAllFilter({
-          status:1,
-          userId:this.userId
-        }).subscribe(res=>{
-          if(res.length==0) {
+          status: 1,
+          userId: this.userId
+        }).subscribe(res => {
+          if (res.length == 0) {
             this.isLoadAdvts$.next(false);
-          }
-          else{
+          } else {
             this.isLoadAdvts$.next(true);
-            this.adList=[];
+            this.adList = [];
             this.showAdvtList$.next(false);
           }
         })
-      }
-      else {
-        if(advtList.length==0){
-          this.adList=[];
+      } else {
+        if (advtList.length == 0) {
+          this.adList = [];
           this.showAdvtList$.next(false);
-        }
-        else{
+        } else {
           this.adList = advtList;
           this.showAdvtList$.next(true);
           this.isLoadAdvts$.next(true);
         }
       }
     });
-  }
-
-  ngOnDestroy() {
   }
 }

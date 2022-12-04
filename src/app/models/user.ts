@@ -12,12 +12,12 @@ export interface IUser{
   email: string,
   accountId?: number,
   token?: string,
-  statusUser:StatusUser
+  statusUser:StatusUser,
 }
 
 export enum StatusRole {
   Admin,
   User,
-  Anon
+  Anon,
 }
 

@@ -69,10 +69,17 @@
           <button class="btn" id="delete" (click)="deleteAdvt(advtShow.id)" routerLink="">Снять с публикации</button>
         </div>
         <ng-template #other_content>
-          <div class="data-advt" style="justify-content: left">
-            <img class="icon" src="../../../assets/svg/star.svg"/>
+          <div class="data-advt" style="justify-content: left" *ngIf="!(isFavoriteAdvt$|async);else delete_from_favorite">
+            <img class="icon" src="/assets/svg/favorit.svg"/>
             <a class="data-advt-text" (click)="addAdvtInFavorite(advtShow.id, viewingUser.id!)">Добавить в избранное</a>
           </div>
+          <ng-template #delete_from_favorite>
+            <div class="data-advt" style="justify-content: left" >
+              <img class="icon" src="../../../assets/svg/in-favorite.svg"/>
+              <a class="data-advt-text" (click)="deleteAdvtFromFavorite(advtShow.id, viewingUser.id!)">Удалить из избранного</a>
+            </div>
+          </ng-template>
+
         </ng-template>
       </div>
     </div>

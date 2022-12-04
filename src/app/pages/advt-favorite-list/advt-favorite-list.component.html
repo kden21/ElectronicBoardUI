@@ -1,0 +1,9 @@
+
+<ng-container *ngIf="advtList.length!=0;else no_favorite">
+  <app-title [valueStr]="'Избранное'"></app-title>
+  <app-advt-card [advtList]="advtList"></app-advt-card>
+</ng-container>
+
+<ng-template #no_favorite>
+  <app-title [valueStr]="'Избранных объявлений нет'"></app-title>
+</ng-template>

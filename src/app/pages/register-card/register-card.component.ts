@@ -6,7 +6,6 @@ import {StatusRole} from "../../models/user";
 import {StatusUser} from "../../models/filters/userFilter";
 import {BehaviorSubject} from "rxjs";
 import {environment} from "../../../environments/environment";
-import {MessageNotificationService} from "../../services/message-notification.service";
 import {EmailSendlerService} from "../../services/email-sendler.service";
 
 @Component({
@@ -34,7 +33,7 @@ export class RegisterCardComponent implements OnInit {
   }
 
   form = new FormGroup({
-    login: new FormControl<string>("", [Validators.required, Validators.maxLength(20),
+    login: new FormControl<string>("", [Validators.required, Validators.maxLength(40),
       Validators.pattern('^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$')]),
     password: new FormControl<string>("", [Validators.required, Validators.maxLength(20),
       Validators.minLength(6)]),
@@ -64,14 +63,6 @@ export class RegisterCardComponent implements OnInit {
     this.isCreateAccount.next(!(this.isCreateAccount.value))
   }
 
-  handleSuccess(event: any) {
-    console.log(' handleSuccess')
-  }
-
-  handleReset(){
-    console.log('handleReset')
-  }
-
   submit() {
     this.errorText.next(null);
     if (this.form.invalid) {
@@ -95,19 +86,12 @@ export class RegisterCardComponent implements OnInit {
           phoneNumber: this.form.value['phone'] as string,
           photo: "",
           role: StatusRole.User,
-          statusUser: StatusUser.Actual,
+          statusUser: StatusUser.AwaitingEmailConfirm,
           name: this.form.value['name'] as string,
         }).subscribe(res => {
         this.isEmailConfirm.next(true);
         this.account=res;
-        /*this.emailSendlerService.sendMessageToConfirmEmail({
-          receiverMail: this.form.value['login'] as string,
-          receiverName:this.form.value['name'] as string
-        }).subscribe(res=>)*/
-       // this.timerForEmailConfirm();
       });
-
-
     }
   }
 
@@ -122,6 +106,7 @@ export class RegisterCardComponent implements OnInit {
       });
     })
   }
+
   confirmPassword(){
     if((this.form.value['password'] as string)==(this.form.value['passwordConfirm'] as string)) {
       this.passwordConfirm.next(true)

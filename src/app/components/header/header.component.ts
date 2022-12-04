@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
-import {IUser, StatusRole} from "../../models/user";
-import {BehaviorSubject, Observable, Subject, Subscription} from "rxjs";
+import {IUser} from "../../models/user";
+import {BehaviorSubject, Subscription} from "rxjs";
 import {ILoginResponse} from "../../models/loginResponse";
 import {AuthService} from "../../services/auth.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -17,30 +17,25 @@ export class HeaderComponent implements OnInit {
   user: IUser
 
   public isLogin$: BehaviorSubject<IUser|null> = new BehaviorSubject<IUser | null>(null);
-  private routeSubscription: Subscription;
   private querySubscription: Subscription;
 
-  constructor(public authService: AuthService, private userService:UserService,private route: ActivatedRoute) {
+  constructor(public authService: AuthService,
+              private router: Router,) {
 
   }
 
   ngOnInit(): void {
-    // this.user=JSON.parse(localStorage.getItem('user')!);
-    // if(this.user!==null){
-    //   this.userService.getById(this.user.id!).subscribe(res=>{
-    //     this.user=res;
-    //     this.isLogin$.next(this.user);
-    //   })
-    // }
   }
-
-  search(){
-    //this.routeSubscription = route.params.subscribe(params=>this.id=params['id']);
+  logout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/');
+  }
+ /* search(){
     this.querySubscription = this.route.queryParams.subscribe(
       (queryParam: any) => {
         //this.product = queryParam['product'];
       }
     );
-  }
+  }*/
 
 }

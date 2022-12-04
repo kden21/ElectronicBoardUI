@@ -10,7 +10,7 @@
 
     <!--Логин-->
     <div >
-      <input class="register-input" placeholder="Логин" formControlName="login" (error)="error_login" >
+      <input class="register-input" placeholder="Логин*" formControlName="login" (error)="error_login" >
       <ng-container *ngTemplateOutlet="error_login"></ng-container>
       <ng-template #error_login let-control>
         <div class="input-invalid"  autocomplete="disabled" *ngIf="form.get('login')?.invalid && form.get('login')?.touched">
@@ -20,7 +20,7 @@
 
     <!--Пароль-->
     <div>
-      <input type="password" class="register-input" placeholder="Пароль" formControlName="password" (error)="error_password" >
+      <input type="password" class="register-input" placeholder="Пароль*" formControlName="password" (error)="error_password" >
       <ng-container *ngTemplateOutlet="error_password"></ng-container>
       <ng-template #error_password let-control>
         <div class="input-invalid"  autocomplete="off" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
@@ -30,7 +30,7 @@
 
     <!--Повторите пароль-->
     <div>
-      <input type="password" class="register-input" placeholder="Повторите пароль" formControlName="passwordConfirm" (input)="confirmPassword()">
+      <input type="password" class="register-input" placeholder="Повторите пароль*" formControlName="passwordConfirm" (input)="confirmPassword()">
       <ng-container *ngTemplateOutlet="error_passwordConfirm"></ng-container>
       <ng-template #error_passwordConfirm let-control>
         <div class="input-invalid" *ngIf="((form.get('passwordConfirm')?.invalid ||!(passwordConfirm|async))&& form.get('passwordConfirm')?.touched)">
@@ -39,7 +39,7 @@
     </div>
 
   <form style="width: 100%" [formGroup]="recaptchaForm">
-    <ngx-recaptcha2 #captcha2Elem [siteKey]="siteKey"  (success)="handleSuccess($event)" formControlName="recaptcha" (reset)="handleReset()" >
+    <ngx-recaptcha2 #captcha2Elem [siteKey]="siteKey" formControlName="recaptcha">
     </ngx-recaptcha2>
   </form>
 
@@ -65,7 +65,7 @@
 
       <!--Имя-->
       <div>
-        <input type="text" class="register-input" placeholder="Имя" formControlName="name" (error)="error_name" >
+        <input type="text" class="register-input" placeholder="Имя*" formControlName="name" (error)="error_name" >
         <ng-container *ngTemplateOutlet="error_name"></ng-container>
         <ng-template #error_name let-control>
           <div class="input-invalid"*ngIf="form.get('name')?.invalid && form.get('name')?.touched">
@@ -75,7 +75,7 @@
 
       <!--Фамилия-->
       <div>
-        <input type="text" class="register-input" placeholder="Фамилия" formControlName="lastName" (error)="error_lastName" >
+        <input type="text" class="register-input" placeholder="Фамилия*" formControlName="lastName" (error)="error_lastName" >
         <ng-container *ngTemplateOutlet="error_lastName"></ng-container>
         <ng-template #error_lastName let-control>
           <div class="input-invalid" *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched">
@@ -87,7 +87,7 @@
 
       <!--Дата рождения-->
       <div>
-        <input  type="text" mask="00.00.0000"  class="register-input" placeholder="Дата рождения dd.mm.yyyy"
+        <input  type="text" mask="00.00.0000"  class="register-input" placeholder="Дата рождения* dd.mm.yyyy"
                 formControlName="birthday" (error)="error_birthday" >
         <ng-container *ngTemplateOutlet="error_birthday"></ng-container>
         <ng-template #error_birthday let-control>
@@ -122,7 +122,7 @@
     <div class="register-card" [formGroup]="form" (ngSubmit)="submit()">
       <h1 style="font-size: 45px">Подтвердите почту</h1>
 
-      <div style="margin: auto; font-family: Roboto-Light; font-size: large">
+      <div style="margin:0 auto; font-family: Roboto-Light; font-size: large">
         На Вашу почту <span style="color: #25AF5C;font-family: Roboto-Bold;font-size: large">{{form.get('login')!.value}}</span> было отправлено письмо с кодом для подтверждения почты
       </div>
 
@@ -131,11 +131,8 @@
         <input type="text" mask="0000" class="register-input" placeholder="Введите код подтверждения" formControlName="userCode">
       </div>
 
-      <div style="width: 100%; display: flex; align-content: center; justify-content: start ">
-        <a class="glo" (click)="confirmEmail()">Подтвердить</a>
-        <div style="margin: auto ;">
-          <a class="sing-in-password-recovery">Изменить почту</a>
-        </div>
+      <div>
+        <a class="glo" style="margin: 0 auto" (click)="confirmEmail()">Подтвердить</a>
       </div>
 
     </div>
