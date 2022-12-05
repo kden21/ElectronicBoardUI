@@ -51,7 +51,20 @@ export class AdvtComponent implements OnInit {
   }
 
   showEditAdvt(showElement: boolean) {
-    showElement == true ? this.editAdvt = true : this.editAdvt = false;
+   this.editAdvt=showElement// showElement == true ? this.editAdvt = true : this.editAdvt = false;
+    console.log('зашла')
+    if(showElement==false) {
+      console.log('работает')
+      this.photoIndex$.next(0);
+      this.isLoadAdvtPhotos$.next(false);
+      this.isLoadAdvt$.next(false);
+
+      this.advtService.getById(this.advtShow.id!).subscribe(res => {
+        this.advtShow = res
+        this.getLocation();
+        this.getPhotos();
+      });
+    }
   }
 
   showWriteReview(showElement: boolean) {
@@ -90,11 +103,7 @@ export class AdvtComponent implements OnInit {
 
       this.userOwnAdvtId = advt.authorId;
 
-      this.suggestService.getSuggest(advt.location).subscribe(res=>{
-        let stringJson = JSON.stringify(res);
-        let objJson = JSON.parse(stringJson);
-        this.advtShow.location=objJson.suggestions[0].data.city;
-      })
+      this.getLocation();
 
       this.photoService.getAdvtPhotosFilter({
         advtId: advt.id
@@ -126,14 +135,31 @@ export class AdvtComponent implements OnInit {
   }
 
   checkFavoriteAdvt(){
-    console.log('viewingUser.id '+this.viewingUser.id)
     this.userVoters.forEach((user)=>{
-      console.log('userId '+user.id)
       if(user.id==this.viewingUser.id){
         this.isFavoriteAdvt$.next(true);
-        console.log('Да, оно в избранном')
       }
     })
   }
 
+  getPhotos(){
+    this.photoService.getAdvtPhotosFilter({
+      advtId: this.advtShow.id
+    }).subscribe(res => {
+      this.advtShow.photo = [];
+      res.forEach((item) => {
+        this.advtShow.photo = this.advtShow.photo?.concat(item.base64Str);
+      })
+      this.isLoadAdvtPhotos$.next(true);
+      this.isLoadAdvt$.next(true);
+    })
+  }
+
+  getLocation(){
+    this.suggestService.getSuggest(this.advtShow.location).subscribe(res=>{
+      let stringJson = JSON.stringify(res);
+      let objJson = JSON.parse(stringJson);
+      this.advtShow.location=objJson.suggestions[0].data.city;
+    })
+  }
 }

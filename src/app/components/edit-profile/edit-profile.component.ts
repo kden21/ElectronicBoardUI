@@ -1,9 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IUser} from "../../models/user";
-import {StatusAdvt} from "../../models/advt";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
-import {PhotoService} from "../../services/photo.service";
 
 @Component({
   selector: 'app-edit-profile',
@@ -20,9 +18,12 @@ export class EditProfileComponent implements OnInit {
   photoUploaded:boolean = true;
   advtUploaded:boolean|null = null;
   clicked=false;
-  constructor(
+
+  constructor
+  (
     private userService:UserService,
-  ) { }
+  )
+  { }
 
   form = new FormGroup({
     name: new FormControl<string>("",[Validators.required,Validators.maxLength(20)]),
@@ -39,7 +40,8 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  submit(){
+
+  submit(showEditAdvt:boolean){
     if(this.form.invalid){
       alert("форма невалидна");
       Object.values(this.form.controls).forEach(control=>{
@@ -57,10 +59,9 @@ export class EditProfileComponent implements OnInit {
         return;
       }
 
-
       this.clicked = true;
-      console.log('clicked true'+this.user.id)
       this.userService.updateUser(this.user.id!,{
+        //TODO:дата рождения пользователя
         birthday: '11112002',
         email: (this.form.value['email'] as string)==""? this.user.email:(this.form.value['email'] as string),
         lastName: (this.form.value['lastName'] as string)==""? this.user.email:(this.form.value['lastName'] as string),
@@ -73,7 +74,7 @@ export class EditProfileComponent implements OnInit {
         accountId:this.user.accountId
 
       }).subscribe(res=> {
-        console.log('фото загружено')
+        this.editProfile.emit(showEditAdvt)
       })
     }
   }
@@ -94,7 +95,6 @@ export class EditProfileComponent implements OnInit {
     reader.onload = () => {
       if (typeof(reader.result) == 'string') {
         this.photo = reader.result.toString();
-        console.log(this.photo)
         this.photoUploaded = true;
       }
     };

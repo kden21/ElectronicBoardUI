@@ -1,6 +1,6 @@
 <!--Компонент жалобы на объявление-->
 
-<div class="report-card" *ngIf="(isLoadAuthor$|async)&&(isLoadAdvt$|async); else lo">
+<div class="report-card" *ngIf="(isLoadAuthor$|async)&&(isLoadAdvt$|async); else loading">
   <div class="report-card-area">
     <div style="width: 16.5%;text-align: center;padding: 20px 0">
       <div style="width: 100px; height: 100px;margin: auto">
@@ -26,12 +26,12 @@
           </ng-template>
 
         </div>
-        <p class="user-name" id="date">{{advtReport.createDate}}</p>
+        <p class="date">{{advtReport.createDate}}</p>
       </div>
     </div>
   </div>
 </div>
-<ng-template #lo>
+<ng-template #loading>
   <app-loading ></app-loading>
 </ng-template>
 

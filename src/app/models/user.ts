@@ -13,6 +13,7 @@ export interface IUser{
   accountId?: number,
   token?: string,
   statusUser:StatusUser,
+  createDate?:string
 }
 
 export enum StatusRole {

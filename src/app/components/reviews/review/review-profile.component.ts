@@ -4,6 +4,7 @@ import {UserService} from "../../../services/user.service";
 import {IUser} from "../../../models/user";
 import {IAdvtReview} from "../../../models/review/advtReview";
 import {BehaviorSubject} from "rxjs";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-review-profile',
@@ -25,6 +26,10 @@ export class ReviewProfileComponent implements OnInit {
         this.user = user;
         this.isLoadAuthor$.next(true);
       });
+  }
+
+  onNavigateToUser(userId:number){
+    window.open(`${environment.angularUrl}/users/${userId}`);
   }
 
 }

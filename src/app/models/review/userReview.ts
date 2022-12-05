@@ -4,5 +4,5 @@ export interface IUserReview {
   userId: number,
   description: string,
   rating:number,
-  createDate?:Date
+  createDate?: string
 }

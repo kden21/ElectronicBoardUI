@@ -6,6 +6,6 @@ export interface IUserReport {
   userId: number,
   description: string,
   categoryReportId:number,
-  createDate?: Date,
+  createDate?: string
   statusCheck:StatusUserReport;
 }

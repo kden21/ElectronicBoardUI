@@ -1,11 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IAdvt} from "../../../models/advt";
-import {Subscription} from "rxjs";
-import {ICategoryReport} from "../../../models/reports/categoryReport";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {BehaviorSubject, Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {CategoryReportService} from "../../../services/reports/category-report.service";
-import {UserReportService} from "../../../services/reports/user-report.service";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AdvtReviewService} from "../../../services/review/advtReview.service";
 
 @Component({
@@ -22,16 +18,22 @@ export class WriteReviewComponent implements OnInit {
   load=false;
   rating:number=0;
   @Output() writeReview = new EventEmitter<boolean>();
+  errorText:BehaviorSubject<string|null>=new  BehaviorSubject<string | null>(null);
 
   constructor(
     private route: ActivatedRoute,
     private advtReviewService:AdvtReviewService,
   ) { this.subscription = route.params.subscribe(params => this.advtReviewId = params['id']); }
   form = new FormGroup({
-    description: new FormControl<string>(""),
+    description: new FormControl<string>("",[Validators.required]),
   })
 
   submit(){
+    this.errorText.next(null);
+    if(this.form.invalid||this.rating==0){
+      this.errorText.next("Заполните все поля");
+      return;
+    }
     this.load=true;
     this.advtReviewService.createAdvtReview({
       description: this.form.value['description'] as string,

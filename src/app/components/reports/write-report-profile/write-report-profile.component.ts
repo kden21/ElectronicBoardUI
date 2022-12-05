@@ -1,9 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {CategoryReportService} from "../../../services/reports/category-report.service";
 import {ICategoryReport} from "../../../models/reports/categoryReport";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserReportService} from "../../../services/reports/user-report.service";
-import {Subscription} from "rxjs";
+import {BehaviorSubject, Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {StatusUserReport} from "../../../models/filters/reports/userReportFilter";
 
@@ -19,6 +19,7 @@ export class WriteReportProfileComponent implements OnInit {
   isUploaded=false;
   load=false;
   @Output() writeReport = new EventEmitter<boolean>();
+  errorText:BehaviorSubject<string|null>=new  BehaviorSubject<string | null>(null);
   categories:ICategoryReport[];
   selectedCat:ICategoryReport=new class implements ICategoryReport {
     id: number=0;
@@ -31,7 +32,7 @@ export class WriteReportProfileComponent implements OnInit {
     private userReportService:UserReportService,
   ) { this.subscription = route.params.subscribe(params => this.userReportId = params['id']); }
   form = new FormGroup({
-    description: new FormControl<string>("")
+    description: new FormControl<string>("",[Validators.required])
   })
 
   showWriteReport(showElement: boolean){
@@ -39,6 +40,11 @@ export class WriteReportProfileComponent implements OnInit {
   }
 
   submit(){
+    this.errorText.next(null);
+    if(this.form.invalid||this.selectedCat.id==0){
+      this.errorText.next("Заполните все поля");
+      return;
+    }
     this.load=true;
     this.userReportService.createUserReport({
       description: this.form.value['description'] as string,

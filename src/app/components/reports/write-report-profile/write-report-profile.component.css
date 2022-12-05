@@ -1,5 +1,5 @@
 .modal-window {
-  height: 385px;
+  min-height: 385px;
   width: 500px;
   background-color: rgba(255, 255, 255);
   padding: 20px;
@@ -122,4 +122,9 @@ textarea{
   background-color: #F2F1F1;
   color:#29B525;
   font-weight: bold;
+}
+
+.input-invalid {
+  color: red;
+  font-family: Roboto-Light
 }

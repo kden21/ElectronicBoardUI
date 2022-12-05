@@ -69,6 +69,7 @@ p {
   font-size: large;
   font-family: Roboto-Bold;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .name-user:hover {

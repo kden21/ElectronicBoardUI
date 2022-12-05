@@ -96,10 +96,7 @@ export class RegisterCardComponent implements OnInit {
   }
 
   confirmEmail(){
-    console.log('confirm '+this.account.id!)
-    console.log(this.form.value['userCode']! as number)
     this.emailSendlerService.confirmEmail(this.account.id!, this.form.value['userCode']! as number).subscribe(res=>{
-      console.log('login ')
       this.authService.login({
         login: this.form.value['login'] as string,
         password: this.form.value['password'] as string,

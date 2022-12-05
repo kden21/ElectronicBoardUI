@@ -1,9 +1,13 @@
 <div class="modal">
   <div class="modal-contain">
     <div class="modal-window" *ngIf="isUploaded==false;else upload">
+
+      <div class="input-invalid">{{errorText|async}}</div>
+
       <div class="modal-window-block">
         <h1>Оценка и комментарии</h1>
       </div>
+
       <div class="rating-area">
         <input type="radio" id="star-5" name="rating" value="5" (click)="rating=5">
         <label for="star-5" title="Оценка «5»"></label>
@@ -16,6 +20,7 @@
         <input type="radio" id="star-1" name="rating" value="1" (click)="rating=1">
         <label for="star-1" title="Оценка «1»"></label>
       </div>
+
       <div [formGroup]="form" (ngSubmit)="submit()" >
         <textarea formControlName="description" class="contain-report" placeholder="В тексте не должно быть оскорблений и мата"></textarea>
       </div>

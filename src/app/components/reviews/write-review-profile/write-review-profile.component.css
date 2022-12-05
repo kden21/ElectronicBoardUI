@@ -13,7 +13,7 @@
 }
 
 .modal-window {
-  height: 370px;
+  min-height: 370px;
   width: 500px;
   background-color: rgba(255, 255, 255);
   padding: 20px;
@@ -28,11 +28,12 @@ h1 {
   font-size: x-large;
 }
 
-h2{
+h2 {
   font-family: Roboto-Bold;
   font-size: x-large;
   margin-top: 0;
 }
+
 .contain-report {
   resize: none;
   width: 484px;
@@ -62,7 +63,8 @@ h2{
   transition: 0.4s;
   cursor: pointer;
 }
-.btn:hover{
+
+.btn:hover {
   background-color: #F2F1F1;
   color: #25AF5C;
   transition: 0.4s;
@@ -119,13 +121,19 @@ h2{
   position: relative;
 }
 
-.contain-center{
+.contain-center {
   text-align: center
 }
-.disabled{
+
+.disabled {
   pointer-events: none;
   background-position: 100% 0;
   background-color: #F2F1F1;
-  color:#29B525;
+  color: #29B525;
   font-weight: bold;
+}
+
+.input-invalid {
+  color: red;
+  font-family: Roboto-Light
 }

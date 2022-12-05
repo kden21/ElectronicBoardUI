@@ -4,5 +4,5 @@ export interface IAdvtReview {
   advtId: number,
   description: string,
   rating:number,
-  createDate?:Date
+  createDate?: string
 }

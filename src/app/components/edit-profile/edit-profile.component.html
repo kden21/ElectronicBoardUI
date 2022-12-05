@@ -1,11 +1,15 @@
 <div class="modal">
   <div class="modal-contain">
-    <div class="modal-window" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="modal-window" [formGroup]="form" (ngSubmit)="submit(false)">
       <div class="edit-photo-area">
         <div class="photo-area">
-          <img *ngIf="photo===null;else photo_profile" class="photo-profile" src="/assets/img/no_photo.png"/>
+
+          <img *ngIf="photo!==null;else photo_profile" class="photo-profile" src="{{photo}}"/>
+          <ng-template>
+            <img *ngIf="user.photo==null;else photo_profile" class="photo-profile" src="/assets/img/no_photo.png"/>
+          </ng-template>
           <ng-template #photo_profile>
-            <img class="photo-profile" src="{{photo}}"/>
+            <img class="photo-profile" src="data:image/png;base64,{{user.photo}}"/>
           </ng-template>
 
         </div>
@@ -21,7 +25,7 @@
 
 
       <div class="input-area">
-        <label class="input-title">Фамилия</label>
+        <p class="input-title">Фамилия</p>
         <input [ngModel]="user.lastName" formControlName="lastName"
                (error)="error_tip_lastName"/>
         <ng-container  *ngTemplateOutlet="error_tip_lastName"></ng-container>
@@ -33,7 +37,7 @@
 
       </div>
       <div class="input-area">
-        <label class="input-title" >Имя</label>
+        <p class="input-title" >Имя</p>
         <input [ngModel]="user.name" formControlName="name"
                (error)="error_tip_name"/>
         <ng-container  *ngTemplateOutlet="error_tip_name"></ng-container>
@@ -44,7 +48,7 @@
 
 
         <div class="input-area">
-          <label class="input-title" >Отчество</label>
+          <p class="input-title" >Отчество</p>
           <input [ngModel]="user.middleName" formControlName="middleName"
                  (error)="error_tip_middleName"/>
         </div>
@@ -55,7 +59,7 @@
         </ng-template>
 
         <div class="input-area">
-          <label class="input-title" >Номер телефона</label>
+          <p class="input-title" >Номер телефона</p>
           <input mask="+0(000)000-00-00" [ngModel]="user.phoneNumber[0]+user.phoneNumber[1]+user.phoneNumber[2]+user.phoneNumber[3]
 +user.phoneNumber[4]+user.phoneNumber[5]+user.phoneNumber[6]+user.phoneNumber[7]+user.phoneNumber[8]+user.phoneNumber[9]
 +user.phoneNumber[10]" formControlName="phone" (error)="error_tip_phone">
@@ -68,7 +72,7 @@
 
 
         <div class="input-area">
-          <label class="input-title">Электронная почта</label>
+          <p class="input-title">Электронная почта</p>
           <input type="email" [ngModel]="user.email" formControlName="email" (error)="error_tip_email">
       </div>
         <ng-container  *ngTemplateOutlet="error_tip_email"></ng-container>
@@ -76,15 +80,14 @@
           <div style="font-family: Roboto-Light;color: red" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
             *поле заполнено неверно</div>
         </ng-template>
-
       <div>
-        <button (click)="submit()" [ngClass]="{ disabled: clicked ==true}" class="btn">Редактировать</button>
+        <button (click)="submit(false)"  [ngClass]="{ disabled: clicked ==true}" class="btn">Сохранить</button>
       </div>
     </div>
-    <div class="window-close">
-      <a (click)="showEditProfile(false)"><img src="assets/svg/window-close.svg"/></a>
-    </div>
   </div>
+    <div class="window-close">
+      <a (click)="showEditProfile(false)" title="Отменить"><img src="assets/svg/window-close.svg"/></a>
+    </div>
 </div>
 
 </div>

@@ -45,9 +45,13 @@
   color: gray;
 }
 
-#date {
+.date {
+  color: darkslategray;
+  font-family: Roboto-Bold;
+  font-size: large;
   margin: auto 0;
   font-size: medium;
+  min-width: 13%;
 }
 
 .a {

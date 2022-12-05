@@ -15,6 +15,7 @@ import {AdvtService} from "../../services/advt.service";
 export class EditAdvtComponent implements OnInit {
   @Input() advt: IAdvt;
   @Output() editAdvt = new EventEmitter<boolean>();
+  @Output() www= new EventEmitter<boolean>();
   private routeSub: Subscription;
   ownerAdvtId:number;
   photosAdvt:IPhoto[]=[];
@@ -68,15 +69,9 @@ export class EditAdvtComponent implements OnInit {
     };
   }
 
-  submit(){
+  submit(showEditAdvt:boolean){
     if(this.form.invalid){
-      alert("форма невалидна");
-      Object.values(this.form.controls).forEach(control=>{
-        if(control.invalid){
-          control.markAllAsTouched();
-          control.updateValueAndValidity({onlySelf:true});
-        }
-      })
+      this.inputInvalid();
       return;
     }
     else {
@@ -91,8 +86,7 @@ export class EditAdvtComponent implements OnInit {
         authorId: this.advt.authorId,
         createDate:this.advt.createDate
       }).subscribe(advt => {
-        //this.advtResult=advt;
-        console.log(this.advt.id+" id добавленного объявления")
+
         this.uploadPhotos.forEach((item) => {
           let photo:IPhoto=new class implements IPhoto {
             base64Str: string;
@@ -100,18 +94,21 @@ export class EditAdvtComponent implements OnInit {
           };
           photo.base64Str=item;
           photo.advtId=this.advt.id;
-          this.photoService.createAdvtPhoto(photo).subscribe(res=>{
-            console.log(item+' фото добавлеяется')
-          });
-
+          this.photoService.createAdvtPhoto(photo).toPromise();
+          this.editAdvt.emit(false)
         });
-        this.deleteAdvtsId.forEach((id)=>{
-          this.photoService.deletePhoto(id).subscribe(res=>console.log(id+" deletedPhoto"));
 
+        this.deleteAdvtsId.forEach((id)=>{
+          this.photoService.deletePhoto(id).toPromise();
+          this.editAdvt.emit(false)
         })
-        this.router.navigateByUrl(`/users/${ this.advt.authorId}`)
+
+        this.editAdvt.emit(false)
+
+        //this.router.navigateByUrl(`/users/${ this.advt.authorId}`)
       })
     }
+
   }
 
   addPhotoInDelete(photoId:number|null, photoIndex:number, photos:IPhoto[]|string[]){
@@ -122,4 +119,15 @@ export class EditAdvtComponent implements OnInit {
   deletePhoto(photo:IPhoto){
     this.photoService.deletePhoto(photo.id!).subscribe(res=>console.log(' !photo deleted'))
   }
+
+  inputInvalid(){
+    alert("форма невалидна");
+    Object.values(this.form.controls).forEach(control=>{
+      if(control.invalid){
+        control.markAllAsTouched();
+        control.updateValueAndValidity({onlySelf:true});
+      }
+    })
+  }
+
 }

@@ -1,6 +1,6 @@
 <div class="modal" >
   <div class="modal-contain">
-    <div class="modal-window" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="modal-window" [formGroup]="form" (ngSubmit)="submit(false)">
       <div class="input-area" >
         <label class="input-title">
           Название
@@ -45,7 +45,7 @@
         <div style="margin-top: 10px;align-content: center;width: 112px;height: 112px">
           <form  method="post" enctype="multipart/form-data">
             <label class="input-file">
-              <input type="file" name="file" (change)="onPhoto($event)">
+              <input type="file" name="file" multiple="multiple" (change)="onPhoto($event)">
               <div style="width: 112px;height: 112px;text-align: center">
                 <div style="margin: 10% ;height: 80%">
                   <img style="width: 100%;object-fit: cover;" src="/assets/img/add-photo.png">
@@ -58,7 +58,7 @@
 
       </div>
       <div>
-        <button class="btn" (click)="submit()">Сохранить</button>
+        <button class="btn" (click)="submit(false)">Сохранить</button>
       </div>
     </div>
     <div class="window-close">

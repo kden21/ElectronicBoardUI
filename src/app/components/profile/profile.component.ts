@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   viewingUser: IUser;
 
   @Input() user: IUser;
-  @Input() userId: number;
+  userId: number;
   @Output() userIdReview: number;
   userBlocked: boolean = false;
 
@@ -41,6 +41,9 @@ export class ProfileComponent implements OnInit {
               private router: Router,
               private userReviewService: UserReviewService
   ) {
+    this.routeSub = this.route.params.subscribe(params => {
+      this.userId = parseInt(params['id'])
+    })
   }
 
   getRating() {
@@ -68,6 +71,7 @@ export class ProfileComponent implements OnInit {
 
   editProfileData(showElement: boolean) {
     this.editProfile = showElement;
+    this.userService.getById(this.user.id!).subscribe(res=>this.user=res);
   }
 
   showDelete(showElement: boolean) {
@@ -95,8 +99,7 @@ export class ProfileComponent implements OnInit {
     }
 
     this.userService.getById(this.userId).subscribe(user => {
-      this.user = user;
-
+      this.user=user;
     });
 
     this.userIdReview = this.userId;
