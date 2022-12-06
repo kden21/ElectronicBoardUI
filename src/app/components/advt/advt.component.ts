@@ -152,6 +152,7 @@ export class AdvtComponent implements OnInit {
       })
       this.isLoadAdvtPhotos$.next(true);
       this.isLoadAdvt$.next(true);
+      console.log('photos get');
     })
   }
 
@@ -160,6 +161,7 @@ export class AdvtComponent implements OnInit {
       let stringJson = JSON.stringify(res);
       let objJson = JSON.parse(stringJson);
       this.advtShow.location=objJson.suggestions[0].data.city;
+      console.log('location get');
     })
   }
 }

@@ -55,6 +55,7 @@ import { ErrorNotificationComponent } from './components/error-notification/erro
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PasswordRecoveryComponent } from './pages/password-recovery/password-recovery.component';
 import { AdvtFavoriteListComponent } from './pages/advt-favorite-list/advt-favorite-list.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { AdvtFavoriteListComponent } from './pages/advt-favorite-list/advt-favor
     ErrorNotificationComponent,
     PasswordRecoveryComponent,
     AdvtFavoriteListComponent,
+    ChatComponent,
   ],
   imports: [
     AppRoutingModule,

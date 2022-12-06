@@ -95,15 +95,19 @@ export class EditAdvtComponent implements OnInit {
           photo.base64Str=item;
           photo.advtId=this.advt.id;
           this.photoService.createAdvtPhoto(photo).toPromise();
-          this.editAdvt.emit(false)
+          console.log('фото доабавлено')
+         //this.editAdvt.emit(false)
         });
 
         this.deleteAdvtsId.forEach((id)=>{
           this.photoService.deletePhoto(id).toPromise();
-          this.editAdvt.emit(false)
+          console.log('фото удвлено')
+          // this.editAdvt.emit(false)
         })
 
+        //TODO:доделать обновление объявления
         this.editAdvt.emit(false)
+        console.log('this.editAdvt.emit(false)')
 
         //this.router.navigateByUrl(`/users/${ this.advt.authorId}`)
       })

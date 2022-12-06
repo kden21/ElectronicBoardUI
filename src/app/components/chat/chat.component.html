@@ -1,0 +1,71 @@
+<div class="chat">
+  <div class="chat-area">
+    <div style="width: 30%;height: calc(100vh - 140px); border-radius: 10px;">
+
+
+
+      <div class="area-contacts">
+
+        <div class="item-contact" >
+          <div class="contact-photo-profile-area">
+            <img class="contact-photo-profile" src="https://sun9-76.userapi.com/impg/acVt3fBQj6L8fYT6fmEdMlBPavV7oGxUokgnGA/Drg46oi036Y.jpg?size=1727x2160&quality=95&sign=4070076ab9982fb89bb5e1833a9e53fc&type=album">
+          </div>
+          <div style="width: calc(100% - 100px);line-height: 80px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+            Текст сообщенияТекст сообщенияТекст сообщения
+          </div>
+        </div>
+
+        <div class="item-contact" >
+          <div class="contact-photo-profile-area">
+            <img class="contact-photo-profile" src="https://sun9-76.userapi.com/impg/acVt3fBQj6L8fYT6fmEdMlBPavV7oGxUokgnGA/Drg46oi036Y.jpg?size=1727x2160&quality=95&sign=4070076ab9982fb89bb5e1833a9e53fc&type=album">
+          </div>
+          <div style="width: calc(100% - 100px);line-height: 80px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+            Текст сообщенияТекст сообщенияТекст сообщения
+          </div>
+        </div>
+
+        <div class="item-contact" style="position: relative">
+          <div class="contact-photo-profile-area">
+            <img class="contact-photo-profile" src="assets/img/no_photo.png">
+          </div>
+          <div style="width: calc(100% - 100px);line-height: 80px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+            Текст сообщенияТекст сообщенияТекст сообщения
+
+          </div>
+          <div style="width: 16px;height: 16px; background-color: #2EDA73; border-radius: 8px;position: absolute"></div>
+        </div>
+
+        <div class="item-contact" >
+          <div class="contact-photo-profile-area">
+            <img class="contact-photo-profile" src="https://sun9-76.userapi.com/impg/acVt3fBQj6L8fYT6fmEdMlBPavV7oGxUokgnGA/Drg46oi036Y.jpg?size=1727x2160&quality=95&sign=4070076ab9982fb89bb5e1833a9e53fc&type=album">
+          </div>
+          <div style="width: calc(100% - 100px);line-height: 80px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+            Текст сообщенияТекст сообщенияТекст сообщения
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="area-content" [formGroup]="form" >
+      <div class="area-user">Влалисир</div>
+      <div class="area-messages">
+        <div style="width: 200px;height: 100px;background-color: pink" *ngFor="let message of messagesList|async">
+          {{message.description}}
+          {{message.createDate}}
+        </div>
+      </div>
+      <div class="area-input-message">
+        <textarea formControlName="text" placeholder="Введите текст"></textarea>
+        <div class="button-send" (click)="send()">
+          <div class="area-icon-button">
+            <img class="icon-button" src="assets/svg/send-message.svg">
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -18,6 +18,7 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {AdminGuard} from "./services/admin.guard";
+import {ChatComponent} from "./components/chat/chat.component";
 
 const appRoutes: Routes = [
 
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
   {path: 'edit_profile', component: EditProfileComponent},
   {path: 'account/password_recovery', component: PasswordRecoveryComponent},
   {path: 'users/:id/favorite', component: AdvtFavoriteListComponent},
+  {path: 'chat', component: ChatComponent},
   {path: '**', component: NotFoundComponent}
 ];
 @NgModule({

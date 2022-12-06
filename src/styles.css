@@ -40,20 +40,6 @@ body {
   line-height: 24px;
 }
 
-/*.anticon {
-  display: inline-block;
-  color: inherit;
-  font-style: normal;
-  line-height: 0;
-  text-align: center;
-  text-transform: none;
-  vertical-align: -.125em;
-  text-rendering: optimizelegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  cursor: pointer;
-}*/
-
 .ant-notification-notice-with-icon .ant-notification-notice-message {
   margin-bottom: 4px;
   margin-left: 48px;
@@ -101,16 +87,6 @@ body {
   position: fixed;
   z-index: 1010;
 }
-
-/*.cdk-overlay-container {
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  z-index: 100;
-}*/
 
 .ant-notification-topRight {
   margin-top:90px;
