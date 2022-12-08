@@ -20,6 +20,9 @@ import {AppComponent} from "./app.component";
 import {AdminGuard} from "./services/admin.guard";
 import {ChatComponent} from "./components/chat/chat.component";
 
+const itemRoutes: Routes = [
+  { path: ':id', component: ChatComponent }
+]
 const appRoutes: Routes = [
 
   {path: '', component: HomemainComponent},
@@ -36,7 +39,7 @@ const appRoutes: Routes = [
   {path: 'edit_profile', component: EditProfileComponent},
   {path: 'account/password_recovery', component: PasswordRecoveryComponent},
   {path: 'users/:id/favorite', component: AdvtFavoriteListComponent},
-  {path: 'chat', component: ChatComponent},
+  {path: 'chat', component: ChatComponent, children: itemRoutes},
   {path: '**', component: NotFoundComponent}
 ];
 @NgModule({

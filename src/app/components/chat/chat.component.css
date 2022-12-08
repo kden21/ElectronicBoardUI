@@ -1,40 +1,45 @@
 .chat {
-  height: calc(100vh - 140px);
-  background-color: white;
+  height: calc(100vh - 146px);
+  width: 100%;
   display: flex;
   align-items: center;
   color: black;
   font-family: "Roboto-Light";
   font-size: 14px;
   justify-content: center;
+  padding-top: 5px;
 }
 
 .chat-area {
   max-width: 1300px;
   width: 100%;
+  height: calc(100% - 40px);
   display: flex;
   justify-content: space-between;
   background-color: white;
-  box-shadow: 0em 0.2em 5px rgba(122, 122, 122, 0.2);
+  box-shadow: 0em 0em 5px rgba(122, 122, 122, 0.3);
+  border-radius: 10px;
+  margin: 20px 0;
 }
 
-.area-contacts {
-  width: 100%;
-  height: calc(100% - 50px);
-  border-radius: 10px;
-  background-color: #FDFDFD;
+.contain-contacts {
+  width: 25%;
+  height: calc(100% - 45px);
+  border-radius: 10px 0 0 10px;
+
+  padding: 20px 0;
   overflow-x: auto;
 }
 
-.area-contacts::-webkit-scrollbar {
+.contain-contacts::-webkit-scrollbar {
   width: 8px; /* ширина scrollbar */
 }
 
-.area-contacts::-webkit-scrollbar-track {
+.contain-contacts::-webkit-scrollbar-track {
   background: #F0F0F0; /* цвет дорожки */
 }
 
-.area-contacts::-webkit-scrollbar-thumb {
+.contain-contacts::-webkit-scrollbar-thumb {
   background-color: #D7D7D7; /* цвет плашки */
   border-radius: 20px; /* закругления плашки */
   border: 3px solid #D7D7D7; /* padding вокруг плашки */
@@ -42,34 +47,155 @@
 }
 
 .item-contact {
-  width: calc(95% - 10px);
+  width: 85%;
   height: 80px;
-  padding: 10px;
+  margin: auto;
+  border-bottom: lightgray 1px solid;
   display: flex;
-  justify-content: space-between;
+  margin-top: 10px;
 }
 
-.contact-photo-profile {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  border-radius: 40px;
-  box-shadow: 0em 0em 3px rgba(122, 122, 122, 0.5);
-  margin-right: 20px;
+.contact-name {
+  font-size: large;
+  line-height: 70px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 20px;
+  width: calc(100% - 110px);
+  cursor: pointer;
+}
+
+.contact-name:hover{
+  color: #2DA528;
 }
 
 .contact-photo-profile-area {
-  width: 80px;
-  height: 80px;
-  border-radius: 40px
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
 }
+
+.contact-photo-profile {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 35px
+}
+
+.contain-messages {
+  width: 75%;
+  height: 100%;
+  border-radius: 0 10px 10px 0;
+  box-shadow: -0.2em 0em 5px rgba(122, 122, 122, 0.1);
+}
+
+.contact-chat {
+  width: calc(100% - 60px);
+  height: 70px;
+  background-color: #2EDA73;
+  border-radius: 0 10px 0 0;
+  color: white;
+  font-size: 28px;
+  line-height: 70px;
+  box-shadow: -0.1em 0em 3px rgba(122, 122, 122, 0.2);
+  padding: 0 30px;
+}
+
+.message-area {
+  width: 100%;
+  min-height: calc(100% - 200px);
+  height: calc(100% - 150px);
+  background-color: #FBFBFB;
+  overflow-y: auto;
+}
+
+.message-area::-webkit-scrollbar {
+  width: 8px; /* ширина scrollbar */
+}
+.message-area::-webkit-scrollbar-track {
+  background: #F0F0F0; /* цвет дорожки */
+}
+.message-area::-webkit-scrollbar-thumb {
+  background-color: #D7D7D7; /* цвет плашки */
+  border-radius: 20px; /* закругления плашки */
+  border: 3px solid #D7D7D7; /* padding вокруг плашки */
+  box-shadow: 0em 0.2em 5px rgba(122, 122, 122, 0.2);
+}
+
+.input-message-area {
+  width: calc(100% - 40px);
+  height: 80px;
+  display: flex;
+  padding: 0 20px;
+  background-color: #FBFBFB;
+  border-top: 1px #EBEBEB solid;
+}
+
+textarea{
+  width: calc(90% - 10px);
+  resize: none;
+  /*margin-left: 20px;;*/
+  font-size: large;
+  font-family: Roboto-Light;
+  outline: none;
+  /*padding: 8px;*/
+  border: none;
+  /*width: calc(95% - 76px);*/
+  /*height: 50px;*/
+  height: 57px;
+  color: gray;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0em 0em 2px rgba(122, 122, 122, 0.3);
+  margin-top: 7px;
+  overflow-y: auto;
+  padding: 5px;
+}
+
+.input-message::-webkit-scrollbar {
+  width: 8px; /* ширина scrollbar */
+}
+.input-message::-webkit-scrollbar-track {
+  background: #D6D6D6; /* цвет дорожки */
+}
+.input-message::-webkit-scrollbar-thumb {
+  background-color: #2EDA73; /* цвет плашки */
+  border-radius: 20px; /* закругления плашки */
+  border: 3px solid #2EDA73; /* padding вокруг плашки */
+  box-shadow: 0em 0.2em 5px rgba(122, 122, 122, 0.2);
+}
+
+.btn-send {
+  width: 50px;
+  height: 50px;
+  margin-top: 7px;
+  cursor: pointer;
+}
+
+.btn-send-icon{
+  width: 40px;height: 40px;margin-left:5px
+}
+
+
+
+.area-contacts {
+  width: 100%;
+  height: calc(100% - 100px);
+  border-radius: 10px;
+  background-color: #FDFDFD;
+  overflow-x: auto;
+
+}
+
 
 .area-content {
   width: 70%;
-  height: calc(100vh - 140px);
+  height: calc(100vh - 170px);
   background-color: #F9F9F9;
   display: block;
   margin: 0;
+  border-radius: 10px;
 }
 
 .area-user {
@@ -95,21 +221,6 @@
   border-radius: 0 10px 10px 0
 }
 
-textarea {
-  margin: auto;
-  resize: none;
-  font-size: large;
-  font-family: Roboto-Light;
-  outline: none;
-  padding: 8px;
-  border: none;
-  width: calc(95% - 76px);
-  height: 25px;
-  color: gray;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0em 0em 2px rgba(122, 122, 122, 0.3);
-}
 
 .button-send {
   border-radius: 0 10px 10px 0;
@@ -128,4 +239,17 @@ textarea {
 .icon-button {
   object-fit: cover;
   width: 30px
+}
+.message-left{
+  min-height: 30px;background-color: #F3F3F3; font-size: medium; border-radius: 0 10px 10px 10px; line-height: 30px;
+  max-width: 60%;min-width: 100px;display:table; margin: 5px 5px 5px 25px; overflow:hidden; padding: 5px 10px 0 10px;
+  word-wrap:break-word;
+}
+.message-right{
+  min-height: 30px;background-color: #C6F3BF; font-size: medium; border-radius: 10px 0 10px 10px; line-height: 30px;
+  max-width: 60%;min-width: 100px;display:table; margin: 5px 25px 5px auto; overflow:hidden; padding: 5px 10px 0 10px;
+  word-wrap:break-word;
+}
+.message-date{
+  font-size: 15px; text-align: right
 }

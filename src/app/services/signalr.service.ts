@@ -31,7 +31,7 @@ export class SignalrService {
     });*/
   }
 
-  public addReceiveListener(func: Function){
+  public addReceiveAllListener(func: Function){
     this.hubConnection.on('ReceiveAll', (data) => {
       this.data = data;
       func(this.data)
@@ -47,6 +47,7 @@ export class SignalrService {
   public connectChat() {
     if (this.hubConnection) {
       this.hubConnection.send('Connect');
+      console.log('signal.service')
     }
   }
 }

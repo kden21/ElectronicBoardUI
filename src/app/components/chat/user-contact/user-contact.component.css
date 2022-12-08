@@ -1,0 +1,36 @@
+.item-contact {
+  width: 85%;
+  height: 80px;
+  margin: auto;
+  border-bottom: lightgray 1px solid;
+  display: flex;
+  margin-top: 10px;
+}
+
+.contact-photo-profile-area {
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+}
+
+.contact-photo-profile {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 35px
+}
+
+.contact-name {
+  font-size: large;
+  line-height: 70px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 20px;
+  width: calc(100% - 110px);
+  cursor: pointer;
+}
+
+.contact-name:hover{
+  color: #2DA528;
+}

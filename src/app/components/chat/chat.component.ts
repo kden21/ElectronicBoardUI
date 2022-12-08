@@ -3,7 +3,9 @@ import {SignalrService} from "../../services/signalr.service";
 import {HttpClient} from "@angular/common/http";
 import {FormControl, FormGroup} from "@angular/forms";
 import {MessageModel} from "../../models/chat/message-model";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Subscription} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-chat',
@@ -13,7 +15,19 @@ import {BehaviorSubject} from "rxjs";
 export class ChatComponent implements OnInit {
 
   messagesList: BehaviorSubject<MessageModel[]>=new BehaviorSubject<MessageModel[]>([]);
-  constructor(private signalRService:SignalrService, private http:HttpClient, public zone: NgZone) { }
+  selectedConversationId:number;
+  conversationIds:number[]=[];
+  //userOwnerChat:IUser
+  private subscription: Subscription;
+  constructor(private signalRService:SignalrService,
+              public zone: NgZone,
+              private route: ActivatedRoute,
+              public authService:AuthService
+  )
+
+  {
+    this.subscription = route.params.subscribe(params => this.selectedConversationId = params['id']);
+  }
 
   form = new FormGroup({
     text: new FormControl<string>(""),
@@ -21,25 +35,29 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.signalRService.startConnection();
+
+
     this.signalRService.addChatListener();
-    this.signalRService.addReceiveListener((messages: MessageModel[]) => this.messagesList.next(messages));
+
+    this.signalRService.addReceiveAllListener((messages: MessageModel[]) => this.messagesList.next(messages));
+
     //this.startHttpRequest();
     //this.signalRService.connectChat();
   }
 
-  /*private startHttpRequest = () => {
-    this.http.get(`{https://localhost:7168/chat}`)
-      .subscribe(res => {
-        console.log(res);
-      })
+  /*connectToChat(){
+    this.signalRService.connectChat();
+    console.log('мой коннект')
   }*/
 
-  send(){
-    /*console.log(this.messagesList);
+  sendMessage(){
+    console.log(this.messagesList);
     console.log(this.form.value['text'] as string);
     this.signalRService.sendMessage({
-      text: this.form.value['text'] as string,
-      name: 'test'
-    });*/
+      conversationId: 0,
+      createDate: "",
+      description: "",
+      userId: 0
+    });
   }
 }

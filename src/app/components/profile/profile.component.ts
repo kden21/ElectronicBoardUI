@@ -8,6 +8,9 @@ import {AdvtService} from "../../services/advt.service";
 import {AuthService} from "../../services/auth.service";
 import {IUserReview} from "../../models/review/userReview";
 import {UserReviewService} from "../../services/review/userReview.service";
+import {HttpClient} from "@aspnet/signalr";
+import {environment} from "../../../environments/environment";
+import {ChatService} from "../../services/chat.service";
 
 @Component({
   selector: 'app-profile',
@@ -39,7 +42,8 @@ export class ProfileComponent implements OnInit {
               private userService: UserService,
               private authService: AuthService,
               private router: Router,
-              private userReviewService: UserReviewService
+              private userReviewService: UserReviewService,
+              private chatService: ChatService
   ) {
     this.routeSub = this.route.params.subscribe(params => {
       this.userId = parseInt(params['id'])
@@ -48,13 +52,13 @@ export class ProfileComponent implements OnInit {
 
   getRating() {
     let rating: number = 0;
-      this.userReviewService.getAll(this.user.id!).subscribe(res => {
-          res.forEach((review) => {
-            rating =rating +review.rating;
-          })
-        this.userRating= Math.floor(rating / res.length);
-        }
-      )
+    this.userReviewService.getAll(this.user.id!).subscribe(res => {
+        res.forEach((review) => {
+          rating = rating + review.rating;
+        })
+        this.userRating = Math.floor(rating / res.length);
+      }
+    )
   }
 
   showWriteReview(showElement: boolean) {
@@ -71,7 +75,11 @@ export class ProfileComponent implements OnInit {
 
   editProfileData(showElement: boolean) {
     this.editProfile = showElement;
-    this.userService.getById(this.user.id!).subscribe(res=>this.user=res);
+    this.userService.getById(this.user.id!).subscribe(res => {
+      this.user = res
+      this.authService.userLogin$.next(this.user)
+    });
+
   }
 
   showDelete(showElement: boolean) {
@@ -99,11 +107,11 @@ export class ProfileComponent implements OnInit {
     }
 
     this.userService.getById(this.userId).subscribe(user => {
-      this.user=user;
+      this.user = user;
     });
 
     this.userIdReview = this.userId;
-    if(this.userRating===undefined) {
+    if (this.userRating === undefined) {
       this.getRating();
     }
     this.viewingUser = this.userService.getViewUser();
@@ -112,5 +120,17 @@ export class ProfileComponent implements OnInit {
 
   deleteUser(userId: number) {
     this.userService.deleteUser(userId, this.isUserDeleted$);
+  }
+
+  createConversation(isUserChat:boolean) {
+    if(isUserChat){
+      this.router.navigateByUrl(`/chat`)
+    }
+    else{
+      let usersId:number[]=[];
+      this.chatService.createConversation({
+        usersId: usersId.concat(this.user.id!).concat(this.viewingUser.id!)
+      }).subscribe(res=>this.router.navigateByUrl(`/chat/${res}`))
+    }
   }
 }

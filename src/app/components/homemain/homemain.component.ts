@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {CategoryService} from "../../services/category.service";
 import {ICategory} from "../../models/category";
 import {IAdvt} from "../../models/advt";
@@ -7,7 +7,6 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AdvtFilter, Status} from "../../models/filters/advtFilter";
 import {BehaviorSubject, Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {HttpParams} from "@angular/common/http";
 import {DadataSuggestService} from "../../services/dadata-suggest.service";
 import {IAddress} from "../../models/address";
 

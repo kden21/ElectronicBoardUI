@@ -4,7 +4,7 @@ import {IUser} from "../../models/user";
 import {ActivatedRoute} from "@angular/router";
 import {IAdvt} from "../../models/advt";
 import {AdvtService} from "../../services/advt.service";
-import {AdvtFilter, Status} from "../../models/filters/advtFilter";
+import {AdvtFilter} from "../../models/filters/advtFilter";
 import {IUserReview} from "../../models/review/userReview";
 import {UserReviewService} from "../../services/review/userReview.service";
 import {UserService} from "../../services/user.service";

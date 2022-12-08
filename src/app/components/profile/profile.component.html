@@ -91,12 +91,12 @@
           <div class="data-profile-item">
             <img *ngIf="user.id!=viewingUser.id; else user_logout" class="icon" src="assets/svg/cancel.svg"/>
             <ng-template #user_logout>
-              <img class="icon" src="assets/svg/logout.svg"/>
+              <img class="icon" src="assets/svg/email.svg"/>
             </ng-template>
             <a [routerLink]="'/account/login'" class="data-profile-text"
                *ngIf="viewingUser.role==2; else show_write_report">Подать жалобу</a>
             <ng-template #show_write_report>
-              <a class="data-profile-text" (click)="logout()" *ngIf="user.id==viewingUser.id;else show_write_report_userRole">Выйти</a>
+              <a class="data-profile-text" (click)="createConversation(true)" *ngIf="user.id==viewingUser.id;else show_write_report_userRole">Чат</a>
               <ng-template #show_write_report_userRole>
                 <a class="data-profile-text" (click)="showDeleteProfile= true" *ngIf="viewingUser.role==0; else show_write_report_else">Ограничить
                   доступ</a>
@@ -132,7 +132,7 @@
             <a [routerLink]="'/account/login'" class="data-profile-text"
                *ngIf="viewingUser.role==2; else write_message">В чат</a>
             <ng-template #write_message>
-              <a class="data-profile-text" *ngIf="viewingUser.id!=user.id; else delete_profile">В чат</a>
+              <a class="data-profile-text" *ngIf="viewingUser.id!=user.id; else delete_profile" (click) ="createConversation(false)" >В чат</a>
               <ng-template #delete_profile>
                 <a class="data-profile-text" (click)="showDeleteProfile= true">Удалить профиль</a>
               </ng-template>

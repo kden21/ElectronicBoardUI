@@ -17,11 +17,9 @@ export class HeaderComponent implements OnInit {
   user: IUser
 
   public isLogin$: BehaviorSubject<IUser|null> = new BehaviorSubject<IUser | null>(null);
-  private querySubscription: Subscription;
 
   constructor(public authService: AuthService,
               private router: Router,) {
-
   }
 
   ngOnInit(): void {
@@ -30,12 +28,4 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.router.navigateByUrl('/');
   }
- /* search(){
-    this.querySubscription = this.route.queryParams.subscribe(
-      (queryParam: any) => {
-        //this.product = queryParam['product'];
-      }
-    );
-  }*/
-
 }
