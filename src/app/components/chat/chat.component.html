@@ -1,24 +1,33 @@
 <div class="chat">
   <div class="chat-area">
     <div class="contain-contacts">
-  <app-user-contact></app-user-contact>
-      <app-user-contact></app-user-contact>
+      <app-user-contact (userMemberName)="getUserMemberName($event)" *ngFor="let conversation of conversations"
+                        [conversation]="conversation" (click)="selectConversation(conversation.id!, null)"></app-user-contact>
     </div>
 
     <div class="contain-messages">
-      <div class="contact-chat">Имяконтакта</div>
-      <div class="message-area">
+      <div class="contact-chat" *ngIf="selectedConversation.value!==null; else no_member">{{userMemberName}}</div>
+      <ng-template #no_member>
+        <div class="contact-chat">Выберите чат</div>
+      </ng-template>
+      <div class="message-area" #scroll>
 
-        <div class="message-left" *ngFor="let mes of messagesList|async" [ngClass]="{'message-right':(mes.userId==authService.userLogin$!.value!.id)}">
-          {{mes.description}}
-          <div class="message-date">21.10.2022</div>
+        <div class="no-messages" *ngIf="messagesList.value.length==0;else messages">
+          <div *ngIf="selectedConversation.value!==null">Сообщений нет, будьте первыми</div>
         </div>
 
-      </div>
-      <div class="input-message-area">
-          <textarea placeholder="Введите текст" class="input-message" contenteditable="true"></textarea>
+        <ng-template #messages>
+        <div #messagesList class="message-left" *ngFor="let mes of messagesList|async" [ngClass]="{'message-right':(mes.userId==authService.userLogin$!.value!.id)}">
+          {{mes.description}}
+          <div class="message-date">{{mes.createDate}}</div>
+        </div>
+        </ng-template>
 
-        <div class="btn-send" (click)="sendMessage()">
+      </div>
+      <div *ngIf="selectedConversation.value!==null" class="input-message-area" [formGroup]="form" (ngSubmit)="sendMessage()">
+          <textarea placeholder="Введите текст" formControlName="text" class="input-message" contenteditable="true"></textarea>
+
+        <div class="btn-send" (click)="sendMessage()" [ngClass]="{disabled:form.get('text')?.invalid}">
           <img class="btn-send-icon" src="assets/svg/send-message.svg">
         </div>
 

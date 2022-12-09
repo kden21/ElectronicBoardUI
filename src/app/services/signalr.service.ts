@@ -7,47 +7,51 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class SignalrService {
-  public data: MessageModel[];
+  public messageList: MessageModel[];
+  public message: MessageModel;
   private hubConnection: signalR.HubConnection
-  public startConnection = () => {
+  public startConnection(conversationId:number) {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(`${environment.apiUrl}/chat`)
       .build();
     this.hubConnection
       .start()
-      .then(() => {console.log('Connection started'); this.connectChat();})
+      .then(() => {console.log('Connection started'); this.connectChat(conversationId);})
       .catch(err => console.log('Error while starting connection: ' + err))
   }
 
-  public addChatListener = () => {
-    this.hubConnection.on('Receive', (data) => {
-      this.data = data;
-      console.log(data);
-    });
+  public stopConnection(){
+    if (this.hubConnection){
+      this.hubConnection.stop()
+        .then(() => {console.log('Connection stoped');})
+        .catch(err => console.log('Error while stoped connection: ' + err));
+    }
+  }
 
-    /*this.hubConnection.on('ReceiveAll', (data) => {
-      this.data = data;
-      console.log(data);
-    });*/
+  public addReceiveListener(func: Function) {
+    this.hubConnection.on('Receive', (data) => {
+
+      this.message = data;
+      func(this.message)
+    });
   }
 
   public addReceiveAllListener(func: Function){
     this.hubConnection.on('ReceiveAll', (data) => {
-      this.data = data;
-      func(this.data)
+      this.messageList = data;
+      func(this.messageList)
     });
   }
 
   public sendMessage(message: MessageModel) {
     if (this.hubConnection) {
-      this.hubConnection.send('Send', 'data');
+      this.hubConnection.send('Send', message);
     }
   }
 
-  public connectChat() {
+  public connectChat(conversationId:number) {
     if (this.hubConnection) {
-      this.hubConnection.send('Connect');
-      console.log('signal.service')
+      this.hubConnection.send('Connect', conversationId);
     }
   }
 }

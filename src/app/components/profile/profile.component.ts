@@ -130,7 +130,17 @@ export class ProfileComponent implements OnInit {
       let usersId:number[]=[];
       this.chatService.createConversation({
         usersId: usersId.concat(this.user.id!).concat(this.viewingUser.id!)
-      }).subscribe(res=>this.router.navigateByUrl(`/chat/${res}`))
+      }).subscribe(res=> {
+
+        this.router.navigate(
+          ['/chat'],
+          {
+            queryParams: {
+              'id': res == 0 ? null : res,
+            }
+          }
+        )
+      })
     }
   }
 }

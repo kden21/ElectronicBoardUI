@@ -21,7 +21,7 @@ import {AdminGuard} from "./services/admin.guard";
 import {ChatComponent} from "./components/chat/chat.component";
 
 const itemRoutes: Routes = [
-  { path: ':id', component: ChatComponent }
+  { path: ':conversationId', component: ChatComponent }
 ]
 const appRoutes: Routes = [
 

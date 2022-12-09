@@ -1,6 +1,12 @@
-<div class="item-contact">
-  <div class="contact-photo-profile-area">
-    <img class="contact-photo-profile" src="assets/img/profile.jpg">
+<div class="item-contact-area" [ngClass]="{'item-contact-selected':conversation.id==selectedChatId}">
+  <div class="item-contact" *ngIf="(memberChat|async) !==null">
+    <div class="contact-photo-profile-area">
+      <img class="contact-photo-profile" *ngIf="memberChat.value!.photo!==null; else no_photo"
+           src="data:image/png;base64,{{memberChat.value!.photo}}">
+      <ng-template #no_photo>
+        <img class="contact-photo-profile" src="assets/img/no-photo.jpg">
+      </ng-template>
+    </div>
+    <div class="contact-name" (click)="getUserMemberName(memberChat.value!.name + ' ' + memberChat.value!.lastName)">{{memberChat.value!.name + " " + memberChat.value!.lastName}}</div>
   </div>
-  <div class="contact-name">Имя Фамилияzzzzzzzzzz</div>
 </div>

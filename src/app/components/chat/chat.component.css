@@ -24,10 +24,8 @@
 
 .contain-contacts {
   width: 25%;
-  height: calc(100% - 45px);
+  height: calc(100% );
   border-radius: 10px 0 0 10px;
-
-  padding: 20px 0;
   overflow-x: auto;
 }
 
@@ -48,10 +46,10 @@
 
 .item-contact {
   width: 85%;
-  height: 80px;
   margin: auto;
   border-bottom: lightgray 1px solid;
   display: flex;
+  justify-items: center;
   margin-top: 10px;
 }
 
@@ -88,6 +86,17 @@
   height: 100%;
   border-radius: 0 10px 10px 0;
   box-shadow: -0.2em 0em 5px rgba(122, 122, 122, 0.1);
+  position: relative;
+  background-color: #FBFBFB;
+}
+
+.no-messages{
+  width: 300px;
+  font-size: large;
+  font-family: Roboto-Light;
+  bottom: 90px;
+  left: calc(50% - 150px);
+  position: absolute;
 }
 
 .contact-chat {
@@ -108,6 +117,7 @@
   height: calc(100% - 150px);
   background-color: #FBFBFB;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .message-area::-webkit-scrollbar {
@@ -242,14 +252,18 @@ textarea{
 }
 .message-left{
   min-height: 30px;background-color: #F3F3F3; font-size: medium; border-radius: 0 10px 10px 10px; line-height: 30px;
-  max-width: 60%;min-width: 100px;display:table; margin: 5px 5px 5px 25px; overflow:hidden; padding: 5px 10px 0 10px;
+  max-width: 60%;min-width: 150px;display: block;width: fit-content; margin: 5px 5px 5px 25px; overflow:hidden; padding: 5px 10px 0 10px;
   word-wrap:break-word;
 }
 .message-right{
   min-height: 30px;background-color: #C6F3BF; font-size: medium; border-radius: 10px 0 10px 10px; line-height: 30px;
-  max-width: 60%;min-width: 100px;display:table; margin: 5px 25px 5px auto; overflow:hidden; padding: 5px 10px 0 10px;
+  max-width: 60%;min-width: 150px;width: fit-content;display: block;margin: 5px 25px 5px auto; overflow:hidden; padding: 5px 10px 0 10px;
   word-wrap:break-word;
 }
 .message-date{
-  font-size: 15px; text-align: right
+  font-size: 14px; text-align: right;color: gray;
+}
+.disabled {
+  pointer-events: none;
+  background-position: 100% 0;
 }
